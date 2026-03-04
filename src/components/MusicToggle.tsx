@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 const FADE_MS = 800
 
@@ -59,7 +60,7 @@ export function MusicToggle() {
     }
   }, [])
 
-  return (
+  return createPortal(
     <>
       <audio
         ref={audioRef}
@@ -73,7 +74,7 @@ export function MusicToggle() {
           position: 'fixed',
           bottom: 'clamp(16px, 3vh, 32px)',
           right: 'clamp(16px, 3vw, 32px)',
-          zIndex: 30,
+          zIndex: 9999,
           background: 'rgba(0, 0, 0, 0.4)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           borderRadius: 8,
@@ -130,6 +131,7 @@ export function MusicToggle() {
           {playing ? 'on' : 'off'}
         </span>
       </button>
-    </>
+    </>,
+    document.body,
   )
 }
