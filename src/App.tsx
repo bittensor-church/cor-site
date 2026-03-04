@@ -6,6 +6,7 @@ import { ProblemsOverlay } from './components/ProblemsOverlay'
 import { WindowMask } from './components/WindowMask'
 import { AchievementOverlay } from './components/AchievementOverlay'
 import { OverviewOverlay } from './components/OverviewOverlay'
+import { BookMask } from './components/BookMask'
 import { VisionOverlay } from './components/VisionOverlay'
 import { NexusOverlay } from './components/NexusOverlay'
 import { SupportOverlay } from './components/SupportOverlay'
@@ -41,6 +42,7 @@ export function App() {
       <ProblemsOverlay progress={sectionProgress} />
       <AchievementOverlay progress={sectionProgress} />
       <OverviewOverlay progress={sectionProgress} />
+      <BookMask progress={sectionProgress} />
       <VisionOverlay progress={sectionProgress} />
       <NexusOverlay progress={sectionProgress} />
       <SupportOverlay progress={sectionProgress} />
