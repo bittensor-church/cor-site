@@ -10,6 +10,7 @@ import { BookMask } from './components/BookMask'
 import { VisionOverlay } from './components/VisionOverlay'
 import { NexusOverlay } from './components/NexusOverlay'
 import { SupportOverlay } from './components/SupportOverlay'
+import { MusicToggle } from './components/MusicToggle'
 import { SideNav } from './components/SideNav'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { SECTIONS } from './content'
@@ -72,6 +73,7 @@ export function App() {
         </div>
       </div>
 
+      <MusicToggle />
       <LoadingScreen visible={!loaded} onReady={() => setLoaded(true)} />
     </div>
   )
