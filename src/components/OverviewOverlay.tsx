@@ -4,8 +4,8 @@ interface OverviewOverlayProps {
   progress: number
 }
 
-const ENTER = 0.749
-const EXIT = 0.94
+const ENTER = 0.5180   // frame 1122
+const EXIT = 0.6280    // frame 1360
 const TOTAL = EXIT - ENTER
 
 interface Project {
@@ -240,10 +240,6 @@ function BottomStrip({ local }: { local: number }) {
           <div style={statStyle}>
             <div style={bigNum}>2,170</div>
             <div style={label}>TAO deployed</div>
-          </div>
-          <div style={statStyle}>
-            <div style={bigNum}>-170</div>
-            <div style={label}>TAO net</div>
           </div>
         </div>
       )}

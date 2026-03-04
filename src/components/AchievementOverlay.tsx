@@ -2,8 +2,8 @@ interface AchievementOverlayProps {
   progress: number
 }
 
-const ENTER = 0.6721   // frame 1355
-const EXIT = 0.7445    // frame 1501
+const ENTER = 0.4617   // frame 1000
+const EXIT = 0.5125    // frame 1110
 const TOTAL = EXIT - ENTER
 const FADE_OUT_START = 0.88
 

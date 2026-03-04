@@ -2,8 +2,8 @@ interface WindowMaskProps {
   progress: number
 }
 
-const ENTER = 0.3125   // frame 630
-const EXIT = 0.3571    // frame 720
+const ENTER = 0.2770   // frame 600
+const EXIT = 0.3694    // frame 800
 const TOTAL = EXIT - ENTER
 const FADE_OUT_START = 0.85
 

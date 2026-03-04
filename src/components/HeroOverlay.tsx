@@ -2,8 +2,8 @@ interface HeroOverlayProps {
   progress: number
 }
 
-const ENTER = 0.01    // frame ~20
-const EXIT = 0.092    // frame ~185
+const ENTER = 0.0018  // frame 4
+const EXIT = 0.097    // frame 210
 const TOTAL = EXIT - ENTER
 
 // Timing within the section (0-1 normalized)

@@ -2,8 +2,8 @@ interface ProblemsOverlayProps {
   progress: number
 }
 
-const ENTER = 0.3125   // frame 630
-const EXIT = 0.3571    // frame 720
+const ENTER = 0.2844   // frame 616
+const EXIT = 0.3325    // frame 720
 const TOTAL = EXIT - ENTER
 
 const PROBLEMS = [

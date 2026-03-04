@@ -1,9 +1,10 @@
 const NAV_ITEMS = [
-  { label: 'Intro', target: 0.05 },
-  { label: 'Problems', target: 0.33 },
-  { label: '2025 Highlights', target: 0.70 },
-  { label: 'Projects', target: 0.82 },
-  { label: 'Team', target: 0.88 },
+  { label: 'Intro', target: 0.002 },
+  { label: 'Problems', target: 0.284 },
+  { label: '2025 Highlights', target: 0.462 },
+  { label: 'Projects', target: 0.518 },
+  { label: 'Team', target: 0.593 },
+  { label: 'Nexus', target: 0.870 },
 ] as const
 
 interface SideNavProps {

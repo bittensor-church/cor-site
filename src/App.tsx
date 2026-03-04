@@ -6,6 +6,9 @@ import { ProblemsOverlay } from './components/ProblemsOverlay'
 import { WindowMask } from './components/WindowMask'
 import { AchievementOverlay } from './components/AchievementOverlay'
 import { OverviewOverlay } from './components/OverviewOverlay'
+import { VisionOverlay } from './components/VisionOverlay'
+import { NexusOverlay } from './components/NexusOverlay'
+import { SupportOverlay } from './components/SupportOverlay'
 import { SideNav } from './components/SideNav'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { SECTIONS } from './content'
@@ -38,6 +41,9 @@ export function App() {
       <ProblemsOverlay progress={sectionProgress} />
       <AchievementOverlay progress={sectionProgress} />
       <OverviewOverlay progress={sectionProgress} />
+      <VisionOverlay progress={sectionProgress} />
+      <NexusOverlay progress={sectionProgress} />
+      <SupportOverlay progress={sectionProgress} />
       <SideNav progress={sectionProgress} onNavigate={setProgress} />
 
       {/* Scroll indicator */}
