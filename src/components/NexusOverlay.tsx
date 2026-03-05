@@ -55,7 +55,7 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
         flexDirection: 'column',
         alignItems: 'center',
         gap: 'clamp(8px, 2vh, 20px)',
-        maxWidth: 'clamp(300px, 50vw, 600px)',
+        maxWidth: 'clamp(360px, 55vw, 720px)',
         textAlign: 'center' as const,
       }}>
         {/* FIXING THE BOTTLENECK IN 2026 */}
@@ -63,7 +63,7 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
           ...BASE_FONT,
           opacity: labelOp,
           transform: `translateY(${(1 - labelOp) * 10}px)`,
-          fontSize: 'clamp(10px, 1.3vw, 15px)',
+          fontSize: 'clamp(13px, 1.6vw, 20px)',
           fontWeight: 700,
           color: '#d4a843',
           letterSpacing: 'clamp(4px, 0.8vw, 10px)',
@@ -78,7 +78,7 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
           ...BASE_FONT,
           opacity: titleOp,
           transform: `translateY(${(1 - titleOp) * 10}px)`,
-          fontSize: 'clamp(28px, 4.5vw, 60px)',
+          fontSize: 'clamp(36px, 6vw, 80px)',
           fontWeight: 700,
           color: '#ffffff',
           letterSpacing: 'clamp(4px, 0.8vw, 12px)',
@@ -94,9 +94,9 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
           ...BASE_FONT,
           opacity: bodyOp,
           transform: `translateY(${(1 - bodyOp) * 10}px)`,
-          fontSize: 'clamp(11px, 1.2vw, 15px)',
+          fontSize: 'clamp(14px, 1.5vw, 20px)',
           fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.7)',
+          color: 'rgba(255, 255, 255, 0.8)',
           lineHeight: 1.7,
           willChange: 'opacity, transform',
         }}>
