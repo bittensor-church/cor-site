@@ -353,6 +353,18 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               15 people &middot; 3 teams
             </div>
             <div style={{
+              ...BASE_FONT,
+              opacity: fadeIn(local, 0.0),
+              transform: `translateY(${(1 - fadeIn(local, 0.0)) * 10}px)`,
+              fontSize: 'clamp(16px, 2vw, 28px)',
+              fontWeight: 400,
+              letterSpacing: 'clamp(2px, 0.5vw, 6px)',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.6)',
+            }}>
+              Projects
+            </div>
+            <div style={{
               display: 'grid',
               gridTemplateColumns: IS_MOBILE ? '1fr' : 'repeat(3, 1fr)',
               gap: IS_MOBILE ? 'clamp(10px, 2vw, 16px)' : 'clamp(32px, 5vw, 72px)',
