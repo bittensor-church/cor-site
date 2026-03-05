@@ -73,6 +73,19 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
   },
 ]
 
+const TECH_ORDER = ['rust', 'python', 'smart contract', 'community'] as const
+
+function groupByTech(projects: Project[]): Map<string, Project[]> {
+  const groups = new Map<string, Project[]>()
+  for (const tech of TECH_ORDER) {
+    const matching = projects.filter((p) => p.tech === tech)
+    if (matching.length > 0) groups.set(tech, matching)
+  }
+  const other = projects.filter((p) => !p.tech)
+  if (other.length > 0) groups.set('other', other)
+  return groups
+}
+
 const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 600
 
 const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
@@ -134,48 +147,62 @@ function BreakdownCell({ item, opacity }: {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(2px, 0.4vh, 6px)',
+          gap: 8,
         }}>
-          {item.projects.map((project) => (
-            <div key={project.title} style={{
-              ...BASE_FONT,
-              fontSize: 'clamp(10px, 1.2vw, 15px)',
-              fontWeight: 400,
-              color: 'rgba(255,255,255,0.55)',
-              lineHeight: 1.4,
+          {Array.from(groupByTech(item.projects)).map(([tech, projects]) => (
+            <div key={tech} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(1px, 0.3vh, 4px)',
             }}>
-              <span style={{ color: '#d4a843', fontSize: '0.9em' }}>{'// '}</span>
-              {project.link !== '#' ? (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: '#ffffff',
-                    textDecoration: 'underline',
-                    textDecorationColor: 'rgba(212,168,67,0.4)',
-                    textUnderlineOffset: 3,
-                    pointerEvents: 'auto',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {project.title}
-                </a>
-              ) : (
-                <span style={{
-                  color: '#ffffff',
-                  textDecoration: 'underline',
-                  textDecorationColor: 'rgba(212,168,67,0.4)',
-                  textUnderlineOffset: 3,
+              <div style={{
+                ...BASE_FONT,
+                fontSize: 'clamp(9px, 1vw, 12px)',
+                fontWeight: 500,
+                color: 'rgba(255,255,255,0.5)',
+                textTransform: 'uppercase',
+                letterSpacing: 2,
+              }}>
+                {tech}:
+              </div>
+              {projects.map((project) => (
+                <div key={project.title} style={{
+                  ...BASE_FONT,
+                  fontSize: 'clamp(10px, 1.2vw, 15px)',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.55)',
+                  lineHeight: 1.4,
+                  paddingLeft: 8,
                 }}>
-                  {project.title}
-                </span>
-              )}
-              {project.tech && (
-                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9em' }}>
-                  {' '}({project.tech})
-                </span>
-              )}
+                  <span style={{ color: '#d4a843', fontSize: '0.9em' }}>{'// '}</span>
+                  {project.link !== '#' ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: '#ffffff',
+                        textDecoration: 'underline',
+                        textDecorationColor: 'rgba(212,168,67,0.4)',
+                        textUnderlineOffset: 3,
+                        pointerEvents: 'auto',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {project.title}
+                    </a>
+                  ) : (
+                    <span style={{
+                      color: '#ffffff',
+                      textDecoration: 'underline',
+                      textDecorationColor: 'rgba(212,168,67,0.4)',
+                      textUnderlineOffset: 3,
+                    }}>
+                      {project.title}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           ))}
         </div>
