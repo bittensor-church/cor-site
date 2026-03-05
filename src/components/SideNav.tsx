@@ -24,9 +24,9 @@ function getActiveIndex(progress: number): number {
 function getScale(i: number, activeIndex: number): number {
   const distance = Math.abs(i - activeIndex)
   if (distance === 0) return 1
-  if (distance === 1) return 0.8
-  if (distance === 2) return 0.65
-  return 0.55
+  if (distance === 1) return 0.88
+  if (distance === 2) return 0.78
+  return 0.72
 }
 
 function getOpacity(i: number, activeIndex: number): number {
