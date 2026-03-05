@@ -361,6 +361,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               letterSpacing: 'clamp(3px, 0.6vw, 8px)',
               textTransform: 'uppercase',
               color: '#ffffff',
+              marginBottom: IS_MOBILE ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
             }}>
               Projects
             </div>
