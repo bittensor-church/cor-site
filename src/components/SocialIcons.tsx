@@ -58,6 +58,7 @@ export function SocialIconRow({
           target="_blank"
           rel="noopener noreferrer"
           title={link.label}
+          aria-label={link.label}
           style={{
             display: 'flex',
             alignItems: 'center',

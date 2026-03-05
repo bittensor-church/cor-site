@@ -91,7 +91,7 @@ export function MusicToggle() {
           fontSize: 'clamp(8px, 0.9vw, 11px)',
           letterSpacing: 2,
           textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.35)',
+          color: 'rgba(255, 255, 255, 0.6)',
         }}>
           Follow us
         </span>
@@ -104,6 +104,7 @@ export function MusicToggle() {
       </div>
       {/* Music button */}
       <button
+        aria-label={playing ? 'Wycisz muzykę' : 'Włącz muzykę'}
         onClick={toggle}
         style={{
           background: 'rgba(0, 0, 0, 0.4)',

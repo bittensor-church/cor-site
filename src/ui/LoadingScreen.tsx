@@ -71,6 +71,7 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
       <div style={{ textAlign: 'center' }}>
         {showPlay ? (
           <button
+            aria-label="Rozpocznij"
             onClick={dismiss}
             style={{
               background: 'none',
@@ -93,7 +94,7 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
           <>
             <div style={{
               fontSize: 'clamp(11px, 1.4vw, 14px)',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.6)',
               letterSpacing: 6,
               textTransform: 'uppercase',
             }}>

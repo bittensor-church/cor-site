@@ -75,6 +75,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
         return (
           <button
             key={item.label}
+            aria-label={item.label}
             onClick={() => onNavigate(item.target)}
             style={{
               display: 'flex',
@@ -112,7 +113,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
                 borderRadius: '50%',
                 backgroundColor: isActive
                   ? '#ffffff'
-                  : 'rgba(255,255,255,0.45)',
+                  : 'rgba(255,255,255,0.6)',
                 boxShadow: isActive
                   ? '0 0 0 3px #d4a843'
                   : 'none',

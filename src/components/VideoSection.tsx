@@ -18,28 +18,8 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
   const framesRef = useRef<(HTMLImageElement | null)[]>([])
   const lastFrameRef = useRef(-1)
   const fadeIntervalRef = useRef<number | null>(null)
-  const loadedRef = useRef(false)
 
-  // Preload frames
-  useEffect(() => {
-    if (!shouldLoad || loadedRef.current) return
-    loadedRef.current = true
-
-    const frames: (HTMLImageElement | null)[] = new Array(frameCount).fill(null)
-    framesRef.current = frames
-
-    for (let i = 0; i < frameCount; i++) {
-      const img = new Image()
-      img.src = `${frameDir}/f_${String(i + 1).padStart(4, '0')}.webp`
-      img.onload = () => {
-        frames[i] = img
-        // Draw first frame once loaded
-        if (i === 0 && canvasRef.current) {
-          drawFrame(0)
-        }
-      }
-    }
-  }, [shouldLoad, frameDir, frameCount])
+  const LOAD_WINDOW = 150
 
   const drawFrame = useCallback((index: number) => {
     const canvas = canvasRef.current
@@ -81,6 +61,37 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
 
     ctx.drawImage(frame, drawX, drawY, drawW, drawH)
   }, [])
+
+  // Windowed frame loading — load ±LOAD_WINDOW frames around current position
+  useEffect(() => {
+    if (!shouldLoad) return
+
+    const currentFrame = Math.min(
+      Math.floor(sectionProgress * frameCount),
+      frameCount - 1
+    )
+
+    const start = Math.max(0, currentFrame - LOAD_WINDOW)
+    const end = Math.min(frameCount - 1, currentFrame + LOAD_WINDOW)
+
+    if (framesRef.current.length === 0) {
+      framesRef.current = new Array(frameCount).fill(null)
+    }
+
+    for (let i = start; i <= end; i++) {
+      if (framesRef.current[i] !== null) continue
+
+      const img = new Image()
+      img.src = `${frameDir}/f_${String(i + 1).padStart(4, '0')}.webp`
+      const frameIndex = i
+      img.onload = () => {
+        framesRef.current[frameIndex] = img
+        if (frameIndex === currentFrame && canvasRef.current) {
+          drawFrame(frameIndex)
+        }
+      }
+    }
+  }, [shouldLoad, sectionProgress, frameDir, frameCount, drawFrame])
 
   // Draw frame on progress change
   useEffect(() => {
