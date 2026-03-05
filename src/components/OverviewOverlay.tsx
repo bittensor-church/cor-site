@@ -326,33 +326,19 @@ function BottomStrip({ local }: { local: number }) {
               <div style={label}>repos</div>
             </div>
 
-            {/* Motto + repo links as third column */}
+            {/* Verify column: repo links on top (aligned with numbers), motto below (aligned with labels) */}
             <div style={{
               ...statStyle,
               pointerEvents: 'auto',
             }}>
               <div style={{
-                fontSize: 'clamp(24px, 5.5vw, 64px)',
-                fontWeight: 500,
-                letterSpacing: -1,
-                lineHeight: 1,
-                color: '#ffffff',
-                textAlign: 'center',
-              }}>
-                Don't trust.
-              </div>
-              <div style={{
-                ...label,
-                color: '#ffffff',
-              }}>
-                Verify.
-              </div>
-              <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 'clamp(2px, 0.4vh, 6px)',
-                marginTop: 'clamp(4px, 0.5vh, 8px)',
+                fontSize: 'clamp(24px, 5.5vw, 64px)',
+                fontWeight: 500,
+                lineHeight: 1,
               }}>
                 {PR_STATS_DATA.verifyLinks.map((link) => (
                   <a
@@ -363,18 +349,24 @@ function BottomStrip({ local }: { local: number }) {
                     style={{
                       ...BASE_FONT,
                       fontSize: 'clamp(10px, 1.1vw, 15px)',
-                      color: 'rgba(255,255,255,0.5)',
+                      color: 'rgba(255,255,255,0.7)',
                       textDecoration: 'none',
                       letterSpacing: 1,
                       transition: 'color 0.3s',
                       whiteSpace: 'nowrap',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
                   >
                     ↗ {link.name}
                   </a>
                 ))}
+              </div>
+              <div style={{
+                ...label,
+                color: '#ffffff',
+              }}>
+                Don't trust. Verify.
               </div>
             </div>
           </div>
