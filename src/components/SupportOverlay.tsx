@@ -1,4 +1,28 @@
+import { useEffect } from 'react'
 import { SocialIconRow } from './SocialIcons'
+
+const BELL_STYLE_ID = 'bell-ring-keyframes'
+
+function useBellAnimation() {
+  useEffect(() => {
+    if (document.getElementById(BELL_STYLE_ID)) return
+    const style = document.createElement('style')
+    style.id = BELL_STYLE_ID
+    style.textContent = [
+      '@keyframes bellRing {',
+      '  0%, 100% { transform: rotate(0deg); }',
+      '  10% { transform: rotate(14deg); }',
+      '  20% { transform: rotate(-12deg); }',
+      '  30% { transform: rotate(10deg); }',
+      '  40% { transform: rotate(-8deg); }',
+      '  50% { transform: rotate(4deg); }',
+      '  60% { transform: rotate(0deg); }',
+      '}',
+    ].join('\n')
+    document.head.appendChild(style)
+    return () => { style.remove() }
+  }, [])
+}
 
 interface SupportOverlayProps {
   progress: number
@@ -21,6 +45,8 @@ function fadeIn(t: number, start: number, duration: number = 0.15): number {
 }
 
 export function SupportOverlay({ progress }: SupportOverlayProps) {
+  useBellAnimation()
+
   if (progress < ENTER || progress > EXIT) return null
 
   const local = (progress - ENTER) / (EXIT - ENTER)
@@ -50,7 +76,54 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         flexDirection: 'column' as const,
         alignItems: 'center',
         gap: 'clamp(16px, 3vh, 32px)',
+        position: 'relative' as const,
       }}>
+      {/* OpenDev call CTA — top right */}
+      <a
+        href="https://discord.gg/bittensor"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          ...BASE_FONT,
+          position: 'absolute',
+          top: 'clamp(12px, 2vh, 24px)',
+          right: 'clamp(16px, 2vw, 32px)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          textDecoration: 'none',
+          pointerEvents: 'auto',
+          opacity: linksOp,
+          transform: `translateY(${(1 - linksOp) * 8}px)`,
+          willChange: 'opacity, transform',
+          color: 'rgba(255, 255, 255, 0.5)',
+          transition: 'color 0.3s',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)' }}
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          style={{
+            animation: 'bellRing 2s ease-in-out infinite',
+            transformOrigin: 'top center',
+          }}
+        >
+          <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
+        </svg>
+        <span style={{
+          fontSize: 'clamp(8px, 0.9vw, 12px)',
+          letterSpacing: 1,
+          lineHeight: 1.4,
+        }}>
+          Bring your ideas to<br />
+          OpenDev calls on Discord
+        </span>
+      </a>
+
       {/* Support us */}
       <div style={{
         ...BASE_FONT,
