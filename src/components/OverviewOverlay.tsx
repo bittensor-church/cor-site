@@ -289,79 +289,79 @@ function BottomStrip({ local }: { local: number }) {
         </div>
       )}
 
-      {/* PR stats layer */}
+      {/* PR stats layer — centered, same position as TAO */}
       {statsOpacity > 0 && (
         <div style={{
           opacity: statsOpacity,
           position: 'absolute',
-          left: 'clamp(24px, 4vw, 48px)',
-          right: 'clamp(120px, 12vw, 200px)',
+          left: 0,
+          right: 0,
           top: 0,
-          bottom: 0,
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 'clamp(16px, 8vw, 100px)',
           flexWrap: 'wrap' as const,
         }}>
-          {/* Left: stats */}
-          <div style={{
-            display: 'flex',
-            gap: 'clamp(16px, 6vw, 80px)',
-          }}>
-            <div style={statStyle}>
-              <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
-              <div style={label}>PRs merged</div>
-            </div>
-            <div style={statStyle}>
-              <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
-              <div style={label}>repos</div>
-            </div>
+          <div style={statStyle}>
+            <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
+            <div style={label}>PRs merged</div>
           </div>
+          <div style={statStyle}>
+            <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
+            <div style={label}>repos</div>
+          </div>
+        </div>
+      )}
 
-          {/* Right: motto + repo links stacked */}
+      {/* Motto + repo links — right side, avoid FOLLOW US zone */}
+      {statsOpacity > 0 && (
+        <div style={{
+          opacity: statsOpacity,
+          position: 'absolute',
+          right: 'clamp(120px, 12vw, 200px)',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+          gap: 'clamp(4px, 0.5vh, 8px)',
+          pointerEvents: 'auto',
+        }}>
+          <span style={{
+            ...BASE_FONT,
+            fontSize: 'clamp(11px, 1.2vw, 17px)',
+            color: 'rgba(255,255,255,0.85)',
+            letterSpacing: 1,
+            fontWeight: 400,
+            whiteSpace: 'nowrap',
+          }}>
+            Don't trust. Verify.
+          </span>
           <div style={{
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            gap: 'clamp(4px, 0.5vh, 8px)',
-            pointerEvents: 'auto',
+            gap: 'clamp(10px, 1.2vw, 20px)',
           }}>
-            <span style={{
-              ...BASE_FONT,
-              fontSize: 'clamp(11px, 1.2vw, 17px)',
-              color: 'rgba(255,255,255,0.85)',
-              letterSpacing: 1,
-              fontWeight: 400,
-              whiteSpace: 'nowrap',
-            }}>
-              Don't trust. Verify.
-            </span>
-            <div style={{
-              display: 'flex',
-              gap: 'clamp(10px, 1.2vw, 20px)',
-            }}>
-              {PR_STATS_DATA.verifyLinks.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...BASE_FONT,
-                    fontSize: 'clamp(10px, 1.1vw, 15px)',
-                    color: 'rgba(255,255,255,0.5)',
-                    textDecoration: 'none',
-                    letterSpacing: 1,
-                    transition: 'color 0.3s',
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
-                >
-                  ↗ {link.name}
-                </a>
-              ))}
-            </div>
+            {PR_STATS_DATA.verifyLinks.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  ...BASE_FONT,
+                  fontSize: 'clamp(10px, 1.1vw, 15px)',
+                  color: 'rgba(255,255,255,0.5)',
+                  textDecoration: 'none',
+                  letterSpacing: 1,
+                  transition: 'color 0.3s',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
+              >
+                ↗ {link.name}
+              </a>
+            ))}
           </div>
         </div>
       )}
