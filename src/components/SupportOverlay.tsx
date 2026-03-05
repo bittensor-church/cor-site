@@ -86,6 +86,42 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         for the Bittensor ecosystem.
       </div>
 
+      {/* Wallet address */}
+      <div style={{
+        ...BASE_FONT,
+        opacity: linksOp,
+        transform: `translateY(${(1 - linksOp) * 10}px)`,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6,
+        willChange: 'opacity, transform',
+      }}>
+        <div style={{
+          fontSize: 'clamp(9px, 1vw, 13px)',
+          fontWeight: 300,
+          letterSpacing: 2,
+          textTransform: 'uppercase',
+          color: '#d4a843',
+        }}>
+          TAO Wallet
+        </div>
+        <div style={{
+          fontSize: 'clamp(10px, 1.2vw, 16px)',
+          fontWeight: 400,
+          color: 'rgba(255, 255, 255, 0.75)',
+          letterSpacing: 'clamp(1px, 0.15vw, 2px)',
+          wordBreak: 'break-all',
+          maxWidth: 'clamp(300px, 60vw, 700px)',
+          textAlign: 'center',
+          pointerEvents: 'auto',
+          cursor: 'text',
+          userSelect: 'all',
+        }}>
+          XXXXXXXX
+        </div>
+      </div>
+
       {/* Social links */}
       <div style={{
         opacity: linksOp,
