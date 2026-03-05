@@ -307,9 +307,52 @@ function BottomStrip({ local }: { local: number }) {
             <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
             <div style={label}>repos</div>
           </div>
-          <div style={statStyle}>
-            <div style={bigNum}>{PR_STATS_DATA.totalContributors}</div>
-            <div style={label}>team members</div>
+          <div style={{
+            ...BASE_FONT,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            pointerEvents: 'auto',
+          }}>
+            <div style={label}>Verify</div>
+            <div style={{
+              display: 'flex',
+              gap: 'clamp(8px, 1.5vw, 16px)',
+            }}>
+              {PR_STATS_DATA.verifyLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...BASE_FONT,
+                    fontSize: 'clamp(9px, 1vw, 14px)',
+                    color: 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none',
+                    letterSpacing: 1,
+                    transition: 'color 0.3s',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
+                >
+                  ↗ {link.name}
+                </a>
+              ))}
+            </div>
+            <div style={{
+              ...BASE_FONT,
+              fontSize: 'clamp(8px, 0.9vw, 12px)',
+              color: 'rgba(255,255,255,0.4)',
+              textAlign: 'center',
+              lineHeight: 1.5,
+              letterSpacing: 1,
+              marginTop: 4,
+            }}>
+              Don't trust. Verify.<br />
+              Every commit is public.
+            </div>
           </div>
         </div>
       )}

@@ -99,12 +99,17 @@ export interface RepoStat {
   readonly prs: number
 }
 
+export interface VerifyLink {
+  readonly name: string
+  readonly url: string
+}
+
 export interface PrStatsData {
   readonly title: string
   readonly totalLabel: string
   readonly totalPrs: number
   readonly totalRepos: number
-  readonly totalContributors: number
+  readonly verifyLinks: readonly VerifyLink[]
   readonly topRepos: readonly RepoStat[]
   readonly remainingReposCount: number
 }
@@ -114,7 +119,10 @@ export const PR_STATS_DATA: PrStatsData = {
   totalLabel: 'Merged Pull Requests',
   totalPrs: 248,
   totalRepos: 17,
-  totalContributors: 15,
+  verifyLinks: [
+    { name: 'Repo Placeholder 1', url: '#' },
+    { name: 'Repo Placeholder 2', url: '#' },
+  ],
   topRepos: [
     { name: 'bittensor-pylon', prs: 60 },
     { name: 'bt-ddos-shield', prs: 38 },
