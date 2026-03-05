@@ -278,6 +278,7 @@ function BottomStrip({ local }: { local: number }) {
       <div style={{
         position: 'relative',
         borderTop: '1px solid rgba(255,255,255,0.1)',
+        paddingTop: 'clamp(12px, 2vh, 24px)',
         background: 'rgba(0, 0, 0, 0.45)',
         backdropFilter: 'blur(8px)',
         borderRadius: 12,
@@ -287,6 +288,10 @@ function BottomStrip({ local }: { local: number }) {
         {taoOpacity > 0 && (
           <div style={{
             opacity: taoOpacity,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
             display: 'flex',
             justifyContent: 'center',
             gap: 'clamp(16px, 8vw, 100px)',
@@ -307,16 +312,15 @@ function BottomStrip({ local }: { local: number }) {
         {statsOpacity > 0 && (
           <div style={{
             opacity: statsOpacity,
-            position: taoOpacity > 0 ? 'absolute' as const : 'relative' as const,
-            left: taoOpacity > 0 ? 0 : undefined,
-            right: taoOpacity > 0 ? 0 : undefined,
-            top: taoOpacity > 0 ? 0 : undefined,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
             display: 'flex',
             justifyContent: 'center',
             gap: 'clamp(16px, 8vw, 100px)',
             flexWrap: 'wrap' as const,
           }}>
-            {/* Stats — same position as TAO */}
             <div style={statStyle}>
               <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
               <div style={label}>PRs merged</div>
@@ -326,7 +330,7 @@ function BottomStrip({ local }: { local: number }) {
               <div style={label}>repos</div>
             </div>
 
-            {/* Verify column: repo links on top (aligned with numbers), motto below (aligned with labels) */}
+            {/* Verify column: repo links top (number height), motto bottom (label height) */}
             <div style={{
               ...statStyle,
               pointerEvents: 'auto',
@@ -336,9 +340,6 @@ function BottomStrip({ local }: { local: number }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 'clamp(2px, 0.4vh, 6px)',
-                fontSize: 'clamp(24px, 5.5vw, 64px)',
-                fontWeight: 500,
-                lineHeight: 1,
               }}>
                 {PR_STATS_DATA.verifyLinks.map((link) => (
                   <a
@@ -362,10 +363,7 @@ function BottomStrip({ local }: { local: number }) {
                   </a>
                 ))}
               </div>
-              <div style={{
-                ...label,
-                color: '#ffffff',
-              }}>
+              <div style={label}>
                 Don't trust. Verify.
               </div>
             </div>
