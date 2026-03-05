@@ -199,7 +199,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             letterSpacing: 'clamp(0.5px, 0.1vw, 1px)',
             lineHeight: 1.3,
           }}>
-            OpenDev calls on Discord
+            Bring your ideas to OpenDev calls on Discord
           </span>
           <span style={{
             fontSize: 'clamp(7px, 0.75vw, 10px)',
