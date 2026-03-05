@@ -1,7 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react'
 
 interface VideoSectionProps {
-  src: string
   frameDir: string
   frameCount: number
   audioSrc?: string

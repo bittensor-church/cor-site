@@ -29,7 +29,6 @@ export function App() {
       {SECTIONS.map((section, i) => (
         <VideoSection
           key={section.id}
-          src={section.src}
           frameDir={section.frameDir}
           frameCount={section.frameCount}
           active={sectionIndex === i}

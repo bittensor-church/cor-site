@@ -6,7 +6,7 @@
 // --- Section definitions (video + audio paths) ---
 
 export const SECTIONS = [
-  { id: 'main', src: '/assets/video/main.mp4', frameDir: '/assets/frames', frameCount: 2166 },
+  { id: 'main', frameDir: '/assets/frames', frameCount: 2166 },
 ] as const
 
 // --- Navigation labels ---
