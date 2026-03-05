@@ -352,7 +352,7 @@ function BottomStrip({ local }: { local: number }) {
                     rel="noopener noreferrer"
                     style={{
                       ...BASE_FONT,
-                      fontSize: 'clamp(10px, 2vw, 24px)',
+                      fontSize: 'clamp(8.5px, 1.7vw, 20px)',
                       fontWeight: 500,
                       lineHeight: 1,
                       color: '#ffffff',
