@@ -4,7 +4,7 @@ interface VisionOverlayProps {
 
 const ENTER = 0.7849   // frame 1700
 const PHASE2 = 0.8449  // frame 1830 — everything fades except headline
-const EXIT = 0.9003    // frame 1950
+const EXIT = 0.8690    // frame 1882 — clear before Nexus enters at 0.8698
 const TOTAL_P1 = PHASE2 - ENTER
 const TOTAL_P2 = EXIT - PHASE2
 
