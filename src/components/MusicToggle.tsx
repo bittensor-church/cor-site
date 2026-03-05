@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { SocialIconRow } from './SocialIcons'
 
 const FADE_MS = 800
 
@@ -68,13 +69,43 @@ export function MusicToggle() {
         loop
         preload="auto"
       />
+      <div style={{
+        position: 'fixed',
+        bottom: 'clamp(16px, 3vh, 32px)',
+        right: 'clamp(16px, 3vw, 32px)',
+        zIndex: 9999,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        gap: 8,
+      }}>
+      {/* Social icons */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6,
+      }}>
+        <span style={{
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: 'clamp(8px, 0.9vw, 11px)',
+          letterSpacing: 2,
+          textTransform: 'uppercase',
+          color: 'rgba(255, 255, 255, 0.35)',
+        }}>
+          Follow us
+        </span>
+        <SocialIconRow
+          size={14}
+          gap="6px"
+          iconColor="rgba(255, 255, 255, 0.4)"
+          showBorder={false}
+        />
+      </div>
+      {/* Music button */}
       <button
         onClick={toggle}
         style={{
-          position: 'fixed',
-          bottom: 'clamp(16px, 3vh, 32px)',
-          right: 'clamp(16px, 3vw, 32px)',
-          zIndex: 9999,
           background: 'rgba(0, 0, 0, 0.4)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           borderRadius: 8,
@@ -131,6 +162,7 @@ export function MusicToggle() {
           {playing ? 'on' : 'off'}
         </span>
       </button>
+      </div>
     </>,
     document.body,
   )
