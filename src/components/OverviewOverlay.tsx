@@ -356,11 +356,11 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               ...BASE_FONT,
               opacity: fadeIn(local, 0.0),
               transform: `translateY(${(1 - fadeIn(local, 0.0)) * 10}px)`,
-              fontSize: 'clamp(16px, 2vw, 28px)',
-              fontWeight: 400,
-              letterSpacing: 'clamp(2px, 0.5vw, 6px)',
+              fontSize: 'clamp(18px, 2.5vw, 36px)',
+              fontWeight: 500,
+              letterSpacing: 'clamp(3px, 0.6vw, 8px)',
               textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.6)',
+              color: '#ffffff',
             }}>
               Projects
             </div>
