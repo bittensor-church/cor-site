@@ -335,13 +335,13 @@ function BottomStrip({ local }: { local: number }) {
               ...statStyle,
               pointerEvents: 'auto',
             }}>
-              {/* Same height as bigNum so motto aligns with labels below */}
+              {/* Match bigNum height so motto aligns with labels */}
               <div style={{
-                ...bigNum,
+                minHeight: 'clamp(24px, 5.5vw, 64px)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'flex-end',
                 gap: 'clamp(2px, 0.4vh, 6px)',
               }}>
                 {PR_STATS_DATA.verifyLinks.map((link) => (
