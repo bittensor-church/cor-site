@@ -122,6 +122,7 @@ function BreakdownCell({ item, opacity }: {
         fontWeight: 600,
         color: '#ffffff',
         lineHeight: 1.2,
+        minHeight: IS_MOBILE ? 'auto' : 'clamp(50px, 5vh, 70px)',
       }}>
         {item.name}
       </div>
@@ -132,6 +133,7 @@ function BreakdownCell({ item, opacity }: {
         fontStyle: 'italic',
         color: '#d4a843',
         lineHeight: 1.3,
+        minHeight: IS_MOBILE ? 'auto' : 'clamp(36px, 3.5vh, 48px)',
       }}>
         {item.description}
       </div>
@@ -147,10 +149,11 @@ function BreakdownCell({ item, opacity }: {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(8px, 1.2vh, 14px)',
+          gap: 'clamp(12px, 1.8vh, 20px)',
         }}>
-          {Array.from(groupByTech(item.projects)).map(([tech, projects]) => (
+          {Array.from(groupByTech(item.projects)).map(([tech, projects], groupIndex) => (
             <div key={tech} style={{
+              marginTop: groupIndex > 0 ? 'clamp(4px, 0.6vh, 8px)' : 0,
               display: 'flex',
               flexDirection: 'column',
               gap: 'clamp(2px, 0.4vh, 6px)',
@@ -172,7 +175,7 @@ function BreakdownCell({ item, opacity }: {
                   fontWeight: 400,
                   color: 'rgba(255,255,255,0.55)',
                   lineHeight: 1.5,
-                  paddingLeft: 10,
+                  paddingLeft: 16,
                   borderLeft: '2px solid rgba(212,168,67,0.2)',
                 }}>
                   <span style={{ color: '#d4a843', fontSize: '0.9em' }}>{'// '}</span>
