@@ -315,13 +315,15 @@ function BottomStrip({ local }: { local: number }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 6,
+            gap: 10,
             pointerEvents: 'auto',
           }}>
             <div style={label}>Verify</div>
             <div style={{
               display: 'flex',
-              gap: 'clamp(8px, 1.5vw, 16px)',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'clamp(4px, 0.6vh, 8px)',
             }}>
               {PR_STATS_DATA.verifyLinks.map((link) => (
                 <a
@@ -331,7 +333,7 @@ function BottomStrip({ local }: { local: number }) {
                   rel="noopener noreferrer"
                   style={{
                     ...BASE_FONT,
-                    fontSize: 'clamp(9px, 1vw, 14px)',
+                    fontSize: 'clamp(10px, 1.1vw, 15px)',
                     color: 'rgba(255,255,255,0.7)',
                     textDecoration: 'none',
                     letterSpacing: 1,
@@ -346,12 +348,12 @@ function BottomStrip({ local }: { local: number }) {
             </div>
             <div style={{
               ...BASE_FONT,
-              fontSize: 'clamp(8px, 0.9vw, 12px)',
-              color: 'rgba(255,255,255,0.4)',
+              fontSize: 'clamp(9px, 1vw, 13px)',
+              color: 'rgba(255,255,255,0.5)',
               textAlign: 'center',
               lineHeight: 1.5,
               letterSpacing: 1,
-              marginTop: 4,
+              marginTop: 8,
             }}>
               Don't trust. Verify.<br />
               Every commit is public.
