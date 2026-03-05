@@ -62,9 +62,9 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
 
   const local = (progress - ENTER) / (EXIT - ENTER)
 
-  const titleOp = fadeIn(local, 0.0, 0.15)
-  const walletOp = fadeIn(local, 0.2, 0.15)
-  const linksOp = fadeIn(local, 0.4, 0.15)
+  const titleOp = fadeIn(local, 0.0, 0.10)
+  const walletOp = fadeIn(local, 0.06, 0.10)
+  const linksOp = fadeIn(local, 0.12, 0.10)
 
   return (
     <div style={{
