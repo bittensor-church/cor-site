@@ -206,32 +206,32 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 'clamp(10px, 1.5vh, 18px)',
+            gap: 'clamp(6px, 1vh, 12px)',
             textDecoration: 'none',
             pointerEvents: 'auto',
-            opacity: linksOp,
+            opacity: linksOp * 0.55,
             transform: `translateY(${(1 - linksOp) * 8}px)`,
             willChange: 'opacity, transform',
-            color: 'rgba(255, 255, 255, 0.7)',
-            transition: 'color 0.3s',
-            padding: 'clamp(8px, 1.5vw, 20px)',
-            paddingLeft: 'clamp(20px, 3vw, 40px)',
-            minWidth: 'clamp(140px, 18vw, 220px)',
-            borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'rgba(255, 255, 255, 0.45)',
+            transition: 'color 0.3s, opacity 0.3s',
+            padding: 'clamp(4px, 1vw, 12px)',
+            paddingLeft: 'clamp(16px, 2vw, 28px)',
+            minWidth: 'clamp(120px, 14vw, 180px)',
+            borderLeft: '1px solid rgba(255, 255, 255, 0.07)',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#fff' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = String(linksOp * 0.55); e.currentTarget.style.color = 'rgba(255, 255, 255, 0.45)' }}
         >
           {/* Bell icon */}
           <svg
-            width="clamp(24px, 3vw, 36px)"
-            height="clamp(24px, 3vw, 36px)"
+            width="clamp(16px, 2vw, 24px)"
+            height="clamp(16px, 2vw, 24px)"
             viewBox="0 0 24 24"
             fill="#d4a843"
             style={{
               animation: 'bellRing 4s ease-in-out infinite',
               transformOrigin: 'top center',
-              filter: 'drop-shadow(0 2px 6px rgba(212, 168, 67, 0.4))',
+              opacity: 0.7,
             }}
           >
             <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
@@ -239,9 +239,9 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
 
           {/* CTA text */}
           <span style={{
-            fontSize: 'clamp(10px, 1.1vw, 15px)',
-            letterSpacing: 'clamp(0.5px, 0.08vw, 1.5px)',
-            lineHeight: 1.5,
+            fontSize: 'clamp(8px, 0.9vw, 12px)',
+            letterSpacing: 'clamp(0.5px, 0.08vw, 1px)',
+            lineHeight: 1.4,
             textAlign: 'center',
           }}>
             Bring your ideas to<br />
@@ -250,11 +250,11 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
 
           {/* Schedule */}
           <span style={{
-            fontSize: 'clamp(8px, 0.85vw, 12px)',
-            fontWeight: 500,
-            letterSpacing: 'clamp(1px, 0.2vw, 3px)',
+            fontSize: 'clamp(7px, 0.7vw, 10px)',
+            fontWeight: 400,
+            letterSpacing: 'clamp(0.5px, 0.15vw, 2px)',
             textTransform: 'uppercase',
-            color: '#d4a843',
+            color: 'rgba(212, 168, 67, 0.6)',
             textAlign: 'center',
           }}>
             Every Tuesday at 17:00 UTC
