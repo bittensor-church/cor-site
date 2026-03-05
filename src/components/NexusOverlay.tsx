@@ -6,8 +6,11 @@ const ENTER = 0.8698   // frame 1884
 const EXIT = 0.9441    // frame 2045
 const TOTAL = EXIT - ENTER
 
-const INK_FONT: React.CSSProperties = {
-  fontFamily: "'Georgia', 'Times New Roman', serif",
+const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
+
+const BASE_FONT: React.CSSProperties = {
+  fontFamily: "'IBM Plex Mono', monospace",
+  textShadow: SHADOW,
 }
 
 function fadeIn(t: number, start: number, duration: number = 0.12): number {
@@ -41,27 +44,29 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
       pointerEvents: 'none',
       zIndex: 5,
       opacity: fadeOut,
-      mixBlendMode: 'multiply',
+      padding: '0 8%',
     }}>
       <div style={{
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 'clamp(6px, 1.5vh, 16px)',
-        maxWidth: 'clamp(280px, 42vw, 520px)',
-        padding: 'clamp(16px, 3vh, 40px) clamp(12px, 2vw, 32px)',
-        textAlign: 'center',
+        gap: 'clamp(8px, 2vh, 20px)',
+        maxWidth: 'clamp(300px, 50vw, 600px)',
+        textAlign: 'center' as const,
       }}>
         {/* FIXING THE BOTTLENECK IN 2026 */}
         <div style={{
-          ...INK_FONT,
+          ...BASE_FONT,
           opacity: labelOp,
-          transform: `translateY(${(1 - labelOp) * 8}px)`,
-          fontSize: 'clamp(9px, 1.1vw, 13px)',
-          fontWeight: 400,
-          fontStyle: 'italic',
-          color: 'rgb(60, 45, 30)',
-          letterSpacing: 'clamp(2px, 0.4vw, 5px)',
+          transform: `translateY(${(1 - labelOp) * 10}px)`,
+          fontSize: 'clamp(10px, 1.3vw, 15px)',
+          fontWeight: 700,
+          color: '#d4a843',
+          letterSpacing: 'clamp(4px, 0.8vw, 10px)',
           textTransform: 'uppercase',
           willChange: 'opacity, transform',
         }}>
@@ -70,30 +75,29 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
 
         {/* NEXUS */}
         <div style={{
-          ...INK_FONT,
+          ...BASE_FONT,
           opacity: titleOp,
-          transform: `translateY(${(1 - titleOp) * 8}px)`,
-          fontSize: 'clamp(32px, 5vw, 64px)',
+          transform: `translateY(${(1 - titleOp) * 10}px)`,
+          fontSize: 'clamp(28px, 4.5vw, 60px)',
           fontWeight: 700,
-          color: 'rgb(35, 25, 15)',
+          color: '#ffffff',
           letterSpacing: 'clamp(4px, 0.8vw, 12px)',
           textTransform: 'uppercase',
           lineHeight: 1,
           willChange: 'opacity, transform',
-          marginBottom: 'clamp(4px, 1vh, 12px)',
         }}>
           Nexus
         </div>
 
-        {/* Body text — ink on page */}
+        {/* Body text */}
         <div style={{
-          ...INK_FONT,
+          ...BASE_FONT,
           opacity: bodyOp,
-          transform: `translateY(${(1 - bodyOp) * 8}px)`,
-          fontSize: 'clamp(10px, 1.2vw, 15px)',
+          transform: `translateY(${(1 - bodyOp) * 10}px)`,
+          fontSize: 'clamp(11px, 1.2vw, 15px)',
           fontWeight: 400,
-          color: 'rgb(50, 38, 25)',
-          lineHeight: 1.8,
+          color: 'rgba(255, 255, 255, 0.7)',
+          lineHeight: 1.7,
           willChange: 'opacity, transform',
         }}>
           Building a subnet today means solving the same infrastructure problems every other team already solved. Nexus eliminates that. It&#39;s a framework that ships weight management, security, observability, and GPU orchestration as defaults — so you only write the code that matters.
