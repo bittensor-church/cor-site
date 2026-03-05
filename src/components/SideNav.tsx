@@ -62,8 +62,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
         gap: 28,
         alignItems: 'flex-end',
         pointerEvents: 'none',
-        opacity: progress < 0.005 ? 0 : 1,
-        transition: 'opacity 0.6s ease-out',
+        opacity: 1,
       }}
     >
       {NAV_ITEMS.map((item, i) => {
