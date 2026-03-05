@@ -95,7 +95,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               <span
                 style={{
                   fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: 'clamp(11px, 1.2vw, 14px)',
+                  fontSize: 'clamp(14px, 1.6vw, 18px)',
                   textTransform: 'uppercase',
                   letterSpacing: 2,
                   color: 'rgba(255,255,255,1)',
