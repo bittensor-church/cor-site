@@ -1,15 +1,15 @@
 import { useEffect, useRef } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const GRAIN_SIZE = 100
-const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768
-const FPS = IS_MOBILE ? 12 : 24
 
 export function FilmGrain() {
-  if (IS_MOBILE) return null
-
+  const isMobile = useIsMobile()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    if (isMobile) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -33,8 +33,9 @@ export function FilmGrain() {
       ctx.putImageData(imageData, 0, 0)
     }
 
+    const fps = isMobile ? 12 : 24
     let last = 0
-    const interval = 1000 / FPS
+    const interval = 1000 / fps
 
     const tick = (now: number) => {
       frameId = requestAnimationFrame(tick)
@@ -46,7 +47,9 @@ export function FilmGrain() {
     frameId = requestAnimationFrame(tick)
 
     return () => cancelAnimationFrame(frameId)
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return null
 
   return (
     <canvas

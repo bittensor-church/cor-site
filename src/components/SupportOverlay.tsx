@@ -65,7 +65,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
       justifyContent: 'center',
       pointerEvents: 'none',
       zIndex: 5,
-      padding: '0 8%',
+      padding: '0 clamp(16px, 5vw, 8%)',
     }}>
       <div style={{
         background: 'rgba(0, 0, 0, 0.45)',

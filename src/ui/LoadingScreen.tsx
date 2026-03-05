@@ -1,15 +1,13 @@
 import { useEffect, useState, useCallback } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface LoadingScreenProps {
   visible: boolean
   onReady: () => void
 }
 
-const IS_MOBILE = typeof window !== 'undefined' && (
-  window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-)
-
 export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
+  const isMobile = useIsMobile()
   const [opacity, setOpacity] = useState(1)
   const [mounted, setMounted] = useState(true)
   const [showPlay, setShowPlay] = useState(false)
@@ -21,7 +19,7 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
   }, [onReady])
 
   useEffect(() => {
-    if (IS_MOBILE) {
+    if (isMobile) {
       // On mobile, show play button after brief delay
       const t = setTimeout(() => setShowPlay(true), 600)
       return () => clearTimeout(t)

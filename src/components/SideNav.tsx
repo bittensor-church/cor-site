@@ -1,3 +1,5 @@
+import { useIsMobile } from '../hooks/useIsMobile'
+
 const NAV_ITEMS = [
   { label: 'Intro', target: 0.055 },
   { label: 'Problems', target: 0.313 },
@@ -44,9 +46,8 @@ function getDotSize(i: number, activeIndex: number): number {
   return 6
 }
 
-const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 600
-
 export function SideNav({ progress, onNavigate }: SideNavProps) {
+  const isMobile = useIsMobile()
   const activeIndex = getActiveIndex(progress)
 
   return (
@@ -91,7 +92,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               transition: 'all 0.4s ease',
             }}
           >
-            {!IS_MOBILE && (
+            {!isMobile && (
               <span
                 style={{
                   fontFamily: "'IBM Plex Mono', monospace",

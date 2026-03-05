@@ -49,8 +49,8 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
       justifyContent: 'center',
       pointerEvents: 'none',
       zIndex: 5,
-      paddingLeft: '8%',
-      paddingRight: '8%',
+      paddingLeft: 'clamp(16px, 5vw, 8%)',
+      paddingRight: 'clamp(16px, 5vw, 8%)',
       opacity: globalFadeOut,
     }}>
       <div style={{

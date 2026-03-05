@@ -1,4 +1,5 @@
 import { PR_STATS_DATA } from '../content'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 interface OverviewOverlayProps {
   progress: number
@@ -86,8 +87,6 @@ function groupByTech(projects: Project[]): Map<string, Project[]> {
   return groups
 }
 
-const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 600
-
 const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
 
 const BASE_FONT: React.CSSProperties = {
@@ -103,9 +102,10 @@ function fadeIn(local: number, start: number, duration: number = 0.04): number {
 
 // ─── Grid cell ───
 
-function BreakdownCell({ item, opacity }: {
+function BreakdownCell({ item, opacity, isMobile }: {
   item: BreakdownItem
   opacity: number
+  isMobile: boolean
 }) {
   return (
     <div style={{
@@ -122,7 +122,7 @@ function BreakdownCell({ item, opacity }: {
         fontWeight: 600,
         color: '#ffffff',
         lineHeight: 1.2,
-        minHeight: IS_MOBILE ? 'auto' : 'clamp(50px, 5vh, 70px)',
+        minHeight: isMobile ? 'auto' : 'clamp(50px, 5vh, 70px)',
       }}>
         {item.name}
       </div>
@@ -133,7 +133,7 @@ function BreakdownCell({ item, opacity }: {
         fontStyle: 'italic',
         color: '#d4a843',
         lineHeight: 1.3,
-        minHeight: IS_MOBILE ? 'auto' : 'clamp(36px, 3.5vh, 48px)',
+        minHeight: isMobile ? 'auto' : 'clamp(36px, 3.5vh, 48px)',
       }}>
         {item.description}
       </div>
@@ -145,7 +145,7 @@ function BreakdownCell({ item, opacity }: {
       }}>
         {item.percentage}% &middot; {item.taoAmount.toLocaleString()} TAO
       </div>
-      {!IS_MOBILE && (
+      {!isMobile && (
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -259,21 +259,6 @@ function BottomStrip({ local }: { local: number }) {
       left: '5%',
       right: '5%',
     }}>
-      {/* Description above the bar — visible only with PR stats */}
-      {statsOpacity > 0 && (
-        <div style={{
-          ...BASE_FONT,
-          opacity: statsOpacity,
-          fontSize: 'clamp(9px, 1vw, 13px)',
-          color: 'rgba(255,255,255,0.85)',
-          textAlign: 'center',
-          marginBottom: 12,
-          letterSpacing: 1,
-        }}>
-          Beyond our own projects, we actively contribute across the Bittensor ecosystem.
-        </div>
-      )}
-
       {/* Bar */}
       <div style={{
         position: 'relative',
@@ -284,6 +269,24 @@ function BottomStrip({ local }: { local: number }) {
         borderRadius: 12,
         padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
       }}>
+        {/* Description above the bar — absolutely positioned so it doesn't shift bar position */}
+        {statsOpacity > 0 && (
+          <div style={{
+            ...BASE_FONT,
+            opacity: statsOpacity,
+            position: 'absolute',
+            bottom: '100%',
+            left: 0,
+            right: 0,
+            fontSize: 'clamp(9px, 1vw, 13px)',
+            color: 'rgba(255,255,255,0.85)',
+            textAlign: 'center',
+            marginBottom: 12,
+            letterSpacing: 1,
+          }}>
+            Beyond our own projects, we actively contribute across the Bittensor ecosystem.
+          </div>
+        )}
         {/* TAO layer */}
         {taoOpacity > 0 && (
           <div style={{
@@ -381,6 +384,8 @@ function BottomStrip({ local }: { local: number }) {
 }
 
 export function OverviewOverlay({ progress }: OverviewOverlayProps) {
+  const isMobile = useIsMobile()
+
   if (progress < ENTER || progress > EXIT) return null
 
   const local = (progress - ENTER) / TOTAL
@@ -411,14 +416,14 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
           {/* Grid — top area */}
           <div style={{
             position: 'absolute',
-            top: IS_MOBILE ? 'clamp(24px, 4vh, 60px)' : 'clamp(80px, 16vh, 160px)',
+            top: isMobile ? 'clamp(24px, 4vh, 60px)' : 'clamp(80px, 16vh, 160px)',
             left: '5%',
             right: '5%',
-            bottom: IS_MOBILE ? 'clamp(60px, 10vh, 100px)' : 'clamp(100px, 16vh, 160px)',
+            bottom: isMobile ? 'clamp(100px, 16vh, 160px)' : 'clamp(140px, 22vh, 220px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            overflowY: IS_MOBILE ? 'auto' as const : 'visible' as const,
+            overflowY: isMobile ? 'auto' as const : 'visible' as const,
           }}>
             <div style={{
               background: 'rgba(0, 0, 0, 0.45)',
@@ -439,7 +444,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               letterSpacing: 'clamp(4px, 0.8vw, 10px)',
               textTransform: 'uppercase',
               color: '#d4a843',
-              marginBottom: IS_MOBILE ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
+              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
             }}>
               15 people &middot; 3 teams
             </div>
@@ -452,15 +457,15 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               letterSpacing: 'clamp(3px, 0.6vw, 8px)',
               textTransform: 'uppercase',
               color: '#ffffff',
-              marginBottom: IS_MOBILE ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
+              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
             }}>
               Projects
             </div>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: IS_MOBILE ? '1fr' : 'repeat(3, 1fr)',
-              gap: IS_MOBILE ? 'clamp(10px, 2vw, 16px)' : 'clamp(32px, 5vw, 72px)',
-              maxWidth: 'clamp(600px, 85vw, 1200px)',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: isMobile ? 'clamp(10px, 2vw, 16px)' : 'clamp(32px, 5vw, 72px)',
+              maxWidth: 'min(85vw, 1200px)',
               width: '100%',
             }}>
               {BREAKDOWN_ITEMS.map((item, i) => {
@@ -470,6 +475,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
                     key={item.name}
                     item={item}
                     opacity={itemOpacity}
+                    isMobile={isMobile}
                   />
                 )
               })}
