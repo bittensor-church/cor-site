@@ -122,7 +122,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
         fontWeight: 600,
         color: '#ffffff',
         lineHeight: 1.2,
-        minHeight: isMobile ? 'auto' : 'clamp(50px, 5vh, 70px)',
+        minHeight: isMobile ? 'auto' : 'clamp(40px, 4vh, 56px)',
       }}>
         {item.name}
       </div>
@@ -133,7 +133,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
         fontStyle: 'italic',
         color: '#d4a843',
         lineHeight: 1.3,
-        minHeight: isMobile ? 'auto' : 'clamp(36px, 3.5vh, 48px)',
+        minHeight: isMobile ? 'auto' : 'clamp(28px, 3vh, 40px)',
       }}>
         {item.description}
       </div>
@@ -149,18 +149,18 @@ function BreakdownCell({ item, opacity, isMobile }: {
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(12px, 1.8vh, 20px)',
+          gap: 'clamp(4px, 0.8vh, 10px)',
         }}>
           {Array.from(groupByTech(item.projects)).map(([tech, projects], groupIndex) => (
             <div key={tech} style={{
-              marginTop: groupIndex > 0 ? 'clamp(4px, 0.6vh, 8px)' : 0,
+              marginTop: groupIndex > 0 ? 'clamp(2px, 0.3vh, 4px)' : 0,
               display: 'flex',
               flexDirection: 'column',
-              gap: 'clamp(2px, 0.4vh, 6px)',
+              gap: 'clamp(1px, 0.2vh, 3px)',
             }}>
               <div style={{
                 ...BASE_FONT,
-                fontSize: 'clamp(11px, 1.2vw, 16px)',
+                fontSize: 'clamp(10px, 1.1vw, 14px)',
                 fontWeight: 500,
                 color: 'rgba(212,168,67,0.6)',
                 textTransform: 'uppercase',
@@ -171,11 +171,11 @@ function BreakdownCell({ item, opacity, isMobile }: {
               {projects.map((project) => (
                 <div key={project.title} style={{
                   ...BASE_FONT,
-                  fontSize: 'clamp(11px, 1.3vw, 16px)',
+                  fontSize: 'clamp(10px, 1.1vw, 14px)',
                   fontWeight: 400,
                   color: 'rgba(255,255,255,0.55)',
-                  lineHeight: 1.5,
-                  paddingLeft: 16,
+                  lineHeight: 1.3,
+                  paddingLeft: 12,
                   borderLeft: '2px solid rgba(212,168,67,0.2)',
                 }}>
                   <span style={{ color: '#d4a843', fontSize: '0.9em' }}>{'// '}</span>
@@ -423,7 +423,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            overflowY: 'hidden' as const,
+            overflowY: 'auto' as const,
           }}>
             <div style={{
               background: 'rgba(0, 0, 0, 0.45)',
@@ -444,7 +444,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               letterSpacing: 'clamp(4px, 0.8vw, 10px)',
               textTransform: 'uppercase',
               color: '#d4a843',
-              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
+              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(12px, 2vh, 24px)',
             }}>
               15 people &middot; 3 teams
             </div>
@@ -457,7 +457,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               letterSpacing: 'clamp(3px, 0.6vw, 8px)',
               textTransform: 'uppercase',
               color: '#ffffff',
-              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
+              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(12px, 2vh, 24px)',
             }}>
               Projects
             </div>
