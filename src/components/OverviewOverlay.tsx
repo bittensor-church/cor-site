@@ -332,53 +332,53 @@ function BottomStrip({ local }: { local: number }) {
           </div>
         )}
 
-        {/* Motto + repo links — right side */}
-        {statsOpacity > 0 && (
-          <div style={{
-            opacity: statsOpacity,
-            position: 'absolute',
-            right: 'clamp(24px, 4vw, 48px)',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(12px, 1.5vw, 24px)',
-            pointerEvents: 'auto',
-          }}>
-            <span style={{
-              ...BASE_FONT,
-              fontSize: 'clamp(11px, 1.2vw, 17px)',
-              color: 'rgba(255,255,255,0.7)',
-              letterSpacing: 1,
-              fontWeight: 400,
-              whiteSpace: 'nowrap',
-            }}>
-              Don't trust. Verify.
-            </span>
-            {PR_STATS_DATA.verifyLinks.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  ...BASE_FONT,
-                  fontSize: 'clamp(10px, 1.1vw, 15px)',
-                  color: 'rgba(255,255,255,0.7)',
-                  textDecoration: 'none',
-                  letterSpacing: 1,
-                  transition: 'color 0.3s',
-                  whiteSpace: 'nowrap',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
-              >
-                ↗ {link.name}
-              </a>
-            ))}
-          </div>
-        )}
       </div>
+
+      {/* Motto + repo links — below the bar */}
+      {statsOpacity > 0 && (
+        <div style={{
+          opacity: statsOpacity,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 'clamp(12px, 1.5vw, 24px)',
+          marginTop: 'clamp(8px, 1.5vh, 16px)',
+          pointerEvents: 'auto',
+          flexWrap: 'wrap' as const,
+        }}>
+          <span style={{
+            ...BASE_FONT,
+            fontSize: 'clamp(11px, 1.2vw, 17px)',
+            color: 'rgba(255,255,255,0.7)',
+            letterSpacing: 1,
+            fontWeight: 400,
+            whiteSpace: 'nowrap',
+          }}>
+            Don't trust. Verify.
+          </span>
+          {PR_STATS_DATA.verifyLinks.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                ...BASE_FONT,
+                fontSize: 'clamp(10px, 1.1vw, 15px)',
+                color: 'rgba(255,255,255,0.7)',
+                textDecoration: 'none',
+                letterSpacing: 1,
+                transition: 'color 0.3s',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
+            >
+              ↗ {link.name}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
