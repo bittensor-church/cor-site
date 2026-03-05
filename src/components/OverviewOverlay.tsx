@@ -258,113 +258,128 @@ function BottomStrip({ local }: { local: number }) {
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
       right: '5%',
-      borderTop: '1px solid rgba(255,255,255,0.1)',
-      paddingTop: 'clamp(12px, 2vh, 24px)',
-      background: 'rgba(0, 0, 0, 0.45)',
-      backdropFilter: 'blur(8px)',
-      borderRadius: 12,
-      padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
     }}>
-      {/* TAO layer */}
-      {taoOpacity > 0 && (
+      {/* Description above the bar — visible only with PR stats */}
+      {statsOpacity > 0 && (
         <div style={{
-          opacity: taoOpacity,
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 'clamp(16px, 8vw, 100px)',
-          flexWrap: 'wrap' as const,
+          ...BASE_FONT,
+          opacity: statsOpacity,
+          fontSize: 'clamp(9px, 1vw, 13px)',
+          color: 'rgba(255,255,255,0.85)',
+          textAlign: 'center',
+          marginBottom: 12,
+          letterSpacing: 1,
         }}>
-          <div style={statStyle}>
-            <div style={bigNum}>2,000</div>
-            <div style={label}>TAO received</div>
-          </div>
-          <div style={statStyle}>
-            <div style={bigNum}>2,170</div>
-            <div style={label}>TAO deployed</div>
-          </div>
+          Beyond our own projects, we actively contribute across the Bittensor ecosystem.
         </div>
       )}
 
-      {/* PR stats layer — centered, same position as TAO */}
-      {statsOpacity > 0 && (
-        <div style={{
-          opacity: statsOpacity,
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 'clamp(16px, 8vw, 100px)',
-          flexWrap: 'wrap' as const,
-        }}>
-          <div style={statStyle}>
-            <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
-            <div style={label}>PRs merged</div>
-          </div>
-          <div style={statStyle}>
-            <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
-            <div style={label}>repos</div>
-          </div>
-        </div>
-      )}
-
-      {/* Motto + repo links — right side, avoid FOLLOW US zone */}
-      {statsOpacity > 0 && (
-        <div style={{
-          opacity: statsOpacity,
-          position: 'absolute',
-          right: 'clamp(120px, 12vw, 200px)',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          gap: 'clamp(4px, 0.5vh, 8px)',
-          pointerEvents: 'auto',
-        }}>
-          <span style={{
-            ...BASE_FONT,
-            fontSize: 'clamp(11px, 1.2vw, 17px)',
-            color: 'rgba(255,255,255,0.85)',
-            letterSpacing: 1,
-            fontWeight: 400,
-            whiteSpace: 'nowrap',
-          }}>
-            Don't trust. Verify.
-          </span>
+      {/* Bar */}
+      <div style={{
+        position: 'relative',
+        borderTop: '1px solid rgba(255,255,255,0.1)',
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
+      }}>
+        {/* TAO layer */}
+        {taoOpacity > 0 && (
           <div style={{
+            opacity: taoOpacity,
             display: 'flex',
-            gap: 'clamp(10px, 1.2vw, 20px)',
+            justifyContent: 'center',
+            gap: 'clamp(16px, 8vw, 100px)',
+            flexWrap: 'wrap' as const,
           }}>
-            {PR_STATS_DATA.verifyLinks.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  ...BASE_FONT,
-                  fontSize: 'clamp(10px, 1.1vw, 15px)',
-                  color: 'rgba(255,255,255,0.5)',
-                  textDecoration: 'none',
-                  letterSpacing: 1,
-                  transition: 'color 0.3s',
-                  whiteSpace: 'nowrap',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
-              >
-                ↗ {link.name}
-              </a>
-            ))}
+            <div style={statStyle}>
+              <div style={bigNum}>2,000</div>
+              <div style={label}>TAO received</div>
+            </div>
+            <div style={statStyle}>
+              <div style={bigNum}>2,170</div>
+              <div style={label}>TAO deployed</div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* PR stats layer */}
+        {statsOpacity > 0 && (
+          <div style={{
+            opacity: statsOpacity,
+            position: taoOpacity > 0 ? 'absolute' as const : 'relative' as const,
+            left: taoOpacity > 0 ? 0 : undefined,
+            right: taoOpacity > 0 ? 0 : undefined,
+            top: taoOpacity > 0 ? 0 : undefined,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 'clamp(16px, 8vw, 100px)',
+            flexWrap: 'wrap' as const,
+          }}>
+            {/* Stats — same position as TAO */}
+            <div style={statStyle}>
+              <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
+              <div style={label}>PRs merged</div>
+            </div>
+            <div style={statStyle}>
+              <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
+              <div style={label}>repos</div>
+            </div>
+
+            {/* Motto + repo links as third column */}
+            <div style={{
+              ...statStyle,
+              pointerEvents: 'auto',
+            }}>
+              <div style={{
+                fontSize: 'clamp(24px, 5.5vw, 64px)',
+                fontWeight: 500,
+                letterSpacing: -1,
+                lineHeight: 1,
+                color: '#ffffff',
+                textAlign: 'center',
+              }}>
+                Don't trust.
+              </div>
+              <div style={{
+                ...label,
+                color: '#ffffff',
+              }}>
+                Verify.
+              </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 'clamp(2px, 0.4vh, 6px)',
+                marginTop: 'clamp(4px, 0.5vh, 8px)',
+              }}>
+                {PR_STATS_DATA.verifyLinks.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      ...BASE_FONT,
+                      fontSize: 'clamp(10px, 1.1vw, 15px)',
+                      color: 'rgba(255,255,255,0.5)',
+                      textDecoration: 'none',
+                      letterSpacing: 1,
+                      transition: 'color 0.3s',
+                      whiteSpace: 'nowrap',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
+                  >
+                    ↗ {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
