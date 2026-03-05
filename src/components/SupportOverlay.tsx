@@ -67,24 +67,23 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         Support us
       </div>
 
-      {/* Wallet address */}
+      {/* Description */}
       <div style={{
         ...BASE_FONT,
         opacity: walletOp,
         transform: `translateY(${(1 - walletOp) * 10}px)`,
-        fontSize: 'clamp(10px, 1.2vw, 17px)',
+        fontSize: 'clamp(12px, 1.4vw, 20px)',
         fontWeight: 400,
-        color: 'rgba(255, 255, 255, 0.75)',
+        color: 'rgba(255, 255, 255, 0.7)',
         letterSpacing: 'clamp(1px, 0.15vw, 2px)',
         textAlign: 'center',
-        wordBreak: 'break-all',
+        lineHeight: 1.6,
         maxWidth: 'clamp(300px, 60vw, 700px)',
-        pointerEvents: 'auto',
-        cursor: 'text',
-        userSelect: 'all',
         willChange: 'opacity, transform',
       }}>
-        XXXXXXXX
+        Your contributions directly fund protocol development,<br />
+        infrastructure maintenance, and open-source tools<br />
+        for the Bittensor ecosystem.
       </div>
 
       {/* Social links */}
