@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { SocialIconRow } from './SocialIcons'
 
 const BELL_STYLE_ID = 'bell-ring-keyframes'
+const SUPPORT_GRID_STYLE_ID = 'support-grid-responsive'
 
 function useBellAnimation() {
   useEffect(() => {
@@ -11,12 +12,35 @@ function useBellAnimation() {
     style.textContent = [
       '@keyframes bellRing {',
       '  0%, 100% { transform: rotate(0deg); }',
-      '  10% { transform: rotate(14deg); }',
-      '  20% { transform: rotate(-12deg); }',
-      '  30% { transform: rotate(10deg); }',
-      '  40% { transform: rotate(-8deg); }',
-      '  50% { transform: rotate(4deg); }',
-      '  60% { transform: rotate(0deg); }',
+      '  5% { transform: rotate(14deg); }',
+      '  10% { transform: rotate(-12deg); }',
+      '  15% { transform: rotate(10deg); }',
+      '  20% { transform: rotate(-8deg); }',
+      '  25% { transform: rotate(4deg); }',
+      '  30% { transform: rotate(0deg); }',
+      '}',
+    ].join('\n')
+    document.head.appendChild(style)
+    return () => { style.remove() }
+  }, [])
+}
+
+function useResponsiveGrid() {
+  useEffect(() => {
+    if (document.getElementById(SUPPORT_GRID_STYLE_ID)) return
+    const style = document.createElement('style')
+    style.id = SUPPORT_GRID_STYLE_ID
+    style.textContent = [
+      '@media (max-width: 768px) {',
+      '  .support-panel-grid {',
+      '    grid-template-columns: 1fr !important;',
+      '  }',
+      '  .support-opendev-cta {',
+      '    border-left: none !important;',
+      '    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;',
+      '    padding-left: 0 !important;',
+      '    padding-top: clamp(16px, 3vh, 28px) !important;',
+      '  }',
       '}',
     ].join('\n')
     document.head.appendChild(style)
@@ -46,6 +70,7 @@ function fadeIn(t: number, start: number, duration: number = 0.15): number {
 
 export function SupportOverlay({ progress }: SupportOverlayProps) {
   useBellAnimation()
+  useResponsiveGrid()
 
   if (progress < ENTER || progress > EXIT) return null
 
@@ -67,143 +92,174 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
       zIndex: 5,
       padding: '0 8%',
     }}>
-      <div style={{
-        background: 'rgba(0, 0, 0, 0.45)',
-        backdropFilter: 'blur(8px)',
-        borderRadius: 12,
-        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        alignItems: 'center',
-        gap: 'clamp(16px, 3vh, 32px)',
-        position: 'relative' as const,
-      }}>
-      {/* OpenDev call CTA — top right */}
-      <a
-        href="https://discord.gg/bittensor"
-        target="_blank"
-        rel="noopener noreferrer"
+      <div
+        className="support-panel-grid"
         style={{
-          ...BASE_FONT,
-          position: 'absolute',
-          top: 'clamp(12px, 2vh, 24px)',
-          right: 'clamp(16px, 2vw, 32px)',
-          display: 'flex',
+          background: 'rgba(0, 0, 0, 0.45)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: 12,
+          padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto',
+          gap: 'clamp(20px, 3vw, 40px)',
           alignItems: 'center',
-          gap: 8,
-          textDecoration: 'none',
-          pointerEvents: 'auto',
-          opacity: linksOp,
-          transform: `translateY(${(1 - linksOp) * 8}px)`,
-          willChange: 'opacity, transform',
-          color: 'rgba(255, 255, 255, 0.5)',
-          transition: 'color 0.3s',
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)' }}
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="currentColor"
+        {/* Left column — existing content */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 'clamp(16px, 3vh, 32px)',
+        }}>
+          {/* Support us */}
+          <div style={{
+            ...BASE_FONT,
+            opacity: titleOp,
+            transform: `translateY(${(1 - titleOp) * 12}px)`,
+            fontSize: 'clamp(28px, 4.5vw, 56px)',
+            fontWeight: 600,
+            color: '#d4a843',
+            letterSpacing: 'clamp(4px, 0.8vw, 10px)',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            willChange: 'opacity, transform',
+          }}>
+            Support us
+          </div>
+
+          {/* Description */}
+          <div style={{
+            ...BASE_FONT,
+            opacity: walletOp,
+            transform: `translateY(${(1 - walletOp) * 10}px)`,
+            fontSize: 'clamp(12px, 1.4vw, 20px)',
+            fontWeight: 400,
+            color: 'rgba(255, 255, 255, 0.7)',
+            letterSpacing: 'clamp(1px, 0.15vw, 2px)',
+            textAlign: 'center',
+            lineHeight: 1.6,
+            maxWidth: 'clamp(300px, 60vw, 700px)',
+            willChange: 'opacity, transform',
+          }}>
+            Your contributions directly fund protocol development,<br />
+            infrastructure maintenance, and open-source tools<br />
+            for the Bittensor ecosystem.
+          </div>
+
+          {/* Wallet address */}
+          <div style={{
+            ...BASE_FONT,
+            opacity: linksOp,
+            transform: `translateY(${(1 - linksOp) * 10}px)`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            willChange: 'opacity, transform',
+          }}>
+            <div style={{
+              fontSize: 'clamp(9px, 1vw, 13px)',
+              fontWeight: 300,
+              letterSpacing: 2,
+              textTransform: 'uppercase',
+              color: '#d4a843',
+            }}>
+              TAO Wallet
+            </div>
+            <div style={{
+              fontSize: 'clamp(10px, 1.2vw, 16px)',
+              fontWeight: 400,
+              color: 'rgba(255, 255, 255, 0.75)',
+              letterSpacing: 'clamp(1px, 0.15vw, 2px)',
+              wordBreak: 'break-all',
+              maxWidth: 'clamp(300px, 60vw, 700px)',
+              textAlign: 'center',
+              pointerEvents: 'auto',
+              cursor: 'text',
+              userSelect: 'all',
+            }}>
+              XXXXXXXX
+            </div>
+          </div>
+
+          {/* Social links */}
+          <div style={{
+            opacity: linksOp,
+            transform: `translateY(${(1 - linksOp) * 10}px)`,
+            willChange: 'opacity, transform',
+            pointerEvents: 'auto',
+          }}>
+            <SocialIconRow size={20} gap="clamp(12px, 2vw, 24px)" />
+          </div>
+        </div>
+
+        {/* Right column — OpenDev CTA */}
+        <a
+          className="support-opendev-cta"
+          href="https://discord.gg/bittensor"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
-            animation: 'bellRing 2s ease-in-out infinite',
-            transformOrigin: 'top center',
+            ...BASE_FONT,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 'clamp(10px, 1.5vh, 18px)',
+            textDecoration: 'none',
+            pointerEvents: 'auto',
+            opacity: linksOp,
+            transform: `translateY(${(1 - linksOp) * 8}px)`,
+            willChange: 'opacity, transform',
+            color: 'rgba(255, 255, 255, 0.7)',
+            transition: 'color 0.3s',
+            padding: 'clamp(8px, 1.5vw, 20px)',
+            paddingLeft: 'clamp(20px, 3vw, 40px)',
+            minWidth: 'clamp(140px, 18vw, 220px)',
+            borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#fff' }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)' }}
         >
-          <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
-        </svg>
-        <span style={{
-          fontSize: 'clamp(8px, 0.9vw, 12px)',
-          letterSpacing: 1,
-          lineHeight: 1.4,
-        }}>
-          Bring your ideas to<br />
-          OpenDev calls on Discord
-        </span>
-      </a>
+          {/* Bell icon */}
+          <svg
+            width="clamp(24px, 3vw, 36px)"
+            height="clamp(24px, 3vw, 36px)"
+            viewBox="0 0 24 24"
+            fill="#d4a843"
+            style={{
+              animation: 'bellRing 4s ease-in-out infinite',
+              transformOrigin: 'top center',
+              filter: 'drop-shadow(0 2px 6px rgba(212, 168, 67, 0.4))',
+            }}
+          >
+            <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
+          </svg>
 
-      {/* Support us */}
-      <div style={{
-        ...BASE_FONT,
-        opacity: titleOp,
-        transform: `translateY(${(1 - titleOp) * 12}px)`,
-        fontSize: 'clamp(28px, 4.5vw, 56px)',
-        fontWeight: 600,
-        color: '#d4a843',
-        letterSpacing: 'clamp(4px, 0.8vw, 10px)',
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        willChange: 'opacity, transform',
-      }}>
-        Support us
-      </div>
+          {/* CTA text */}
+          <span style={{
+            fontSize: 'clamp(10px, 1.1vw, 15px)',
+            letterSpacing: 'clamp(0.5px, 0.08vw, 1.5px)',
+            lineHeight: 1.5,
+            textAlign: 'center',
+          }}>
+            Bring your ideas to<br />
+            OpenDev calls on Discord
+          </span>
 
-      {/* Description */}
-      <div style={{
-        ...BASE_FONT,
-        opacity: walletOp,
-        transform: `translateY(${(1 - walletOp) * 10}px)`,
-        fontSize: 'clamp(12px, 1.4vw, 20px)',
-        fontWeight: 400,
-        color: 'rgba(255, 255, 255, 0.7)',
-        letterSpacing: 'clamp(1px, 0.15vw, 2px)',
-        textAlign: 'center',
-        lineHeight: 1.6,
-        maxWidth: 'clamp(300px, 60vw, 700px)',
-        willChange: 'opacity, transform',
-      }}>
-        Your contributions directly fund protocol development,<br />
-        infrastructure maintenance, and open-source tools<br />
-        for the Bittensor ecosystem.
-      </div>
-
-      {/* Wallet address */}
-      <div style={{
-        ...BASE_FONT,
-        opacity: linksOp,
-        transform: `translateY(${(1 - linksOp) * 10}px)`,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 6,
-        willChange: 'opacity, transform',
-      }}>
-        <div style={{
-          fontSize: 'clamp(9px, 1vw, 13px)',
-          fontWeight: 300,
-          letterSpacing: 2,
-          textTransform: 'uppercase',
-          color: '#d4a843',
-        }}>
-          TAO Wallet
-        </div>
-        <div style={{
-          fontSize: 'clamp(10px, 1.2vw, 16px)',
-          fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.75)',
-          letterSpacing: 'clamp(1px, 0.15vw, 2px)',
-          wordBreak: 'break-all',
-          maxWidth: 'clamp(300px, 60vw, 700px)',
-          textAlign: 'center',
-          pointerEvents: 'auto',
-          cursor: 'text',
-          userSelect: 'all',
-        }}>
-          XXXXXXXX
-        </div>
-      </div>
-
-      {/* Social links */}
-      <div style={{
-        opacity: linksOp,
-        transform: `translateY(${(1 - linksOp) * 10}px)`,
-        willChange: 'opacity, transform',
-        pointerEvents: 'auto',
-      }}>
-        <SocialIconRow size={20} gap="clamp(12px, 2vw, 24px)" />
-      </div>
+          {/* Schedule */}
+          <span style={{
+            fontSize: 'clamp(8px, 0.85vw, 12px)',
+            fontWeight: 500,
+            letterSpacing: 'clamp(1px, 0.2vw, 3px)',
+            textTransform: 'uppercase',
+            color: '#d4a843',
+            textAlign: 'center',
+          }}>
+            Every Tuesday at 17:00 UTC
+          </span>
+        </a>
       </div>
     </div>
   )
