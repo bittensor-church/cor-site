@@ -352,15 +352,17 @@ function BottomStrip({ local }: { local: number }) {
                     rel="noopener noreferrer"
                     style={{
                       ...BASE_FONT,
-                      fontSize: 'clamp(10px, 1.1vw, 15px)',
-                      color: 'rgba(255,255,255,0.7)',
+                      fontSize: 'clamp(12px, 2.75vw, 32px)',
+                      fontWeight: 500,
+                      lineHeight: 1,
+                      color: '#ffffff',
                       textDecoration: 'none',
-                      letterSpacing: 1,
+                      letterSpacing: -0.5,
                       transition: 'color 0.3s',
                       whiteSpace: 'nowrap',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff' }}
                   >
                     ↗ {link.name}
                   </a>
