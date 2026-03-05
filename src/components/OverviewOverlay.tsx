@@ -258,68 +258,55 @@ function BottomStrip({ local }: { local: number }) {
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
       right: '5%',
+      borderTop: '1px solid rgba(255,255,255,0.1)',
+      paddingTop: 'clamp(12px, 2vh, 24px)',
+      background: 'rgba(0, 0, 0, 0.45)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: 12,
+      padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
     }}>
-      {/* Description above the bar — visible only with PR stats */}
-      {statsOpacity > 0 && (
+      {/* TAO layer */}
+      {taoOpacity > 0 && (
         <div style={{
-          ...BASE_FONT,
-          opacity: statsOpacity,
-          fontSize: 'clamp(9px, 1vw, 13px)',
-          color: 'rgba(255,255,255,0.85)',
-          textAlign: 'center',
-          marginBottom: 12,
-          letterSpacing: 1,
+          opacity: taoOpacity,
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 'clamp(16px, 8vw, 100px)',
+          flexWrap: 'wrap' as const,
         }}>
-          Beyond our own projects, we actively contribute across the Bittensor ecosystem.
+          <div style={statStyle}>
+            <div style={bigNum}>2,000</div>
+            <div style={label}>TAO received</div>
+          </div>
+          <div style={statStyle}>
+            <div style={bigNum}>2,170</div>
+            <div style={label}>TAO deployed</div>
+          </div>
         </div>
       )}
 
-      {/* Bar */}
-      <div style={{
-        position: 'relative',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        paddingTop: 'clamp(12px, 2vh, 24px)',
-        background: 'rgba(0, 0, 0, 0.45)',
-        backdropFilter: 'blur(8px)',
-        borderRadius: 12,
-        padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
-      }}>
-        {/* TAO layer */}
-        {taoOpacity > 0 && (
+      {/* PR stats layer */}
+      {statsOpacity > 0 && (
+        <div style={{
+          opacity: statsOpacity,
+          position: 'absolute',
+          left: 'clamp(24px, 4vw, 48px)',
+          right: 'clamp(24px, 4vw, 48px)',
+          top: 0,
+          bottom: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap' as const,
+        }}>
+          {/* Left: stats */}
           <div style={{
-            opacity: taoOpacity,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
             display: 'flex',
-            justifyContent: 'center',
-            gap: 'clamp(16px, 8vw, 100px)',
-            flexWrap: 'wrap' as const,
-          }}>
-            <div style={statStyle}>
-              <div style={bigNum}>2,000</div>
-              <div style={label}>TAO received</div>
-            </div>
-            <div style={statStyle}>
-              <div style={bigNum}>2,170</div>
-              <div style={label}>TAO deployed</div>
-            </div>
-          </div>
-        )}
-
-        {/* PR stats layer */}
-        {statsOpacity > 0 && (
-          <div style={{
-            opacity: statsOpacity,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 'clamp(16px, 8vw, 100px)',
-            flexWrap: 'wrap' as const,
+            gap: 'clamp(16px, 6vw, 80px)',
           }}>
             <div style={statStyle}>
               <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
@@ -330,53 +317,52 @@ function BottomStrip({ local }: { local: number }) {
               <div style={label}>repos</div>
             </div>
           </div>
-        )}
 
-      </div>
-
-      {/* Motto + repo links — below the bar */}
-      {statsOpacity > 0 && (
-        <div style={{
-          opacity: statsOpacity,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 'clamp(12px, 1.5vw, 24px)',
-          marginTop: 'clamp(8px, 1.5vh, 16px)',
-          pointerEvents: 'auto',
-          flexWrap: 'wrap' as const,
-        }}>
-          <span style={{
-            ...BASE_FONT,
-            fontSize: 'clamp(11px, 1.2vw, 17px)',
-            color: 'rgba(255,255,255,0.7)',
-            letterSpacing: 1,
-            fontWeight: 400,
-            whiteSpace: 'nowrap',
+          {/* Right: motto + repo links stacked */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            gap: 'clamp(4px, 0.5vh, 8px)',
+            pointerEvents: 'auto',
           }}>
-            Don't trust. Verify.
-          </span>
-          {PR_STATS_DATA.verifyLinks.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                ...BASE_FONT,
-                fontSize: 'clamp(10px, 1.1vw, 15px)',
-                color: 'rgba(255,255,255,0.7)',
-                textDecoration: 'none',
-                letterSpacing: 1,
-                transition: 'color 0.3s',
-                whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
-            >
-              ↗ {link.name}
-            </a>
-          ))}
+            <span style={{
+              ...BASE_FONT,
+              fontSize: 'clamp(11px, 1.2vw, 17px)',
+              color: 'rgba(255,255,255,0.85)',
+              letterSpacing: 1,
+              fontWeight: 400,
+              whiteSpace: 'nowrap',
+            }}>
+              Don't trust. Verify.
+            </span>
+            <div style={{
+              display: 'flex',
+              gap: 'clamp(10px, 1.2vw, 20px)',
+            }}>
+              {PR_STATS_DATA.verifyLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    ...BASE_FONT,
+                    fontSize: 'clamp(10px, 1.1vw, 15px)',
+                    color: 'rgba(255,255,255,0.5)',
+                    textDecoration: 'none',
+                    letterSpacing: 1,
+                    transition: 'color 0.3s',
+                    whiteSpace: 'nowrap',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)' }}
+                >
+                  ↗ {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

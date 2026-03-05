@@ -120,8 +120,8 @@ export const PR_STATS_DATA: PrStatsData = {
   totalPrs: 248,
   totalRepos: 17,
   verifyLinks: [
-    { name: 'Repo Placeholder 1', url: '#' },
-    { name: 'Repo Placeholder 2', url: '#' },
+    { name: 'Repo 1', url: '#' },
+    { name: 'Repo 2', url: '#' },
   ],
   topRepos: [
     { name: 'bittensor-pylon', prs: 60 },
