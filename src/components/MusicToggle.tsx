@@ -122,7 +122,7 @@ export function MusicToggle() {
         </svg>
         <span style={{
           fontFamily: "'IBM Plex Mono', monospace",
-          fontSize: 10,
+          fontSize: 'clamp(10px, 1.1vw, 13px)',
           letterSpacing: 1,
           textTransform: 'uppercase',
           color: playing ? '#d4a843' : 'rgba(255,255,255,0.5)',

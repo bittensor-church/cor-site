@@ -52,7 +52,7 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
           transform: `translateY(${(1 - labelOpacity) * 10}px)`,
           fontFamily: "'IBM Plex Mono', monospace",
           fontWeight: 700,
-          fontSize: 'clamp(10px, 1.3vw, 15px)',
+          fontSize: 'clamp(10px, 1.3vw, 17px)',
           color: '#d4a843',
           letterSpacing: 'clamp(4px, 0.8vw, 10px)',
           textTransform: 'uppercase',

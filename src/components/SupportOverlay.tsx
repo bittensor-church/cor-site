@@ -69,7 +69,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         ...BASE_FONT,
         opacity: walletOp,
         transform: `translateY(${(1 - walletOp) * 10}px)`,
-        fontSize: 'clamp(10px, 1.2vw, 15px)',
+        fontSize: 'clamp(10px, 1.2vw, 17px)',
         fontWeight: 400,
         color: 'rgba(255, 255, 255, 0.75)',
         letterSpacing: 'clamp(1px, 0.15vw, 2px)',

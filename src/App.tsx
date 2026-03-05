@@ -62,7 +62,7 @@ export function App() {
           bottom: 'clamp(24px, 5vh, 48px)',
           left: '50%',
           transform: 'translateX(-50%)',
-          fontSize: 'clamp(10px, 1.2vw, 13px)',
+          fontSize: 'clamp(10px, 1.2vw, 14px)',
           color: 'rgba(255,255,255,0.4)',
           letterSpacing: 3,
           textTransform: 'uppercase',

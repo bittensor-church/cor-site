@@ -65,7 +65,7 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
         transform: `translateY(${Math.max(0, 10 * (1 - local / 0.05))}px)`,
         fontFamily: "'IBM Plex Mono', monospace",
         fontWeight: 700,
-        fontSize: 'clamp(10px, 1.3vw, 15px)',
+        fontSize: 'clamp(10px, 1.3vw, 17px)',
         color: '#d4a843',
         letterSpacing: 'clamp(4px, 0.8vw, 10px)',
         textTransform: 'uppercase',
@@ -143,7 +143,7 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
                 <span style={{
                   fontFamily: "'IBM Plex Mono', monospace",
                   fontWeight: 400,
-                  fontSize: 'clamp(10px, 1.2vw, 15px)',
+                  fontSize: 'clamp(10px, 1.2vw, 17px)',
                   color: 'rgba(212, 168, 67, 0.7)',
                   fontStyle: 'italic',
                   textShadow: '0 2px 12px rgba(0,0,0,0.6)',

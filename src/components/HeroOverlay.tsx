@@ -70,7 +70,7 @@ export function HeroOverlay({ progress }: HeroOverlayProps) {
         transform: `translateY(${subtitleY}px)`,
         fontFamily: "'IBM Plex Mono', monospace",
         fontWeight: 500,
-        fontSize: 'clamp(9px, 1.3vw, 16px)',
+        fontSize: 'clamp(9px, 1.3vw, 18px)',
         color: '#d4a843',
         letterSpacing: 'clamp(3px, 0.5vw, 7px)',
         textTransform: 'uppercase',

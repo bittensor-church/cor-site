@@ -127,7 +127,7 @@ function BreakdownCell({ item, opacity }: {
       </div>
       <div style={{
         ...BASE_FONT,
-        fontSize: 'clamp(11px, 1.3vw, 16px)',
+        fontSize: 'clamp(11px, 1.3vw, 18px)',
         fontWeight: 400,
         fontStyle: 'italic',
         color: '#d4a843',
@@ -157,7 +157,7 @@ function BreakdownCell({ item, opacity }: {
             }}>
               <div style={{
                 ...BASE_FONT,
-                fontSize: 'clamp(11px, 1.2vw, 15px)',
+                fontSize: 'clamp(11px, 1.2vw, 16px)',
                 fontWeight: 500,
                 color: 'rgba(212,168,67,0.6)',
                 textTransform: 'uppercase',
@@ -240,7 +240,7 @@ function BottomStrip({ local }: { local: number }) {
   }
 
   const label: React.CSSProperties = {
-    fontSize: 'clamp(10px, 1.2vw, 15px)',
+    fontSize: 'clamp(10px, 1.2vw, 17px)',
     fontWeight: 300,
     letterSpacing: 2,
     textTransform: 'uppercase',

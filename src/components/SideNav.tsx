@@ -1,10 +1,11 @@
 const NAV_ITEMS = [
-  { label: 'Intro', target: 0.002 },
-  { label: 'Problems', target: 0.284 },
-  { label: '2025 Highlights', target: 0.462 },
-  { label: 'Team & Projects', target: 0.518 },
-  { label: 'Nexus', target: 0.870 },
-  { label: 'Support Us', target: 0.970 },
+  { label: 'Intro', target: 0.055 },
+  { label: 'Problems', target: 0.313 },
+  { label: '2025 Highlights', target: 0.483 },
+  { label: 'Team & Projects', target: 0.549 },
+  { label: 'Vision', target: 0.791 },
+  { label: 'Nexus', target: 0.893 },
+  { label: 'Support Us', target: 0.981 },
 ] as const
 
 interface SideNavProps {
@@ -64,7 +65,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               <span
                 style={{
                   fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: 11,
+                  fontSize: 'clamp(11px, 1.2vw, 14px)',
                   textTransform: 'uppercase',
                   letterSpacing: 2,
                   color: isActive
