@@ -2,8 +2,7 @@ const NAV_ITEMS = [
   { label: 'Intro', target: 0.002 },
   { label: 'Problems', target: 0.284 },
   { label: '2025 Highlights', target: 0.462 },
-  { label: 'Projects', target: 0.518 },
-  { label: 'Team', target: 0.593 },
+  { label: 'Team & Projects', target: 0.518 },
   { label: 'Nexus', target: 0.870 },
   { label: 'Support Us', target: 0.970 },
 ] as const

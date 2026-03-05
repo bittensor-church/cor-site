@@ -10,11 +10,13 @@ const TOTAL = EXIT - ENTER
 
 interface Project {
   title: string
-  link?: string
+  link: string
+  tech?: string
 }
 
 interface BreakdownItem {
   name: string
+  description: string
   percentage: number
   taoAmount: number
   projects: Project[]
@@ -23,44 +25,50 @@ interface BreakdownItem {
 const BREAKDOWN_ITEMS: BreakdownItem[] = [
   {
     name: 'Protocol Fairness & Network Safety',
+    description: 'Improving incentive alignment and protecting the network from abuse',
     percentage: 50,
     taoAmount: 1084,
     projects: [
-      { title: 'commit reveal' },
-      { title: 'yuma3' },
+      { title: 'commit reveal', link: '#' },
+      { title: 'yuma3', link: '#', tech: 'rust' },
+      { title: 'liquid alpha 2.x', link: '#', tech: 'rust' },
       { title: 'superburn', link: 'https://github.com/bittensor-church/superburn' },
-      { title: 'burn', link: 'https://github.com/bittensor-church/burn' },
-      { title: 'golden-validator' },
-      { title: 'collateral smart contract', link: 'https://github.com/bittensor-church/collateral-contracts' },
-      { title: 'DDoS shield', link: 'https://github.com/bittensor-church/bt-ddos-shield' },
-      { title: 'Opinion bot' },
+      { title: 'burn', link: 'https://github.com/bittensor-church/burn', tech: 'python' },
+      { title: 'golden-validator', link: '#', tech: 'python' },
+      { title: 'collateral smart contract', link: 'https://github.com/bittensor-church/collateral-contracts', tech: 'smart contract' },
+      { title: 'DDoS shield', link: 'https://github.com/bittensor-church/bt-ddos-shield', tech: 'python' },
+      { title: 'opinion discord bot', link: 'https://github.com/bittensor-church/bittensor-opinion-bot', tech: 'python' },
+      { title: 'taoflow2', link: '#', tech: 'rust' },
     ],
   },
   {
     name: 'Transparency & Governance Visibility',
+    description: 'Making network behavior visible and enabling community voice',
     percentage: 25,
     taoAmount: 543,
     projects: [
-      { title: 'bittensor-why-burn', link: 'https://github.com/bittensor-church/bittensor-why-burn' },
-      { title: 'grafana', link: 'https://grafana.bactensor.io' },
-      { title: 'bittensor-sentinel', link: 'https://github.com/bittensor-church/sentinel' },
-      { title: 'discord bots' },
-      { title: 'cor discord', link: 'https://discord.gg/NCherfe5HQ' },
-      { title: 'bits', link: 'https://github.com/bittensor-church/bits' },
-      { title: 'forum', link: 'https://forum.bittensor.church/' },
+      { title: 'bittensor-why-burn', link: 'https://github.com/bittensor-church/bittensor-why-burn', tech: 'community' },
+      { title: 'grafana', link: 'https://grafana.bittensor.church', tech: 'python' },
+      { title: 'bittensor-sentinel', link: 'https://github.com/bittensor-church/sentinel', tech: 'python' },
+      { title: 'discord bots', link: '#', tech: 'community' },
+      { title: 'cor discord', link: 'https://discord.gg/NCherfe5HQ', tech: 'python' },
+      { title: 'bits', link: 'https://github.com/bittensor-church/bits', tech: 'community' },
+      { title: 'forum', link: 'https://forum.bittensor.church/', tech: 'community' },
     ],
   },
   {
     name: 'Subnet Development & Operations',
+    description: 'Providing infrastructure and tooling for subnet operators',
     percentage: 25,
     taoAmount: 543,
     projects: [
-      { title: 'nexus', link: 'https://github.com/bittensor-church/nexus-poc' },
+      { title: 'nexus', link: 'https://github.com/bittensor-church/nexus-poc', tech: 'python' },
       { title: 'pylon', link: 'https://github.com/bittensor-church/bittensor-pylon' },
       { title: 'yuma3 simulator', link: 'https://github.com/bittensor-church/interactive-yuma-simulator' },
-      { title: 'rails contract', link: 'https://github.com/bittensor-church/rail-contracts' },
-      { title: 'treasury contract' },
-      { title: 'prometheus proxy' },
+      { title: 'rails contract', link: 'https://github.com/bittensor-church/rail-contracts', tech: 'smart contract' },
+      { title: 'treasury contract', link: 'https://github.com/bittensor-church/treasury-contract', tech: 'smart contract' },
+      { title: 'alpha wrapper', link: '#', tech: 'smart contract' },
+      { title: 'prometheus proxy', link: 'https://github.com/bittensor-church/bittensor-prometheus-proxy', tech: 'python' },
     ],
   },
 ]
@@ -79,26 +87,6 @@ function fadeIn(local: number, start: number, duration: number = 0.04): number {
   if (local > start + duration) return 1
   return (local - start) / duration
 }
-
-function phaseOpacity(
-  local: number,
-  fadeInStart: number,
-  fadeOutStart: number,
-  fadeOutEnd: number,
-): number {
-  if (local < fadeInStart) return 0
-  const fadeInEnd = fadeInStart + 0.04
-  if (local < fadeInEnd) return (local - fadeInStart) / 0.04
-  if (local < fadeOutStart) return 1
-  if (local >= fadeOutEnd) return 0
-  return 1 - (local - fadeOutStart) / (fadeOutEnd - fadeOutStart)
-}
-
-const TEAM_SKILLS = [
-  { left: 'smart contract', right: 'blockchain' },
-  { left: 'yuma', right: 'consensus' },
-  { left: 'python', right: null },
-]
 
 // ─── Grid cell ───
 
@@ -126,6 +114,16 @@ function BreakdownCell({ item, opacity }: {
       </div>
       <div style={{
         ...BASE_FONT,
+        fontSize: 'clamp(11px, 1.3vw, 16px)',
+        fontWeight: 400,
+        fontStyle: 'italic',
+        color: '#d4a843',
+        lineHeight: 1.3,
+      }}>
+        {item.description}
+      </div>
+      <div style={{
+        ...BASE_FONT,
         fontSize: 'clamp(13px, 1.5vw, 20px)',
         fontWeight: 500,
         color: '#d4a843',
@@ -147,7 +145,7 @@ function BreakdownCell({ item, opacity }: {
               lineHeight: 1.4,
             }}>
               <span style={{ color: '#d4a843', fontSize: '0.9em' }}>{'// '}</span>
-              {project.link ? (
+              {project.link !== '#' ? (
                 <a
                   href={project.link}
                   target="_blank"
@@ -164,7 +162,19 @@ function BreakdownCell({ item, opacity }: {
                   {project.title}
                 </a>
               ) : (
-                <span>{project.title}</span>
+                <span style={{
+                  color: '#ffffff',
+                  textDecoration: 'underline',
+                  textDecorationColor: 'rgba(212,168,67,0.4)',
+                  textUnderlineOffset: 3,
+                }}>
+                  {project.title}
+                </span>
+              )}
+              {project.tech && (
+                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9em' }}>
+                  {' '}({project.tech})
+                </span>
               )}
             </div>
           ))}
@@ -279,91 +289,6 @@ function BottomStrip({ local }: { local: number }) {
   )
 }
 
-// ─── Team members phase ───
-
-function TeamPhase({ local }: { local: number }) {
-  const op = phaseOpacity(local, 0.68, 0.92, 1.0)
-  if (op <= 0) return null
-
-  const STAGGER = 0.04
-  const base = 0.68
-
-  return (
-    <div style={{
-      opacity: op,
-      position: 'absolute',
-      inset: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <div style={{
-        background: 'rgba(0, 0, 0, 0.45)',
-        backdropFilter: 'blur(8px)',
-        borderRadius: 12,
-        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        alignItems: 'center',
-        gap: 'clamp(4px, 1vh, 12px)',
-      }}>
-      {/* Big number */}
-      <div style={{
-        ...BASE_FONT,
-        opacity: fadeIn(local, base),
-        transform: `translateY(${(1 - fadeIn(local, base)) * 14}px)`,
-        fontSize: 'clamp(48px, 8vw, 96px)',
-        fontWeight: 500,
-        color: '#ffffff',
-        lineHeight: 1,
-      }}>
-        {PR_STATS_DATA.totalContributors}
-      </div>
-
-      {/* Label */}
-      <div style={{
-        ...BASE_FONT,
-        opacity: fadeIn(local, base + STAGGER),
-        transform: `translateY(${(1 - fadeIn(local, base + STAGGER)) * 10}px)`,
-        fontSize: 'clamp(10px, 1.2vw, 15px)',
-        fontWeight: 300,
-        letterSpacing: 2,
-        textTransform: 'uppercase' as const,
-        color: '#d4a843',
-        marginBottom: 'clamp(16px, 3vh, 32px)',
-      }}>
-        team members
-      </div>
-
-      {/* Skill lines */}
-      {TEAM_SKILLS.map((skill, i) => {
-        const skillOp = fadeIn(local, base + STAGGER * (i + 2))
-        return (
-          <div key={skill.left} style={{
-            ...BASE_FONT,
-            opacity: skillOp,
-            transform: `translateY(${(1 - skillOp) * 10}px)`,
-            fontSize: 'clamp(16px, 2.2vw, 28px)',
-            fontWeight: 400,
-            color: '#ffffff',
-            lineHeight: 1.6,
-          }}>
-            {skill.left}
-            {skill.right && (
-              <>
-                <span style={{ color: '#d4a843' }}>{' / '}</span>
-                {skill.right}
-              </>
-            )}
-          </div>
-        )
-      })}
-      </div>
-    </div>
-  )
-}
-
 export function OverviewOverlay({ progress }: OverviewOverlayProps) {
   if (progress < ENTER || progress > EXIT) return null
 
@@ -376,8 +301,8 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
 
   if (globalFade <= 0) return null
 
-  // Grid + bottom strip fade-out envelope
-  const gridStripOp = local < 0.65 ? 1 : local > 0.70 ? 0 : 1 - (local - 0.65) / 0.05
+  // Grid + bottom strip fade-out envelope (visible until near end)
+  const gridStripOp = local < 0.88 ? 1 : local > 0.92 ? 0 : 1 - (local - 0.88) / 0.04
 
   const STAGGER = 0.04
 
@@ -425,7 +350,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               color: '#d4a843',
               marginBottom: IS_MOBILE ? 'clamp(8px, 2vh, 16px)' : 'clamp(20px, 4vh, 40px)',
             }}>
-              Projects in 2025
+              15 people &middot; 3 teams
             </div>
             <div style={{
               display: 'grid',
@@ -452,9 +377,6 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
           <BottomStrip local={local} />
         </div>
       )}
-
-      {/* Team members phase */}
-      <TeamPhase local={local} />
     </div>
   )
 }
