@@ -295,7 +295,7 @@ function BottomStrip({ local }: { local: number }) {
           opacity: statsOpacity,
           position: 'absolute',
           left: 'clamp(24px, 4vw, 48px)',
-          right: 'clamp(24px, 4vw, 48px)',
+          right: 'clamp(120px, 12vw, 200px)',
           top: 0,
           bottom: 0,
           display: 'flex',
