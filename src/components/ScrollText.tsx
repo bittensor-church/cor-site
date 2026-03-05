@@ -39,6 +39,10 @@ export function ScrollText({ label, progress, enterAt, exitAt }: ScrollTextProps
       textTransform: 'uppercase',
       textShadow: '0 2px 12px rgba(0,0,0,0.6)',
       willChange: 'opacity, transform',
+      background: 'rgba(0, 0, 0, 0.45)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: 12,
+      padding: 'clamp(12px, 2vh, 24px) clamp(20px, 3vw, 40px)',
     }}>
       {label}
     </div>

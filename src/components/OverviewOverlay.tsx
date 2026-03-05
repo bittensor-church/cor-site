@@ -219,6 +219,10 @@ function BottomStrip({ local }: { local: number }) {
       right: '5%',
       borderTop: '1px solid rgba(255,255,255,0.1)',
       paddingTop: 'clamp(12px, 2vh, 24px)',
+      background: 'rgba(0, 0, 0, 0.45)',
+      backdropFilter: 'blur(8px)',
+      borderRadius: 12,
+      padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
     }}>
       {/* TAO layer */}
       {taoOpacity > 0 && (
@@ -293,8 +297,17 @@ function TeamPhase({ local }: { local: number }) {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 'clamp(4px, 1vh, 12px)',
     }}>
+      <div style={{
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        gap: 'clamp(4px, 1vh, 12px)',
+      }}>
       {/* Big number */}
       <div style={{
         ...BASE_FONT,
@@ -346,6 +359,7 @@ function TeamPhase({ local }: { local: number }) {
           </div>
         )
       })}
+      </div>
     </div>
   )
 }
@@ -390,6 +404,15 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             alignItems: 'center',
             overflowY: IS_MOBILE ? 'auto' as const : 'visible' as const,
           }}>
+            <div style={{
+              background: 'rgba(0, 0, 0, 0.45)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: 12,
+              padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+              display: 'flex',
+              flexDirection: 'column' as const,
+              alignItems: 'center',
+            }}>
             {/* Title */}
             <div style={{
               ...BASE_FONT,
@@ -421,6 +444,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
                   />
                 )
               })}
+            </div>
             </div>
           </div>
 

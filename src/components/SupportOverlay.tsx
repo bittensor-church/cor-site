@@ -37,8 +37,17 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
       pointerEvents: 'none',
       zIndex: 5,
       padding: '0 8%',
-      gap: 'clamp(16px, 3vh, 32px)',
     }}>
+      <div style={{
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        gap: 'clamp(16px, 3vh, 32px)',
+      }}>
       {/* Support us */}
       <div style={{
         ...BASE_FONT,
@@ -73,6 +82,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         willChange: 'opacity, transform',
       }}>
         XXXXXXXX
+      </div>
       </div>
     </div>
   )

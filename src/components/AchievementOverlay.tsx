@@ -39,7 +39,13 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
       paddingRight: '8%',
       opacity: globalFadeOut,
     }}>
-      <div style={{ maxWidth: '700px' }}>
+      <div style={{
+        maxWidth: '700px',
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+      }}>
         {/* Section label */}
         <div style={{
           opacity: labelOpacity,
@@ -87,8 +93,7 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
           textShadow: '0 2px 12px rgba(0,0,0,0.6)',
           willChange: 'opacity, transform',
         }}>
-          <span style={{ color: '#d4a843', fontWeight: 600 }}>WeightCopier</span>
-          {' — we built the weapon AND the detection system. Automated weight-setting strategies that exposed the vulnerability, then helped close it.'}
+          We built the weapons AND the detection system. Step by step the weight-copying stopped being a discussion point. Still Liquid Alpha 2.1 is ready to be unleashed.
         </div>
       </div>
     </div>

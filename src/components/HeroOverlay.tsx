@@ -54,6 +54,16 @@ export function HeroOverlay({ progress }: HeroOverlayProps) {
       zIndex: 5,
       padding: '0 8%',
     }}>
+      <div style={{
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+        maxWidth: '800px',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+      }}>
       {/* INDEPENDENT BUILDERS subtitle */}
       <div style={{
         opacity: subtitleOpacity,
@@ -92,6 +102,7 @@ export function HeroOverlay({ progress }: HeroOverlayProps) {
         We are the Church of Rao. An independent team of builders engineering
         the critical tooling, simulations, and smart contracts that power the
         decentralized AI foundry.
+      </div>
       </div>
     </div>
   )

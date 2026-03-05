@@ -53,6 +53,12 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
       paddingRight: '8%',
       opacity: globalFadeOut,
     }}>
+      <div style={{
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+      }}>
       {/* Header */}
       <div style={{
         opacity: Math.min(1, local / 0.05),
@@ -149,6 +155,7 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
             </div>
           )
         })}
+      </div>
       </div>
     </div>
   )
