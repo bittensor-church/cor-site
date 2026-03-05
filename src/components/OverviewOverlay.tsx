@@ -259,17 +259,20 @@ function BottomStrip({ local }: { local: number }) {
       left: '5%',
       right: '5%',
     }}>
-      {/* Description above the bar */}
-      <div style={{
-        ...BASE_FONT,
-        fontSize: 'clamp(9px, 1vw, 13px)',
-        color: 'rgba(255,255,255,0.5)',
-        textAlign: 'center',
-        marginBottom: 12,
-        letterSpacing: 1,
-      }}>
-        Beyond our own projects, we actively contribute across the Bittensor ecosystem.
-      </div>
+      {/* Description above the bar — visible only with PR stats */}
+      {statsOpacity > 0 && (
+        <div style={{
+          ...BASE_FONT,
+          opacity: statsOpacity,
+          fontSize: 'clamp(9px, 1vw, 13px)',
+          color: 'rgba(255,255,255,0.85)',
+          textAlign: 'center',
+          marginBottom: 12,
+          letterSpacing: 1,
+        }}>
+          Beyond our own projects, we actively contribute across the Bittensor ecosystem.
+        </div>
+      )}
 
       {/* Bar */}
       <div style={{
@@ -310,71 +313,69 @@ function BottomStrip({ local }: { local: number }) {
           <div style={{
             opacity: statsOpacity,
             position: 'absolute',
-            left: 'clamp(24px, 4vw, 48px)',
-            right: 'clamp(24px, 4vw, 48px)',
-            top: 'clamp(16px, 3vh, 32px)',
+            left: 0,
+            right: 0,
+            top: 0,
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 'clamp(16px, 8vw, 100px)',
             flexWrap: 'wrap' as const,
-            gap: 16,
           }}>
-            {/* Left: stats */}
-            <div style={{
-              display: 'flex',
-              gap: 'clamp(16px, 4vw, 60px)',
-              flexWrap: 'wrap' as const,
-            }}>
-              <div style={statStyle}>
-                <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
-                <div style={label}>PRs merged</div>
-              </div>
-              <div style={statStyle}>
-                <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
-                <div style={label}>repos</div>
-              </div>
+            <div style={statStyle}>
+              <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
+              <div style={label}>PRs merged</div>
             </div>
+            <div style={statStyle}>
+              <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
+              <div style={label}>repos</div>
+            </div>
+          </div>
+        )}
 
-            {/* Right: motto + repo links */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'clamp(12px, 1.5vw, 24px)',
-              pointerEvents: 'auto',
-              flexWrap: 'wrap' as const,
+        {/* Motto + repo links — right side */}
+        {statsOpacity > 0 && (
+          <div style={{
+            opacity: statsOpacity,
+            position: 'absolute',
+            right: 'clamp(24px, 4vw, 48px)',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'clamp(12px, 1.5vw, 24px)',
+            pointerEvents: 'auto',
+          }}>
+            <span style={{
+              ...BASE_FONT,
+              fontSize: 'clamp(11px, 1.2vw, 17px)',
+              color: 'rgba(255,255,255,0.7)',
+              letterSpacing: 1,
+              fontWeight: 400,
+              whiteSpace: 'nowrap',
             }}>
-              <span style={{
-                ...BASE_FONT,
-                fontSize: 'clamp(11px, 1.2vw, 17px)',
-                color: 'rgba(255,255,255,0.7)',
-                letterSpacing: 1,
-                fontWeight: 400,
-                whiteSpace: 'nowrap',
-              }}>
-                Don't trust. Verify.
-              </span>
-              {PR_STATS_DATA.verifyLinks.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    ...BASE_FONT,
-                    fontSize: 'clamp(10px, 1.1vw, 15px)',
-                    color: 'rgba(255,255,255,0.7)',
-                    textDecoration: 'none',
-                    letterSpacing: 1,
-                    transition: 'color 0.3s',
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
-                >
-                  ↗ {link.name}
-                </a>
-              ))}
-            </div>
+              Don't trust. Verify.
+            </span>
+            {PR_STATS_DATA.verifyLinks.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  ...BASE_FONT,
+                  fontSize: 'clamp(10px, 1.1vw, 15px)',
+                  color: 'rgba(255,255,255,0.7)',
+                  textDecoration: 'none',
+                  letterSpacing: 1,
+                  transition: 'color 0.3s',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
+              >
+                ↗ {link.name}
+              </a>
+            ))}
           </div>
         )}
       </div>
