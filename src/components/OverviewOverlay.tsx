@@ -330,15 +330,18 @@ function BottomStrip({ local }: { local: number }) {
               <div style={label}>repos</div>
             </div>
 
-            {/* Verify column: repo links top (number height), motto bottom (label height) */}
+            {/* Verify column: repo links at number height, motto at label height */}
             <div style={{
               ...statStyle,
               pointerEvents: 'auto',
             }}>
+              {/* Same height as bigNum so motto aligns with labels below */}
               <div style={{
+                ...bigNum,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: 'clamp(2px, 0.4vh, 6px)',
               }}>
                 {PR_STATS_DATA.verifyLinks.map((link) => (
