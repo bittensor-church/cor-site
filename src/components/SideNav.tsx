@@ -21,6 +21,29 @@ function getActiveIndex(progress: number): number {
   return 0
 }
 
+function getScale(i: number, activeIndex: number): number {
+  const distance = Math.abs(i - activeIndex)
+  if (distance === 0) return 1
+  if (distance === 1) return 0.8
+  if (distance === 2) return 0.65
+  return 0.55
+}
+
+function getOpacity(i: number, activeIndex: number): number {
+  const distance = Math.abs(i - activeIndex)
+  if (distance === 0) return 1
+  if (distance === 1) return 0.7
+  if (distance === 2) return 0.45
+  return 0.3
+}
+
+function getDotSize(i: number, activeIndex: number): number {
+  const distance = Math.abs(i - activeIndex)
+  if (distance === 0) return 10
+  if (distance === 1) return 8
+  return 6
+}
+
 const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 600
 
 export function SideNav({ progress, onNavigate }: SideNavProps) {
@@ -36,7 +59,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
         zIndex: 20,
         display: 'flex',
         flexDirection: 'column',
-        gap: 36,
+        gap: 28,
         alignItems: 'flex-end',
         pointerEvents: 'none',
         opacity: progress < 0.005 ? 0 : 1,
@@ -45,6 +68,9 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
     >
       {NAV_ITEMS.map((item, i) => {
         const isActive = i === activeIndex
+        const scale = getScale(i, activeIndex)
+        const opacity = getOpacity(i, activeIndex)
+        const dotSize = getDotSize(i, activeIndex)
 
         return (
           <button
@@ -59,6 +85,10 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               padding: '10px 8px',
               cursor: 'pointer',
               pointerEvents: 'auto',
+              transform: `scale(${scale})`,
+              transformOrigin: 'right center',
+              opacity,
+              transition: 'all 0.4s ease',
             }}
           >
             {!IS_MOBILE && (
@@ -68,10 +98,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
                   fontSize: 'clamp(11px, 1.2vw, 14px)',
                   textTransform: 'uppercase',
                   letterSpacing: 2,
-                  color: isActive
-                    ? 'rgba(255,255,255,1)'
-                    : 'rgba(255,255,255,0.55)',
-                  transition: 'color 0.4s ease',
+                  color: 'rgba(255,255,255,1)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -80,8 +107,8 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
             )}
             <span
               style={{
-                width: isActive ? 10 : 7,
-                height: isActive ? 10 : 7,
+                width: dotSize,
+                height: dotSize,
                 borderRadius: '50%',
                 backgroundColor: isActive
                   ? '#ffffff'
