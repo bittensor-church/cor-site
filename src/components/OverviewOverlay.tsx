@@ -342,6 +342,7 @@ function BottomStrip({ local }: { local: number }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
+                marginTop: '-0.4em',
                 gap: 'clamp(2px, 0.4vh, 6px)',
               }}>
                 {PR_STATS_DATA.verifyLinks.map((link) => (
