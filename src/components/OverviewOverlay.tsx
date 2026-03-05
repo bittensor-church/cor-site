@@ -258,73 +258,101 @@ function BottomStrip({ local }: { local: number }) {
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
       right: '5%',
-      borderTop: '1px solid rgba(255,255,255,0.1)',
-      paddingTop: 'clamp(12px, 2vh, 24px)',
-      background: 'rgba(0, 0, 0, 0.45)',
-      backdropFilter: 'blur(8px)',
-      borderRadius: 12,
-      padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
     }}>
-      {/* TAO layer */}
-      {taoOpacity > 0 && (
-        <div style={{
-          opacity: taoOpacity,
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 'clamp(16px, 8vw, 100px)',
-          flexWrap: 'wrap' as const,
-        }}>
-          <div style={statStyle}>
-            <div style={bigNum}>2,000</div>
-            <div style={label}>TAO received</div>
-          </div>
-          <div style={statStyle}>
-            <div style={bigNum}>2,170</div>
-            <div style={label}>TAO deployed</div>
-          </div>
-        </div>
-      )}
+      {/* Description above the bar */}
+      <div style={{
+        ...BASE_FONT,
+        fontSize: 'clamp(9px, 1vw, 13px)',
+        color: 'rgba(255,255,255,0.5)',
+        textAlign: 'center',
+        marginBottom: 12,
+        letterSpacing: 1,
+      }}>
+        Beyond our own projects, we actively contribute across the Bittensor ecosystem.
+      </div>
 
-      {/* PR stats layer */}
-      {statsOpacity > 0 && (
-        <div style={{
-          opacity: statsOpacity,
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 'clamp(16px, 8vw, 100px)',
-          flexWrap: 'wrap' as const,
-        }}>
-          <div style={statStyle}>
-            <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
-            <div style={label}>PRs merged</div>
-          </div>
-          <div style={statStyle}>
-            <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
-            <div style={label}>repos</div>
-          </div>
+      {/* Bar */}
+      <div style={{
+        position: 'relative',
+        borderTop: '1px solid rgba(255,255,255,0.1)',
+        paddingTop: 'clamp(12px, 2vh, 24px)',
+        background: 'rgba(0, 0, 0, 0.45)',
+        backdropFilter: 'blur(8px)',
+        borderRadius: 12,
+        padding: 'clamp(16px, 3vh, 32px) clamp(24px, 4vw, 48px)',
+      }}>
+        {/* TAO layer */}
+        {taoOpacity > 0 && (
           <div style={{
-            ...BASE_FONT,
+            opacity: taoOpacity,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 10,
-            pointerEvents: 'auto',
+            justifyContent: 'center',
+            gap: 'clamp(16px, 8vw, 100px)',
+            flexWrap: 'wrap' as const,
           }}>
-            <div style={label}>Verify</div>
+            <div style={statStyle}>
+              <div style={bigNum}>2,000</div>
+              <div style={label}>TAO received</div>
+            </div>
+            <div style={statStyle}>
+              <div style={bigNum}>2,170</div>
+              <div style={label}>TAO deployed</div>
+            </div>
+          </div>
+        )}
+
+        {/* PR stats layer */}
+        {statsOpacity > 0 && (
+          <div style={{
+            opacity: statsOpacity,
+            position: 'absolute',
+            left: 'clamp(24px, 4vw, 48px)',
+            right: 'clamp(24px, 4vw, 48px)',
+            top: 'clamp(16px, 3vh, 32px)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap' as const,
+            gap: 16,
+          }}>
+            {/* Left: stats */}
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 'clamp(4px, 0.6vh, 8px)',
+              gap: 'clamp(16px, 4vw, 60px)',
+              flexWrap: 'wrap' as const,
             }}>
+              <div style={statStyle}>
+                <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
+                <div style={label}>PRs merged</div>
+              </div>
+              <div style={statStyle}>
+                <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
+                <div style={label}>repos</div>
+              </div>
+            </div>
+
+            {/* Right: motto + repo links */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'clamp(12px, 1.5vw, 24px)',
+              pointerEvents: 'auto',
+              flexWrap: 'wrap' as const,
+            }}>
+              <span style={{
+                ...BASE_FONT,
+                fontSize: 'clamp(11px, 1.2vw, 17px)',
+                color: 'rgba(255,255,255,0.7)',
+                letterSpacing: 1,
+                fontWeight: 400,
+                whiteSpace: 'nowrap',
+              }}>
+                Don't trust. Verify.
+              </span>
               {PR_STATS_DATA.verifyLinks.map((link) => (
                 <a
                   key={link.url}
@@ -338,6 +366,7 @@ function BottomStrip({ local }: { local: number }) {
                     textDecoration: 'none',
                     letterSpacing: 1,
                     transition: 'color 0.3s',
+                    whiteSpace: 'nowrap',
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
@@ -346,21 +375,9 @@ function BottomStrip({ local }: { local: number }) {
                 </a>
               ))}
             </div>
-            <div style={{
-              ...BASE_FONT,
-              fontSize: 'clamp(9px, 1vw, 13px)',
-              color: 'rgba(255,255,255,0.5)',
-              textAlign: 'center',
-              lineHeight: 1.5,
-              letterSpacing: 1,
-              marginTop: 8,
-            }}>
-              Don't trust. Verify.<br />
-              Every commit is public.
-            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
