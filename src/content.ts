@@ -120,7 +120,6 @@ export const PR_STATS_DATA: PrStatsData = {
   totalPrs: 248,
   totalRepos: 17,
   verifyLinks: [
-    { name: 'Repo 1', url: '#' },
     { name: 'PR stats', url: 'https://github.com/bittensor-church' },
   ],
   topRepos: [
