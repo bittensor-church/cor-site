@@ -28,8 +28,10 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
     const frame = framesRef.current[index]
     if (!frame) return
 
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: false })
     if (!ctx) return
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
 
     // Resize canvas to match container
     const rect = canvas.getBoundingClientRect()
