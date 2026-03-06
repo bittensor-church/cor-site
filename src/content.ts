@@ -121,7 +121,7 @@ export const PR_STATS_DATA: PrStatsData = {
   totalRepos: 17,
   verifyLinks: [
     { name: 'Repo 1', url: '#' },
-    { name: 'Repo 2', url: '#' },
+    { name: 'PR stats', url: 'https://github.com/bittensor-church' },
   ],
   topRepos: [
     { name: 'bittensor-pylon', prs: 60 },
