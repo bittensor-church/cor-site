@@ -420,13 +420,14 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
           {/* Grid — top area */}
           <div style={{
             position: 'absolute',
-            top: isMobile ? 'clamp(24px, 4vh, 60px)' : 'clamp(80px, 16vh, 160px)',
+            top: 0,
             left: '5%',
             right: '5%',
             bottom: isMobile ? 'clamp(100px, 16vh, 160px)' : 'clamp(120px, 18vh, 180px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
             overflowY: 'visible' as const,
           }}>
             <div style={{
