@@ -1,18 +1,28 @@
 import { useState, useEffect } from 'react'
 
-export function useIsMobile(breakpoint = 768): boolean {
-  const [isMobile, setIsMobile] = useState(
+function useMediaBreakpoint(breakpoint: number): boolean {
+  const [matches, setMatches] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < breakpoint
   )
 
   useEffect(() => {
     const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`)
-    setIsMobile(mq.matches)
+    setMatches(mq.matches)
 
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
     mq.addEventListener('change', handler)
     return () => mq.removeEventListener('change', handler)
   }, [breakpoint])
 
-  return isMobile
+  return matches
+}
+
+export function useIsMobile(breakpoint = 768): boolean {
+  return useMediaBreakpoint(breakpoint)
+}
+
+export function useIsTablet(): boolean {
+  const isMobile = useMediaBreakpoint(768)
+  const isNarrow = useMediaBreakpoint(1025)
+  return !isMobile && isNarrow
 }

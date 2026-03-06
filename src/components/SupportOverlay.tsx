@@ -182,11 +182,11 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
           onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.45)' }}
         >
           <svg
-            width="clamp(14px, 1.5vw, 20px)"
-            height="clamp(14px, 1.5vw, 20px)"
             viewBox="0 0 24 24"
             fill="currentColor"
             style={{
+              width: 'clamp(14px, 1.5vw, 20px)',
+              height: 'clamp(14px, 1.5vw, 20px)',
               animation: 'bellRing 4s ease-in-out infinite',
               transformOrigin: 'top center',
               flexShrink: 0,
@@ -195,14 +195,14 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
           </svg>
           <span style={{
-            fontSize: 'clamp(8px, 0.9vw, 12px)',
+            fontSize: 'clamp(10px, 0.9vw, 12px)',
             letterSpacing: 'clamp(0.5px, 0.1vw, 1px)',
             lineHeight: 1.3,
           }}>
             Bring your ideas to OpenDev calls on Discord
           </span>
           <span style={{
-            fontSize: 'clamp(7px, 0.75vw, 10px)',
+            fontSize: 'clamp(9px, 0.75vw, 10px)',
             letterSpacing: 'clamp(0.5px, 0.1vw, 1.5px)',
             textTransform: 'uppercase',
             opacity: 0.7,

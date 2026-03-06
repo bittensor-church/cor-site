@@ -106,7 +106,7 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
     drawFrame(frameIndex)
   }, [sectionProgress, frameCount, drawFrame])
 
-  // Handle resize
+  // Handle resize + DPR change (browser zoom)
   useEffect(() => {
     const onResize = () => {
       if (lastFrameRef.current >= 0) {
@@ -114,37 +114,47 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
       }
     }
     window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+
+    // Listen for DPR changes (browser zoom)
+    const dprQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+    const onDprChange = () => {
+      if (lastFrameRef.current >= 0) drawFrame(lastFrameRef.current)
+    }
+    dprQuery.addEventListener('change', onDprChange)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+      dprQuery.removeEventListener('change', onDprChange)
+    }
   }, [drawFrame])
 
-  // Audio fade
+  // Audio fade (uses requestAnimationFrame for battery efficiency)
   const fadeAudio = useCallback((targetVolume: number, onComplete?: () => void) => {
     const audio = audioRef.current
     if (!audio) return
 
     if (fadeIntervalRef.current !== null) {
-      clearInterval(fadeIntervalRef.current)
+      cancelAnimationFrame(fadeIntervalRef.current)
     }
 
     const startVolume = audio.volume
-    const steps = FADE_DURATION / 16
-    const volumeStep = (targetVolume - startVolume) / steps
-    let step = 0
+    const startTime = performance.now()
 
-    fadeIntervalRef.current = window.setInterval(() => {
-      step++
-      const newVolume = Math.max(0, Math.min(1, startVolume + volumeStep * step))
-      audio.volume = newVolume
+    const tick = (now: number) => {
+      const elapsed = now - startTime
+      const t = Math.min(1, elapsed / FADE_DURATION)
+      audio.volume = Math.max(0, Math.min(1, startVolume + (targetVolume - startVolume) * t))
 
-      if (step >= steps) {
-        if (fadeIntervalRef.current !== null) {
-          clearInterval(fadeIntervalRef.current)
-          fadeIntervalRef.current = null
-        }
+      if (t < 1) {
+        fadeIntervalRef.current = requestAnimationFrame(tick)
+      } else {
+        fadeIntervalRef.current = null
         audio.volume = targetVolume
         onComplete?.()
       }
-    }, 16)
+    }
+
+    fadeIntervalRef.current = requestAnimationFrame(tick)
   }, [])
 
   // Audio play/pause
@@ -165,7 +175,7 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
 
     return () => {
       if (fadeIntervalRef.current !== null) {
-        clearInterval(fadeIntervalRef.current)
+        cancelAnimationFrame(fadeIntervalRef.current)
         fadeIntervalRef.current = null
       }
     }
@@ -202,7 +212,7 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)',
+        background: 'radial-gradient(ellipse 80% 70% at center, transparent 40%, rgba(0,0,0,0.6) 100%)',
         pointerEvents: 'none',
       }} />
 

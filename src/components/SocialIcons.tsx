@@ -43,7 +43,7 @@ export function SocialIconRow({
   hoverColor = '#d4a843',
   showBorder = true,
 }: SocialIconRowProps) {
-  const btnSize = size + 16
+  const btnSize = Math.max(44, size + 16)
 
   return (
     <div style={{

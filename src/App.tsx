@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import { VideoSection } from './components/VideoSection'
 import { HeroOverlay } from './components/HeroOverlay'
@@ -15,9 +15,45 @@ import { SideNav } from './components/SideNav'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { SECTIONS } from './content'
 
+const HASH_SECTIONS = [
+  { hash: 'intro', target: 0.055 },
+  { hash: 'problems', target: 0.313 },
+  { hash: 'highlights', target: 0.483 },
+  { hash: 'team', target: 0.549 },
+  { hash: 'vision', target: 0.791 },
+  { hash: 'nexus', target: 0.893 },
+  { hash: 'support', target: 0.981 },
+] as const
+
+function getHashForProgress(p: number): string {
+  for (let i = HASH_SECTIONS.length - 1; i > 0; i--) {
+    const mid = (HASH_SECTIONS[i - 1].target + HASH_SECTIONS[i].target) / 2
+    if (p >= mid) return HASH_SECTIONS[i].hash
+  }
+  return HASH_SECTIONS[0].hash
+}
+
 export function App() {
   const [loaded, setLoaded] = useState(false)
   const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
+  const lastHashRef = useRef('')
+
+  // Deep link: read hash on mount
+  useEffect(() => {
+    const hash = window.location.hash.slice(1).toLowerCase()
+    if (!hash) return
+    const match = HASH_SECTIONS.find((s) => s.hash === hash)
+    if (match) setProgress(match.target)
+  }, [setProgress])
+
+  // Deep link: update hash on section change
+  useEffect(() => {
+    const hash = getHashForProgress(sectionProgress)
+    if (hash !== lastHashRef.current) {
+      lastHashRef.current = hash
+      window.history.replaceState(null, '', `#${hash}`)
+    }
+  }, [sectionProgress])
 
   return (
     <div style={{
@@ -74,7 +110,7 @@ export function App() {
       </main>
 
       <SideNav progress={sectionProgress} onNavigate={setProgress} />
-      <MusicToggle />
+      <MusicToggle progress={sectionProgress} />
       <LoadingScreen visible={!loaded} onReady={() => setLoaded(true)} />
     </div>
   )

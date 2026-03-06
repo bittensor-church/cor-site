@@ -4,7 +4,12 @@ import { SocialIconRow } from './SocialIcons'
 
 const FADE_MS = 800
 
-export function MusicToggle() {
+interface MusicToggleProps {
+  progress?: number
+}
+
+export function MusicToggle({ progress = 0 }: MusicToggleProps) {
+  const showSocial = progress < 0.05 || progress > 0.97
   const audioRef = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
   const [started, setStarted] = useState(false)
@@ -14,25 +19,26 @@ export function MusicToggle() {
     const audio = audioRef.current
     if (!audio) return
 
-    if (fadeRef.current !== null) clearInterval(fadeRef.current)
+    if (fadeRef.current !== null) cancelAnimationFrame(fadeRef.current)
 
-    const start = audio.volume
-    const steps = FADE_MS / 16
-    const step = (target - start) / steps
-    let i = 0
+    const startVol = audio.volume
+    const startTime = performance.now()
 
-    fadeRef.current = window.setInterval(() => {
-      i++
-      audio.volume = Math.max(0, Math.min(1, start + step * i))
-      if (i >= steps) {
-        if (fadeRef.current !== null) {
-          clearInterval(fadeRef.current)
-          fadeRef.current = null
-        }
+    const tick = (now: number) => {
+      const elapsed = now - startTime
+      const t = Math.min(1, elapsed / FADE_MS)
+      audio.volume = Math.max(0, Math.min(1, startVol + (target - startVol) * t))
+
+      if (t < 1) {
+        fadeRef.current = requestAnimationFrame(tick)
+      } else {
+        fadeRef.current = null
         audio.volume = target
         onDone?.()
       }
-    }, 16)
+    }
+
+    fadeRef.current = requestAnimationFrame(tick)
   }, [])
 
   const toggle = useCallback(() => {
@@ -57,7 +63,7 @@ export function MusicToggle() {
 
   useEffect(() => {
     return () => {
-      if (fadeRef.current !== null) clearInterval(fadeRef.current)
+      if (fadeRef.current !== null) cancelAnimationFrame(fadeRef.current)
     }
   }, [])
 
@@ -79,12 +85,15 @@ export function MusicToggle() {
         alignItems: 'flex-end',
         gap: 8,
       }}>
-      {/* Social icons */}
+      {/* Social icons — hidden during overlay sections */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         gap: 6,
+        opacity: showSocial ? 1 : 0,
+        transition: 'opacity 0.4s ease',
+        pointerEvents: showSocial ? 'auto' : 'none',
       }}>
         <span style={{
           fontFamily: "'IBM Plex Mono', monospace",
@@ -110,7 +119,8 @@ export function MusicToggle() {
           background: 'rgba(0, 0, 0, 0.4)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           borderRadius: 8,
-          padding: '8px 12px',
+          padding: 'clamp(10px, 1.5vh, 14px) clamp(12px, 2vw, 16px)',
+          minHeight: 44,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
@@ -129,8 +139,8 @@ export function MusicToggle() {
       >
         {/* Speaker icon */}
         <svg
-          width="16"
-          height="16"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke={playing ? '#d4a843' : 'rgba(255,255,255,0.5)'}

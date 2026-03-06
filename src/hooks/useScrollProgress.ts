@@ -21,6 +21,8 @@ export function useScrollProgress(sectionCount: number): ScrollState {
   const currentRef = useRef(0)
   const rafRef = useRef(0)
   const lastTouchYRef = useRef(0)
+  const velocityRef = useRef(0)
+  const lastTouchTimeRef = useRef(0)
 
   const setProgress = useCallback((p: number) => {
     targetRef.current = Math.max(0, Math.min(1, p))
@@ -40,16 +42,36 @@ export function useScrollProgress(sectionCount: number): ScrollState {
 
     const handleTouchStart = (e: TouchEvent) => {
       lastTouchYRef.current = e.touches[0].clientY
+      lastTouchTimeRef.current = performance.now()
+      velocityRef.current = 0
     }
 
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault()
       const currentY = e.touches[0].clientY
+      const now = performance.now()
       const delta = lastTouchYRef.current - currentY
+      const dt = now - lastTouchTimeRef.current
       lastTouchYRef.current = currentY
+      lastTouchTimeRef.current = now
       const clamped = Math.max(-maxDelta, Math.min(maxDelta, delta))
-      targetRef.current += clamped * scrollSpeed * 1.5
+      const increment = clamped * scrollSpeed * 1.5
+      targetRef.current += increment
       targetRef.current = Math.max(0, Math.min(1, targetRef.current))
+      if (dt > 0) velocityRef.current = increment / dt * 16
+    }
+
+    const handleTouchEnd = () => {
+      const decay = () => {
+        velocityRef.current *= 0.95
+        if (Math.abs(velocityRef.current) > 0.0001) {
+          targetRef.current = Math.max(0, Math.min(1, targetRef.current + velocityRef.current))
+          requestAnimationFrame(decay)
+        }
+      }
+      if (Math.abs(velocityRef.current) > 0.0005) {
+        requestAnimationFrame(decay)
+      }
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -100,6 +122,7 @@ export function useScrollProgress(sectionCount: number): ScrollState {
     document.addEventListener('wheel', handleWheel, { passive: false })
     document.addEventListener('touchstart', handleTouchStart, { passive: true })
     document.addEventListener('touchmove', handleTouchMove, { passive: false })
+    document.addEventListener('touchend', handleTouchEnd, { passive: true })
     document.addEventListener('keydown', handleKeyDown)
     rafRef.current = requestAnimationFrame(animate)
 
@@ -107,6 +130,7 @@ export function useScrollProgress(sectionCount: number): ScrollState {
       document.removeEventListener('wheel', handleWheel)
       document.removeEventListener('touchstart', handleTouchStart)
       document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
       document.removeEventListener('keydown', handleKeyDown)
       cancelAnimationFrame(rafRef.current)
     }

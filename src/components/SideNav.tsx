@@ -60,7 +60,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
         zIndex: 20,
         display: 'flex',
         flexDirection: 'column',
-        gap: 28,
+        gap: 'clamp(16px, 3vh, 28px)',
         alignItems: 'flex-end',
         pointerEvents: 'none',
         opacity: 1,
@@ -83,7 +83,9 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               gap: 12,
               background: 'none',
               border: 'none',
-              padding: '10px 8px',
+              padding: isMobile ? '12px 14px' : '10px 8px',
+              minWidth: isMobile ? 44 : undefined,
+              minHeight: isMobile ? 44 : undefined,
               cursor: 'pointer',
               pointerEvents: 'auto',
               transform: `scale(${scale})`,
@@ -92,20 +94,19 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               transition: 'all 0.4s ease',
             }}
           >
-            {!isMobile && (
-              <span
-                style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: 'clamp(14px, 1.6vw, 18px)',
-                  textTransform: 'uppercase',
-                  letterSpacing: 2,
-                  color: 'rgba(255,255,255,1)',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {item.label}
-              </span>
-            )}
+            <span
+              style={{
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: isMobile ? 'clamp(7px, 1.8vw, 9px)' : 'clamp(14px, 1.6vw, 18px)',
+                textTransform: 'uppercase',
+                letterSpacing: isMobile ? 1 : 2,
+                color: 'rgba(255,255,255,1)',
+                whiteSpace: 'nowrap',
+                textShadow: '0 1px 4px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.5)',
+              }}
+            >
+              {item.label}
+            </span>
             <span
               style={{
                 width: dotSize,

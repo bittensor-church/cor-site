@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PR_STATS_DATA } from '../content'
-import { useIsMobile } from '../hooks/useIsMobile'
+import { useIsMobile, useIsTablet } from '../hooks/useIsMobile'
 
 interface OverviewOverlayProps {
   progress: number
@@ -257,6 +257,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${project.title} on ${project.tech || 'web'}`}
                       style={{
                         color: '#ffffff',
                         textDecoration: 'underline',
@@ -290,7 +291,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
 
 // ─── Bottom strip: TAO inflow/outflow → morphs to PR stats ───
 
-function BottomStrip({ local }: { local: number }) {
+function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) {
   const stripOpacity = fadeIn(local, 0.24)
   if (stripOpacity <= 0) return null
 
@@ -330,7 +331,7 @@ function BottomStrip({ local }: { local: number }) {
       position: 'absolute',
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
-      right: '5%',
+      right: isMobile ? '5%' : 'clamp(140px, 15vw, 220px)',
     }}>
       {/* Bar */}
       <div style={{
@@ -433,7 +434,7 @@ function BottomStrip({ local }: { local: number }) {
                     rel="noopener noreferrer"
                     style={{
                       ...BASE_FONT,
-                      fontSize: 'clamp(8.5px, 1.7vw, 20px)',
+                      fontSize: 'clamp(11px, 1.7vw, 20px)',
                       fontWeight: 500,
                       lineHeight: 1,
                       color: '#ffffff',
@@ -462,6 +463,7 @@ function BottomStrip({ local }: { local: number }) {
 
 export function OverviewOverlay({ progress }: OverviewOverlayProps) {
   const isMobile = useIsMobile()
+  const isTablet = useIsTablet()
 
   if (progress < ENTER || progress > EXIT) return null
 
@@ -495,7 +497,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             position: 'absolute',
             top: 0,
             left: '5%',
-            right: '5%',
+            right: isMobile ? '5%' : 'clamp(140px, 15vw, 220px)',
             bottom: isMobile ? 'clamp(100px, 16vh, 160px)' : 'clamp(120px, 18vh, 180px)',
             display: 'flex',
             flexDirection: 'column',
@@ -528,8 +530,8 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             </div>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: isMobile ? 'clamp(10px, 2vw, 16px)' : 'clamp(32px, 5vw, 72px)',
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: isMobile ? 'clamp(10px, 2vw, 16px)' : isTablet ? 'clamp(16px, 3vw, 32px)' : 'clamp(32px, 5vw, 72px)',
               maxWidth: 'min(85vw, 1200px)',
               width: '100%',
             }}>
@@ -549,7 +551,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
           </div>
 
           {/* Bottom strip — TAO → PR stats */}
-          <BottomStrip local={local} />
+          <BottomStrip local={local} isMobile={isMobile} />
         </div>
       )}
     </div>
