@@ -53,7 +53,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
       { title: 'bittensor-why-burn', link: 'https://github.com/bittensor-church/bittensor-why-burn', tech: 'community' },
       { title: 'bits', link: 'https://github.com/bittensor-church/bits', tech: 'community' },
       { title: 'forum', link: 'https://forum.bittensor.church/', tech: 'community' },
-      { title: 'discord bots', link: '#', tech: 'community' },
+      { title: 'discord bots', link: 'https://discord.gg/NCherfe5HQ', tech: 'community' },
       { title: 'cor discord', link: 'https://discord.gg/NCherfe5HQ', tech: 'community' },
     ],
   },
