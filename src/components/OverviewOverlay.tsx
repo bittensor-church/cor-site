@@ -193,7 +193,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
         fontWeight: 600,
         color: '#ffffff',
         lineHeight: 1.2,
-        minHeight: isMobile ? 'auto' : 'clamp(40px, 4vh, 56px)',
+        minHeight: isMobile ? 'auto' : 'clamp(48px, 5vh, 62px)',
       }}>
         {item.name}
       </div>
@@ -204,7 +204,7 @@ function BreakdownCell({ item, opacity, isMobile }: {
         fontStyle: 'italic',
         color: '#d4a843',
         lineHeight: 1.3,
-        minHeight: isMobile ? 'auto' : 'clamp(28px, 3vh, 40px)',
+        minHeight: isMobile ? 'auto' : 'clamp(50px, 6vh, 74px)',
       }}>
         {item.description}
       </div>
