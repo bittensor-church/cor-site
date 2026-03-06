@@ -451,7 +451,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               color: '#ffffff',
               marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(12px, 2vh, 24px)',
             }}>
-              Projects
+              Projects since 2025
             </div>
             <div style={{
               display: 'grid',
