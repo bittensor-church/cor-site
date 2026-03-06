@@ -1,3 +1,6 @@
+import { fadeIn } from '../utils/animations'
+import { BASE_FONT } from '../utils/styles'
+
 interface NexusOverlayProps {
   progress: number
 }
@@ -5,19 +8,6 @@ interface NexusOverlayProps {
 const ENTER = 0.8698   // frame 1884
 const EXIT = 0.9441    // frame 2045
 const TOTAL = EXIT - ENTER
-
-const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
-
-const BASE_FONT: React.CSSProperties = {
-  fontFamily: "'IBM Plex Mono', monospace",
-  textShadow: SHADOW,
-}
-
-function fadeIn(t: number, start: number, duration: number = 0.12): number {
-  if (t < start) return 0
-  if (t > start + duration) return 1
-  return (t - start) / duration
-}
 
 export function NexusOverlay({ progress }: NexusOverlayProps) {
   if (progress < ENTER || progress > EXIT) return null
@@ -44,7 +34,7 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
       pointerEvents: 'none',
       zIndex: 5,
       opacity: fadeOut,
-      padding: '0 8%',
+      padding: '0 clamp(16px, 4vw, 8%)',
     }}>
       <div style={{
         background: 'rgba(0, 0, 0, 0.45)',

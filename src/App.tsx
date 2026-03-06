@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useIsMobile } from './hooks/useIsMobile'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import { VideoSection } from './components/VideoSection'
 import { HeroOverlay } from './components/HeroOverlay'
@@ -35,6 +36,7 @@ function getHashForProgress(p: number): string {
 
 export function App() {
   const [loaded, setLoaded] = useState(false)
+  const isMobile = useIsMobile()
   const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
   const lastHashRef = useRef('')
 
@@ -101,10 +103,10 @@ export function App() {
             color: 'rgba(255,255,255,0.4)',
             letterSpacing: 3,
             textTransform: 'uppercase',
-            opacity: progress < 0.01 ? 1 : 0,
+            opacity: loaded && progress < 0.01 ? 1 : 0,
             transition: 'opacity 0.8s ease-out',
           }}>
-            Scroll to explore
+            {isMobile ? 'Swipe to explore' : 'Scroll to explore'}
           </div>
         </div>
       </main>

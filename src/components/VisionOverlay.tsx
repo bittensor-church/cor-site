@@ -1,3 +1,6 @@
+import { fadeIn } from '../utils/animations'
+import { BASE_FONT, SHADOW } from '../utils/styles'
+
 interface VisionOverlayProps {
   progress: number
 }
@@ -7,19 +10,6 @@ const PHASE2 = 0.8449  // frame 1830 — everything fades except headline
 const EXIT = 0.8690    // frame 1882 — clear before Nexus enters at 0.8698
 const TOTAL_P1 = PHASE2 - ENTER
 const TOTAL_P2 = EXIT - PHASE2
-
-const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
-
-const BASE_FONT: React.CSSProperties = {
-  fontFamily: "'IBM Plex Mono', monospace",
-  textShadow: SHADOW,
-}
-
-function fadeIn(t: number, start: number, duration: number = 0.15): number {
-  if (t < start) return 0
-  if (t > start + duration) return 1
-  return (t - start) / duration
-}
 
 export function VisionOverlay({ progress }: VisionOverlayProps) {
   if (progress < ENTER || progress > EXIT) return null

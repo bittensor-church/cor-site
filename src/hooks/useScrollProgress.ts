@@ -23,9 +23,11 @@ export function useScrollProgress(sectionCount: number): ScrollState {
   const lastTouchYRef = useRef(0)
   const velocityRef = useRef(0)
   const lastTouchTimeRef = useRef(0)
+  const navJumpRef = useRef(false)
 
   const setProgress = useCallback((p: number) => {
     targetRef.current = Math.max(0, Math.min(1, p))
+    navJumpRef.current = true
   }, [])
 
   useEffect(() => {
@@ -103,7 +105,11 @@ export function useScrollProgress(sectionCount: number): ScrollState {
       rafRef.current = requestAnimationFrame(animate)
 
       const prev = currentRef.current
-      currentRef.current += (targetRef.current - currentRef.current) * smoothing
+      const activeSmoothingFactor = navJumpRef.current ? 0.14 : smoothing
+      currentRef.current += (targetRef.current - currentRef.current) * activeSmoothingFactor
+      if (navJumpRef.current && Math.abs(targetRef.current - currentRef.current) < 0.005) {
+        navJumpRef.current = false
+      }
 
       if (Math.abs(currentRef.current - prev) > 0.0001) {
         const p = currentRef.current

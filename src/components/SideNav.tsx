@@ -84,11 +84,11 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 4,
+                gap: 2,
                 background: 'none',
                 border: 'none',
-                padding: '6px 8px',
-                minWidth: 44,
+                padding: '10px 6px',
+                minWidth: 36,
                 minHeight: 44,
                 cursor: 'pointer',
                 pointerEvents: 'auto',
@@ -111,19 +111,6 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
                   flexShrink: 0,
                 }}
               />
-              <span
-                style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: 'clamp(6px, 1.6vw, 8px)',
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.5,
-                  color: isActive ? '#d4a843' : 'rgba(255,255,255,0.7)',
-                  whiteSpace: 'nowrap',
-                  transition: 'color 0.4s ease',
-                }}
-              >
-                {item.label}
-              </span>
             </button>
           )
         })}

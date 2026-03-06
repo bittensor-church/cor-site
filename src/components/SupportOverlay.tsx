@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { SocialIconRow } from './SocialIcons'
+import { fadeIn } from '../utils/animations'
+import { BASE_FONT } from '../utils/styles'
 
 const BELL_STYLE_ID = 'bell-ring-keyframes'
 
@@ -31,18 +33,6 @@ interface SupportOverlayProps {
 const ENTER = 0.9695   // frame 2100
 const EXIT = 1.0       // frame 2166
 
-const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
-
-const BASE_FONT: React.CSSProperties = {
-  fontFamily: "'IBM Plex Mono', monospace",
-  textShadow: SHADOW,
-}
-
-function fadeIn(t: number, start: number, duration: number = 0.15): number {
-  if (t < start) return 0
-  if (t > start + duration) return 1
-  return (t - start) / duration
-}
 
 export function SupportOverlay({ progress }: SupportOverlayProps) {
   useBellAnimation()
@@ -197,14 +187,14 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             <path d="M12 2C7.58 2 4 5.58 4 10v4.17L2.29 15.88A1 1 0 003 17.5h18a1 1 0 00.71-1.62L20 14.17V10c0-4.42-3.58-8-8-8zm0 20a2.5 2.5 0 002.5-2.5h-5A2.5 2.5 0 0012 22z" />
           </svg>
           <span style={{
-            fontSize: 'clamp(10px, 0.9vw, 12px)',
+            fontSize: 'clamp(12px, 0.9vw, 14px)',
             letterSpacing: 'clamp(0.5px, 0.1vw, 1px)',
             lineHeight: 1.3,
           }}>
             Bring your ideas to OpenDev calls on Discord
           </span>
           <span style={{
-            fontSize: 'clamp(9px, 0.75vw, 10px)',
+            fontSize: 'clamp(11px, 0.75vw, 12px)',
             letterSpacing: 'clamp(0.5px, 0.1vw, 1.5px)',
             textTransform: 'uppercase',
             opacity: 0.7,

@@ -25,7 +25,7 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
       return () => clearTimeout(t)
     }
 
-    // Desktop: auto-dismiss when video ready or timeout
+    // Desktop: auto-dismiss when page ready or short timeout
     let done = false
     const finish = () => {
       if (done) return
@@ -33,19 +33,13 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
       setTimeout(dismiss, 400)
     }
 
-    const video = document.querySelector('video[src*="intro"]') as HTMLVideoElement | null
-    if (video) {
-      video.addEventListener('canplay', finish, { once: true })
-      video.addEventListener('loadeddata', finish, { once: true })
-    }
-
-    const timeout = setTimeout(finish, 4000)
-
     if (document.readyState === 'complete') {
       setTimeout(finish, 800)
     } else {
       window.addEventListener('load', () => setTimeout(finish, 800), { once: true })
     }
+
+    const timeout = setTimeout(finish, 2500)
 
     return () => clearTimeout(timeout)
   }, [dismiss])

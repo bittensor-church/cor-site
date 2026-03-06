@@ -1,3 +1,5 @@
+import { fadeIn } from '../utils/animations'
+
 interface AchievementOverlayProps {
   progress: number
 }
@@ -6,12 +8,6 @@ const ENTER = 0.4617   // frame 1000
 const EXIT = 0.5125    // frame 1110
 const TOTAL = EXIT - ENTER
 const FADE_OUT_START = 0.88
-
-function fadeIn(local: number, start: number, duration: number = 0.06): number {
-  if (local < start) return 0
-  if (local > start + duration) return 1
-  return (local - start) / duration
-}
 
 export function AchievementOverlay({ progress }: AchievementOverlayProps) {
   if (progress < ENTER || progress > EXIT) return null
@@ -22,9 +18,9 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
     ? Math.max(0, 1 - (local - FADE_OUT_START) / (1 - FADE_OUT_START))
     : 1
 
-  const labelOpacity = fadeIn(local, 0.0)
-  const titleOpacity = fadeIn(local, 0.12)
-  const bodyOpacity = fadeIn(local, 0.35)
+  const labelOpacity = fadeIn(local, 0.0, 0.06)
+  const titleOpacity = fadeIn(local, 0.12, 0.06)
+  const bodyOpacity = fadeIn(local, 0.35, 0.06)
 
   return (
     <div style={{

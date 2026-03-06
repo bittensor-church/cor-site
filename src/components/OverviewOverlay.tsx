@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { PR_STATS_DATA } from '../content'
 import { useIsMobile, useIsTablet } from '../hooks/useIsMobile'
+import { fadeIn } from '../utils/animations'
+import { BASE_FONT } from '../utils/styles'
 
 interface OverviewOverlayProps {
   progress: number
@@ -88,18 +90,6 @@ function groupByTech(projects: Project[]): Map<string, Project[]> {
   return groups
 }
 
-const SHADOW = '0 2px 12px rgba(0,0,0,0.6)'
-
-const BASE_FONT: React.CSSProperties = {
-  fontFamily: "'IBM Plex Mono', monospace",
-  textShadow: SHADOW,
-}
-
-function fadeIn(local: number, start: number, duration: number = 0.04): number {
-  if (local < start) return 0
-  if (local > start + duration) return 1
-  return (local - start) / duration
-}
 
 // ─── Mobile toggle project list ───
 
@@ -291,8 +281,8 @@ function BreakdownCell({ item, opacity, isMobile }: {
 
 // ─── Bottom strip: TAO inflow/outflow → morphs to PR stats ───
 
-function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) {
-  const stripOpacity = fadeIn(local, 0.24)
+function BottomStrip({ local, isMobile, isTablet }: { local: number; isMobile: boolean; isTablet: boolean }) {
+  const stripOpacity = fadeIn(local, 0.24, 0.04)
   if (stripOpacity <= 0) return null
 
   // morph: 0.0 = TAO view, 1.0 = PR stats view
@@ -331,7 +321,7 @@ function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) 
       position: 'absolute',
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
-      right: isMobile ? '5%' : 'clamp(140px, 15vw, 220px)',
+      right: isMobile ? '5%' : isTablet ? '80px' : 'clamp(140px, 15vw, 220px)',
     }}>
       {/* Bar */}
       <div style={{
@@ -446,6 +436,7 @@ function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) 
                       letterSpacing: -0.5,
                       transition: 'color 0.3s',
                       whiteSpace: 'nowrap',
+                      padding: '6px 4px',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff' }}
@@ -501,7 +492,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             position: 'absolute',
             top: 0,
             left: '5%',
-            right: isMobile ? '5%' : 'clamp(140px, 15vw, 220px)',
+            right: isMobile ? '5%' : isTablet ? '80px' : 'clamp(140px, 15vw, 220px)',
             bottom: isMobile ? 'clamp(100px, 16vh, 160px)' : 'clamp(120px, 18vh, 180px)',
             display: 'flex',
             flexDirection: 'column',
@@ -517,14 +508,14 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               display: 'flex',
               flexDirection: 'column' as const,
               alignItems: 'center',
-              opacity: fadeIn(local, 0.0),
+              opacity: fadeIn(local, 0.0, 0.04),
               transition: 'opacity 0.3s ease',
             }}>
             {/* Title */}
             <div style={{
               ...BASE_FONT,
-              opacity: fadeIn(local, 0.0),
-              transform: `translateY(${(1 - fadeIn(local, 0.0)) * 10}px)`,
+              opacity: fadeIn(local, 0.0, 0.04),
+              transform: `translateY(${(1 - fadeIn(local, 0.0, 0.04)) * 10}px)`,
               fontSize: 'clamp(18px, 2.5vw, 36px)',
               fontWeight: 500,
               letterSpacing: 'clamp(3px, 0.6vw, 8px)',
@@ -536,13 +527,13 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             </div>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gridTemplateColumns: isMobile || isTablet ? '1fr' : 'repeat(3, 1fr)',
               gap: isMobile ? 'clamp(10px, 2vw, 16px)' : isTablet ? 'clamp(16px, 3vw, 32px)' : 'clamp(32px, 5vw, 72px)',
               maxWidth: 'min(85vw, 1200px)',
               width: '100%',
             }}>
               {BREAKDOWN_ITEMS.map((item, i) => {
-                const itemOpacity = fadeIn(local, 0.02 + i * STAGGER)
+                const itemOpacity = fadeIn(local, 0.02 + i * STAGGER, 0.04)
                 return (
                   <BreakdownCell
                     key={item.name}
@@ -557,7 +548,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
           </div>
 
           {/* Bottom strip — TAO → PR stats */}
-          <BottomStrip local={local} isMobile={isMobile} />
+          <BottomStrip local={local} isMobile={isMobile} isTablet={isTablet} />
         </div>
       )}
     </div>

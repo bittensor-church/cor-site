@@ -4,7 +4,7 @@ import { useIsMobile } from '../hooks/useIsMobile'
 const GRAIN_SIZE = 100
 
 export function FilmGrain() {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile(1024)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {

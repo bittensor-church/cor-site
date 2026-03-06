@@ -52,6 +52,7 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
       paddingLeft: 'clamp(16px, 5vw, 8%)',
       paddingRight: 'clamp(16px, 5vw, 8%)',
       opacity: globalFadeOut,
+      overflowY: 'auto',
     }}>
       <div style={{
         background: 'rgba(0, 0, 0, 0.45)',

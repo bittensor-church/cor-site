@@ -105,8 +105,8 @@ export function MusicToggle({ progress = 0 }: MusicToggleProps) {
           Follow us
         </span>
         <SocialIconRow
-          size={14}
-          gap="6px"
+          size={16}
+          gap="4px"
           iconColor="rgba(255, 255, 255, 0.4)"
           showBorder={false}
         />
