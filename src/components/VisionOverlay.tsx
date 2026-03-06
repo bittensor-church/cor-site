@@ -74,6 +74,21 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
         alignItems: 'center',
         gap: 'clamp(8px, 2vh, 20px)',
       }}>
+      {/* Section label */}
+      <div style={{
+        ...BASE_FONT,
+        opacity: surroundOpacity,
+        transform: `translateY(${(1 - surroundOpacity) * 10}px)`,
+        fontSize: 'clamp(10px, 1.3vw, 17px)',
+        fontWeight: 700,
+        color: '#d4a843',
+        letterSpacing: 'clamp(4px, 0.8vw, 10px)',
+        textTransform: 'uppercase',
+        willChange: 'opacity, transform',
+      }}>
+        Next Chapter
+      </div>
+
       {/* Transparency & Security */}
       <div style={{
         ...BASE_FONT,
