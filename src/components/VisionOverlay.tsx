@@ -36,9 +36,6 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
     ? fadeIn(local1, 0, 0.1)
     : Math.max(0, 1 - local2 / 0.15)
 
-  // Headline highlight: ramps up through phase1 scroll
-  const highlightT = inPhase1 ? Math.min(1, local1 / 0.8) : 1
-
   // Headline opacity: always visible once entered, fades out at end of phase2
   const headlineOpacity = inPhase1
     ? fadeIn(local1, 0, 0.1)
@@ -47,10 +44,6 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
       : 1
 
   if (headlineOpacity <= 0) return null
-
-  // Headline color interpolation: white → gold as it highlights
-  const headlineColor = `rgb(${Math.round(255 - highlightT * 43)}, ${Math.round(255 - highlightT * 87)}, ${Math.round(255 - highlightT * 188)})`
-  // At highlightT=1: rgb(212, 168, 67) = #d4a843
 
   return (
     <div style={{
@@ -79,10 +72,10 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
         ...BASE_FONT,
         opacity: surroundOpacity,
         transform: `translateY(${(1 - surroundOpacity) * 10}px)`,
-        fontSize: 'clamp(13px, 1.6vw, 20px)',
-        fontWeight: 700,
+        fontSize: 'clamp(18px, 2.5vw, 36px)',
+        fontWeight: 500,
         color: '#d4a843',
-        letterSpacing: 'clamp(4px, 0.8vw, 10px)',
+        letterSpacing: 'clamp(3px, 0.6vw, 8px)',
         textTransform: 'uppercase',
         willChange: 'opacity, transform',
       }}>
@@ -125,17 +118,15 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
         opacity: headlineOpacity,
         fontSize: 'clamp(24px, 4vw, 56px)',
         fontWeight: 700,
-        color: headlineColor,
+        color: '#d4a843',
         letterSpacing: 'clamp(3px, 0.6vw, 8px)',
         textTransform: 'uppercase',
         textAlign: 'center',
         lineHeight: 1.2,
         marginTop: 'clamp(8px, 2vh, 20px)',
         marginBottom: 'clamp(8px, 2vh, 20px)',
-        textShadow: highlightT > 0.5
-          ? `0 0 ${20 * highlightT}px rgba(212, 168, 67, ${0.4 * highlightT}), ${SHADOW}`
-          : SHADOW,
-        willChange: 'opacity, color, text-shadow',
+        textShadow: `0 0 20px rgba(212, 168, 67, 0.4), ${SHADOW}`,
+        willChange: 'opacity',
       }}>
         More capable subnets faster
       </div>
