@@ -30,10 +30,10 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
     percentage: 50,
     taoAmount: 1084,
     projects: [
-      { title: 'commit reveal', link: '#' },
+      { title: 'commit reveal', link: '#', tech: 'rust' },
       { title: 'yuma3', link: '#', tech: 'rust' },
       { title: 'liquid alpha 2.x', link: '#', tech: 'rust' },
-      { title: 'superburn', link: 'https://github.com/bittensor-church/superburn' },
+      { title: 'superburn', link: 'https://github.com/bittensor-church/superburn', tech: 'python' },
       { title: 'burn', link: 'https://github.com/bittensor-church/burn', tech: 'python' },
       { title: 'golden-validator', link: '#', tech: 'python' },
       { title: 'collateral smart contract', link: 'https://github.com/bittensor-church/collateral-contracts', tech: 'smart contract' },
