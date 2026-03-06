@@ -117,8 +117,8 @@ export interface PrStatsData {
 export const PR_STATS_DATA: PrStatsData = {
   title: 'We shipped code. All of it public.',
   totalLabel: 'Merged Pull Requests',
-  totalPrs: 248,
-  totalRepos: 17,
+  totalPrs: 413,
+  totalRepos: 16,
   verifyLinks: [
     { name: 'PR stats', url: 'https://github.com/bittensor-church' },
   ],
