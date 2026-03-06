@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { PR_STATS_DATA } from '../content'
 import { useIsMobile } from '../hooks/useIsMobile'
 
@@ -100,6 +101,76 @@ function fadeIn(local: number, start: number, duration: number = 0.04): number {
   return (local - start) / duration
 }
 
+// ─── Mobile toggle project list ───
+
+function MobileProjectToggle({ projects }: { projects: Project[] }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div style={{ marginTop: 'clamp(2px, 0.4vh, 6px)' }}>
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        style={{
+          ...BASE_FONT,
+          fontSize: 'clamp(10px, 2.5vw, 13px)',
+          color: '#d4a843',
+          background: 'rgba(212,168,67,0.08)',
+          border: '1px solid rgba(212,168,67,0.25)',
+          borderRadius: 4,
+          padding: '3px 10px',
+          cursor: 'pointer',
+          pointerEvents: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+        }}
+      >
+        <span style={{
+          display: 'inline-block',
+          transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
+          transition: 'transform 0.2s ease',
+          fontSize: '0.8em',
+        }}>
+          ▶
+        </span>
+        {projects.length} projects
+      </button>
+      {open && (
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 'clamp(4px, 1vw, 6px)',
+          marginTop: 'clamp(4px, 0.5vh, 8px)',
+          paddingLeft: 4,
+        }}>
+          {projects.map((p) => {
+            const style: React.CSSProperties = {
+              ...BASE_FONT,
+              fontSize: 'clamp(9px, 2.2vw, 12px)',
+              color: 'rgba(255,255,255,0.75)',
+              padding: '2px 6px',
+              border: '1px solid rgba(212,168,67,0.25)',
+              borderRadius: 4,
+              background: 'rgba(212,168,67,0.08)',
+              lineHeight: 1.3,
+              whiteSpace: 'nowrap',
+            }
+
+            return p.link !== '#' ? (
+              <a key={p.title} href={p.link} target="_blank" rel="noopener noreferrer"
+                 style={{ ...style, textDecoration: 'none', pointerEvents: 'auto' }}>
+                {p.title}
+              </a>
+            ) : (
+              <span key={p.title} style={style}>{p.title}</span>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Grid cell ───
 
 function BreakdownCell({ item, opacity, isMobile }: {
@@ -145,7 +216,9 @@ function BreakdownCell({ item, opacity, isMobile }: {
       }}>
         {item.percentage}% &middot; {item.taoAmount.toLocaleString()} TAO
       </div>
-      {!isMobile && (
+      {isMobile ? (
+        <MobileProjectToggle projects={item.projects} />
+      ) : (
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -428,7 +501,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            overflowY: 'visible' as const,
+            overflowY: isMobile ? 'auto' : ('visible' as const),
           }}>
             <div style={{
               background: 'rgba(0, 0, 0, 0.45)',
