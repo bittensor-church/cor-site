@@ -498,7 +498,7 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            overflowY: isMobile ? 'auto' : ('visible' as const),
+            overflowY: (isMobile || isTablet) ? 'auto' : ('visible' as const),
           }}>
             <div style={{
               background: 'rgba(0, 0, 0, 0.45)',

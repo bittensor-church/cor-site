@@ -1,4 +1,4 @@
-import { useIsMobile } from '../hooks/useIsMobile'
+import { useIsMobile, useIsLandscapeMobile } from '../hooks/useIsMobile'
 
 const NAV_ITEMS = [
   { label: 'Intro', target: 0.055 },
@@ -48,9 +48,10 @@ function getDotSize(i: number, activeIndex: number): number {
 
 export function SideNav({ progress, onNavigate }: SideNavProps) {
   const isMobile = useIsMobile()
+  const isLandscapeMobile = useIsLandscapeMobile()
   const activeIndex = getActiveIndex(progress)
 
-  if (isMobile) {
+  if (isMobile || isLandscapeMobile) {
     return (
       <nav
         style={{
