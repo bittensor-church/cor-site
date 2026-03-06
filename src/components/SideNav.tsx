@@ -5,7 +5,7 @@ const NAV_ITEMS = [
   { label: 'Problems', target: 0.313 },
   { label: '2025 Highlights', target: 0.483 },
   { label: 'Team & Projects', target: 0.549 },
-  { label: 'Vision', target: 0.791 },
+  { label: 'Next Chapter', target: 0.791 },
   { label: 'Nexus', target: 0.893 },
   { label: 'Support Us', target: 0.981 },
 ] as const
