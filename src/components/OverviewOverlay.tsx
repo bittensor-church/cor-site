@@ -308,6 +308,10 @@ function BottomStrip({ local }: { local: number }) {
               <div style={bigNum}>2,170</div>
               <div style={label}>TAO deployed</div>
             </div>
+            <div style={statStyle}>
+              <div style={bigNum}>15</div>
+              <div style={label}>people</div>
+            </div>
           </div>
         )}
 
@@ -435,19 +439,6 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               alignItems: 'center',
             }}>
             {/* Title */}
-            <div style={{
-              ...BASE_FONT,
-              opacity: fadeIn(local, 0.0),
-              transform: `translateY(${(1 - fadeIn(local, 0.0)) * 10}px)`,
-              fontSize: 'clamp(24px, 3.5vw, 48px)',
-              fontWeight: 600,
-              letterSpacing: 'clamp(4px, 0.8vw, 10px)',
-              textTransform: 'uppercase',
-              color: '#d4a843',
-              marginBottom: isMobile ? 'clamp(8px, 2vh, 16px)' : 'clamp(12px, 2vh, 24px)',
-            }}>
-              15 people &middot; 3 teams
-            </div>
             <div style={{
               ...BASE_FONT,
               opacity: fadeIn(local, 0.0),
