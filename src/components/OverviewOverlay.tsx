@@ -384,7 +384,7 @@ function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) 
             </div>
             <div style={statStyle}>
               <div style={bigNum}>15</div>
-              <div style={label}>people</div>
+              <div style={label}>Team Members</div>
             </div>
           </div>
         )}
