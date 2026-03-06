@@ -76,6 +76,8 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         flexDirection: 'column' as const,
         alignItems: 'center',
         gap: 'clamp(16px, 3vh, 32px)',
+        opacity: titleOp,
+        transition: 'opacity 0.3s ease',
       }}>
         {/* Support us */}
         <div style={{

@@ -57,6 +57,8 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
         gap: 'clamp(8px, 2vh, 20px)',
         maxWidth: 'clamp(360px, 55vw, 720px)',
         textAlign: 'center' as const,
+        opacity: labelOp,
+        transition: 'opacity 0.3s ease',
       }}>
         {/* FIXING THE BOTTLENECK IN 2026 */}
         <div style={{

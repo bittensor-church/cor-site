@@ -513,6 +513,8 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
               display: 'flex',
               flexDirection: 'column' as const,
               alignItems: 'center',
+              opacity: fadeIn(local, 0.0),
+              transition: 'opacity 0.3s ease',
             }}>
             {/* Title */}
             <div style={{

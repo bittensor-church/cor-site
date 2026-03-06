@@ -66,6 +66,8 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
         flexDirection: 'column' as const,
         alignItems: 'center',
         gap: 'clamp(8px, 2vh, 20px)',
+        opacity: Math.max(surroundOpacity, headlineOpacity),
+        transition: 'opacity 0.3s ease',
       }}>
       {/* Section label */}
       <div style={{

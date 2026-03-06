@@ -45,6 +45,8 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
         backdropFilter: 'blur(8px)',
         borderRadius: 12,
         padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
+        opacity: labelOpacity,
+        transition: 'opacity 0.3s ease',
       }}>
         {/* Section label */}
         <div style={{
