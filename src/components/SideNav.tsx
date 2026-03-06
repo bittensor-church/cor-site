@@ -50,6 +50,87 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
   const isMobile = useIsMobile()
   const activeIndex = getActiveIndex(progress)
 
+  if (isMobile) {
+    return (
+      <nav
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 20,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 4,
+          padding: '10px 8px',
+          background: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(8px)',
+          pointerEvents: 'none',
+        }}
+      >
+        {NAV_ITEMS.map((item, i) => {
+          const isActive = i === activeIndex
+          const dotSize = getDotSize(i, activeIndex)
+          const opacity = getOpacity(i, activeIndex)
+
+          return (
+            <button
+              key={item.label}
+              aria-label={item.label}
+              onClick={() => onNavigate(item.target)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
+                background: 'none',
+                border: 'none',
+                padding: '6px 8px',
+                minWidth: 44,
+                minHeight: 44,
+                cursor: 'pointer',
+                pointerEvents: 'auto',
+                opacity,
+                transition: 'opacity 0.4s ease',
+              }}
+            >
+              <span
+                style={{
+                  width: dotSize,
+                  height: dotSize,
+                  borderRadius: '50%',
+                  backgroundColor: isActive
+                    ? '#ffffff'
+                    : 'rgba(255,255,255,0.6)',
+                  boxShadow: isActive
+                    ? '0 0 0 3px #d4a843'
+                    : 'none',
+                  transition: 'all 0.4s ease',
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontSize: 'clamp(6px, 1.6vw, 8px)',
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                  color: isActive ? '#d4a843' : 'rgba(255,255,255,0.7)',
+                  whiteSpace: 'nowrap',
+                  transition: 'color 0.4s ease',
+                }}
+              >
+                {item.label}
+              </span>
+            </button>
+          )
+        })}
+      </nav>
+    )
+  }
+
   return (
     <nav
       style={{
@@ -83,9 +164,7 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
               gap: 12,
               background: 'none',
               border: 'none',
-              padding: isMobile ? '12px 14px' : '10px 8px',
-              minWidth: isMobile ? 44 : undefined,
-              minHeight: isMobile ? 44 : undefined,
+              padding: '10px 8px',
               cursor: 'pointer',
               pointerEvents: 'auto',
               transform: `scale(${scale})`,
@@ -97,9 +176,9 @@ export function SideNav({ progress, onNavigate }: SideNavProps) {
             <span
               style={{
                 fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: isMobile ? 'clamp(7px, 1.8vw, 9px)' : 'clamp(14px, 1.6vw, 18px)',
+                fontSize: 'clamp(14px, 1.6vw, 18px)',
                 textTransform: 'uppercase',
-                letterSpacing: isMobile ? 1 : 2,
+                letterSpacing: 2,
                 color: 'rgba(255,255,255,1)',
                 whiteSpace: 'nowrap',
                 textShadow: '0 1px 4px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.5)',
