@@ -68,26 +68,48 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
     }}>
       <div style={{ textAlign: 'center' }}>
         {showPlay ? (
-          <button
-            aria-label="Rozpocznij"
-            onClick={dismiss}
-            style={{
-              background: 'none',
-              border: '1px solid rgba(255,255,255,0.3)',
-              borderRadius: '50%',
-              width: 'clamp(64px, 12vw, 80px)',
-              height: 'clamp(64px, 12vw, 80px)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'border-color 0.3s',
-            }}
-          >
-            <svg width="28" height="32" viewBox="0 0 28 32" fill="none">
-              <path d="M2 1.5L26 16L2 30.5V1.5Z" fill="rgba(255,255,255,0.8)" stroke="none" />
-            </svg>
-          </button>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 'clamp(12px, 3vw, 20px)',
+          }}>
+            <div style={{
+              fontSize: 'clamp(11px, 1.4vw, 14px)',
+              color: 'rgba(255,255,255,0.5)',
+              letterSpacing: 4,
+              textTransform: 'uppercase',
+            }}>
+              Tap to explore
+            </div>
+            <button
+              aria-label="Rozpocznij"
+              onClick={dismiss}
+              style={{
+                background: 'none',
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '50%',
+                width: 'clamp(64px, 12vw, 80px)',
+                height: 'clamp(64px, 12vw, 80px)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'border-color 0.3s',
+              }}
+            >
+              <svg width="28" height="32" viewBox="0 0 28 32" fill="none">
+                <path d="M2 1.5L26 16L2 30.5V1.5Z" fill="rgba(255,255,255,0.8)" stroke="none" />
+              </svg>
+            </button>
+            <div style={{
+              fontSize: 'clamp(9px, 1.2vw, 12px)',
+              color: 'rgba(255,255,255,0.35)',
+              letterSpacing: 2,
+            }}>
+              Church of Rao
+            </div>
+          </div>
         ) : (
           <>
             <div style={{
