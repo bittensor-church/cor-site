@@ -97,7 +97,7 @@ export function MusicToggle({ progress = 0 }: MusicToggleProps) {
       }}>
         <span style={{
           fontFamily: "'IBM Plex Mono', monospace",
-          fontSize: 'clamp(8px, 0.9vw, 11px)',
+          fontSize: 'clamp(10px, 0.9vw, 11px)',
           letterSpacing: 2,
           textTransform: 'uppercase',
           color: 'rgba(255, 255, 255, 0.6)',
