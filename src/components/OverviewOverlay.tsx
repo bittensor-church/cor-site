@@ -369,8 +369,10 @@ function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) 
             left: 0,
             right: 0,
             top: 0,
+            bottom: 0,
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
             gap: 'clamp(16px, 8vw, 100px)',
             flexWrap: 'wrap' as const,
           }}>
@@ -397,8 +399,10 @@ function BottomStrip({ local, isMobile }: { local: number; isMobile: boolean }) 
             left: 0,
             right: 0,
             top: 0,
+            bottom: 0,
             display: 'flex',
             justifyContent: 'center',
+            alignItems: 'center',
             gap: 'clamp(16px, 8vw, 100px)',
             flexWrap: 'wrap' as const,
           }}>
