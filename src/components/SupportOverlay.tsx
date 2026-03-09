@@ -135,19 +135,36 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontSize: 'clamp(10px, 1.2vw, 16px)',
-              fontWeight: 400,
-              color: 'rgba(255, 255, 255, 0.75)',
+              fontSize: 'clamp(11px, 1.3vw, 17px)',
+              fontWeight: 500,
+              color: '#d4a843',
               letterSpacing: 'clamp(1px, 0.15vw, 2px)',
               wordBreak: 'break-all',
               maxWidth: 'clamp(300px, 60vw, 700px)',
               textAlign: 'center',
               pointerEvents: 'auto',
-              textDecoration: 'none',
-              transition: 'color 0.3s',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              textDecorationColor: 'rgba(212, 168, 67, 0.4)',
+              textUnderlineOffset: 4,
+              transition: 'color 0.3s, text-decoration-color 0.3s',
+              padding: 'clamp(8px, 1.2vh, 14px) clamp(16px, 2vw, 28px)',
+              border: '1px solid rgba(212, 168, 67, 0.3)',
+              borderRadius: 8,
+              background: 'rgba(212, 168, 67, 0.06)',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#ffffff'
+              e.currentTarget.style.textDecorationColor = '#d4a843'
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.6)'
+              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.12)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#d4a843'
+              e.currentTarget.style.textDecorationColor = 'rgba(212, 168, 67, 0.4)'
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.3)'
+              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.06)'
+            }}
           >
             5CovTPBh8JyYZBshs2WpNtnDghDB8Wacd1F2sFdXPsRy3Rzz
           </a>
