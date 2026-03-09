@@ -88,7 +88,7 @@ export function NexusOverlay({ progress }: NexusOverlayProps) {
           transform: `translateY(${(1 - bodyOp) * 10}px)`,
           fontSize: 'clamp(14px, 1.5vw, 20px)',
           fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.8)',
+          color: 'rgba(255, 255, 255, 0.85)',
           lineHeight: 1.7,
           willChange: 'opacity, transform',
         }}>
