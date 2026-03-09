@@ -121,7 +121,13 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             letterSpacing: 2,
             textTransform: 'uppercase',
             color: '#d4a843',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
           }}>
+            <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 'clamp(12px, 1.2vw, 16px)', height: 'clamp(12px, 1.2vw, 16px)', flexShrink: 0 }}>
+              <path d="M21 7H3a1 1 0 00-1 1v10a2 2 0 002 2h16a2 2 0 002-2V8a1 1 0 00-1-1zm-1 10H4V9h16v8zm-3-4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM4 5h16a1 1 0 100-2H4a1 1 0 100 2z" />
+            </svg>
             TAO Wallet
           </div>
           <a
@@ -182,7 +188,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
         >
           <svg
             viewBox="0 0 24 24"
-            fill="currentColor"
+            fill="#d4a843"
             style={{
               width: 'clamp(14px, 1.5vw, 20px)',
               height: 'clamp(14px, 1.5vw, 20px)',
