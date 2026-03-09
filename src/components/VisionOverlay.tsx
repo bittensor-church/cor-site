@@ -108,7 +108,7 @@ export function VisionOverlay({ progress }: VisionOverlayProps) {
       <div style={{
         ...BASE_FONT,
         opacity: headlineOpacity,
-        fontSize: 'clamp(24px, 4vw, 56px)',
+        fontSize: 'clamp(20px, 3.2vw, 44px)',
         fontWeight: 700,
         color: '#d4a843',
         letterSpacing: 'clamp(3px, 0.6vw, 8px)',
