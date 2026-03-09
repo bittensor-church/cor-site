@@ -31,7 +31,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
     name: 'Protocol Fairness & Network Safety',
     description: 'Improving incentive alignment and protecting the network from abuse',
     percentage: 25,
-    taoAmount: 501,
+    taoAmount: 543,
     projects: [
       { title: 'DDoS shield', link: 'https://github.com/bittensor-church/bt-ddos-shield', tech: 'python' },
       { title: 'burn', link: 'https://github.com/bittensor-church/burn', tech: 'python' },
@@ -48,7 +48,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
     name: 'Transparency & Governance Visibility',
     description: 'Making network behavior visible and enabling community voice',
     percentage: 11,
-    taoAmount: 227,
+    taoAmount: 239,
     projects: [
       { title: 'grafana', link: 'https://grafana.bittensor.church', tech: 'python' },
       { title: 'bittensor-sentinel', link: 'https://github.com/bittensor-church/sentinel-tower', tech: 'python' },
@@ -64,7 +64,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
     name: 'Subnet Development & Operations',
     description: 'Providing infrastructure and tooling for subnet operators',
     percentage: 64,
-    taoAmount: 1272,
+    taoAmount: 1388,
     projects: [
       { title: 'nexus', link: 'https://github.com/bittensor-church/nexus-poc', tech: 'python' },
       { title: 'pylon', link: 'https://github.com/bittensor-church/bittensor-pylon', tech: 'python' },
