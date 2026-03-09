@@ -91,7 +91,7 @@ export function AchievementOverlay({ progress }: AchievementOverlayProps) {
           textShadow: '0 2px 12px rgba(0,0,0,0.6)',
           willChange: 'opacity, transform',
         }}>
-          We built the weapons AND the detection system. Step by step the weight-copying stopped being a discussion point. Still Liquid Alpha 2.1 is ready to be unleashed.
+          We built the weapons, spreaded awareness and offered guidance. Step by step the weight-copying stopped being a discussion point. Still, Liquid Alpha 2.1 is ready to be unleashed.
         </div>
       </div>
     </div>

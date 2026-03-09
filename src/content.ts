@@ -108,7 +108,10 @@ export interface PrStatsData {
   readonly title: string
   readonly totalLabel: string
   readonly totalPrs: number
-  readonly totalRepos: number
+  readonly prsAuthored: number
+  readonly prsAuthoredLabel: string
+  readonly prsInvolved: number
+  readonly prsInvolvedLabel: string
   readonly verifyLinks: readonly VerifyLink[]
   readonly topRepos: readonly RepoStat[]
   readonly remainingReposCount: number
@@ -118,7 +121,10 @@ export const PR_STATS_DATA: PrStatsData = {
   title: 'We shipped code. All of it public.',
   totalLabel: 'Merged Pull Requests',
   totalPrs: 413,
-  totalRepos: 16,
+  prsAuthored: 314,
+  prsAuthoredLabel: 'PRs authored',
+  prsInvolved: 99,
+  prsInvolvedLabel: 'PRs involved',
   verifyLinks: [
     { name: 'PR stats', url: 'https://github.com/bittensor-church' },
   ],

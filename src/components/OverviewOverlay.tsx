@@ -322,6 +322,7 @@ function BottomStrip({ local, isMobile, isTablet }: { local: number; isMobile: b
       bottom: 'clamp(40px, 10vh, 100px)',
       left: '5%',
       right: isMobile ? '5%' : isTablet ? '80px' : 'clamp(140px, 15vw, 220px)',
+      pointerEvents: 'auto' as const,
     }}>
       {/* Bar */}
       <div style={{
@@ -401,8 +402,12 @@ function BottomStrip({ local, isMobile, isTablet }: { local: number; isMobile: b
               <div style={label}>PRs merged</div>
             </div>
             <div style={statStyle}>
-              <div style={bigNum}>{PR_STATS_DATA.totalRepos}</div>
-              <div style={label}>repos</div>
+              <div style={bigNum}>{PR_STATS_DATA.prsAuthored}</div>
+              <div style={label}>{PR_STATS_DATA.prsAuthoredLabel}</div>
+            </div>
+            <div style={statStyle}>
+              <div style={bigNum}>{PR_STATS_DATA.prsInvolved}</div>
+              <div style={label}>{PR_STATS_DATA.prsInvolvedLabel}</div>
             </div>
 
             {/* Verify column: repo links at number height, motto at label height */}
