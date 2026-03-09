@@ -398,10 +398,6 @@ function BottomStrip({ local, isMobile, isTablet }: { local: number; isMobile: b
             flexWrap: 'wrap' as const,
           }}>
             <div style={statStyle}>
-              <div style={bigNum}>{PR_STATS_DATA.totalPrs}</div>
-              <div style={label}>PRs merged</div>
-            </div>
-            <div style={statStyle}>
               <div style={bigNum}>{PR_STATS_DATA.prsAuthored}</div>
               <div style={label}>{PR_STATS_DATA.prsAuthoredLabel}</div>
             </div>
