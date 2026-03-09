@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useIsMobile } from './hooks/useIsMobile'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import { VideoSection } from './components/VideoSection'
@@ -26,19 +26,10 @@ const HASH_SECTIONS = [
   { hash: 'support', target: 0.981 },
 ] as const
 
-function getHashForProgress(p: number): string {
-  for (let i = HASH_SECTIONS.length - 1; i > 0; i--) {
-    const mid = (HASH_SECTIONS[i - 1].target + HASH_SECTIONS[i].target) / 2
-    if (p >= mid) return HASH_SECTIONS[i].hash
-  }
-  return HASH_SECTIONS[0].hash
-}
-
 export function App() {
   const [loaded, setLoaded] = useState(false)
   const isMobile = useIsMobile()
   const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
-  const lastHashRef = useRef('')
 
   // Deep link: read hash on mount
   useEffect(() => {
@@ -48,14 +39,12 @@ export function App() {
     if (match) setProgress(match.target)
   }, [setProgress])
 
-  // Deep link: update hash on section change
+  // Deep link: clear hash after initial navigation so refresh starts from top
   useEffect(() => {
-    const hash = getHashForProgress(sectionProgress)
-    if (hash !== lastHashRef.current) {
-      lastHashRef.current = hash
-      window.history.replaceState(null, '', `#${hash}`)
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
     }
-  }, [sectionProgress])
+  }, [])
 
   return (
     <div style={{
