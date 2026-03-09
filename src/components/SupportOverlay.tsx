@@ -124,20 +124,27 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
           }}>
             TAO Wallet
           </div>
-          <div style={{
-            fontSize: 'clamp(10px, 1.2vw, 16px)',
-            fontWeight: 400,
-            color: 'rgba(255, 255, 255, 0.75)',
-            letterSpacing: 'clamp(1px, 0.15vw, 2px)',
-            wordBreak: 'break-all',
-            maxWidth: 'clamp(300px, 60vw, 700px)',
-            textAlign: 'center',
-            pointerEvents: 'auto',
-            cursor: 'text',
-            userSelect: 'all',
-          }}>
-            XXXXXXXX
-          </div>
+          <a
+            href="https://x.taostats.io/account/5CovTPBh8JyYZBshs2WpNtnDghDB8Wacd1F2sFdXPsRy3Rzz"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: 'clamp(10px, 1.2vw, 16px)',
+              fontWeight: 400,
+              color: 'rgba(255, 255, 255, 0.75)',
+              letterSpacing: 'clamp(1px, 0.15vw, 2px)',
+              wordBreak: 'break-all',
+              maxWidth: 'clamp(300px, 60vw, 700px)',
+              textAlign: 'center',
+              pointerEvents: 'auto',
+              textDecoration: 'none',
+              transition: 'color 0.3s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)' }}
+          >
+            5CovTPBh8JyYZBshs2WpNtnDghDB8Wacd1F2sFdXPsRy3Rzz
+          </a>
         </div>
 
         {/* Social links */}
