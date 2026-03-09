@@ -23,10 +23,21 @@ export function useScrollProgress(sectionCount: number): ScrollState {
   const lastTouchYRef = useRef(0)
   const velocityRef = useRef(0)
   const lastTouchTimeRef = useRef(0)
+  const sectionCountRef = useRef(sectionCount)
+  sectionCountRef.current = sectionCount
+
   const setProgress = useCallback((p: number) => {
     const clamped = Math.max(0, Math.min(1, p))
     targetRef.current = clamped
     currentRef.current = clamped
+
+    const rawIndex = clamped * sectionCountRef.current
+    const idx = Math.min(sectionCountRef.current - 1, Math.floor(rawIndex))
+    setState({
+      progress: clamped,
+      sectionIndex: idx,
+      sectionProgress: Math.min(1, rawIndex - idx),
+    })
   }, [])
 
   useEffect(() => {
