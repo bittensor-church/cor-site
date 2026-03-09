@@ -61,6 +61,7 @@ export function ProblemsOverlay({ progress }: ProblemsOverlayProps) {
         padding: 'clamp(20px, 4vh, 40px) clamp(24px, 4vw, 48px)',
         opacity: Math.min(1, local / 0.05),
         transition: 'opacity 0.3s ease',
+        alignSelf: 'flex-start',
       }}>
       {/* Header */}
       <div style={{
