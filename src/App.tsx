@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { useIsMobile } from './hooks/useIsMobile'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import { VideoSection } from './components/VideoSection'
@@ -103,6 +104,7 @@ export function App() {
       <SideNav progress={sectionProgress} onNavigate={setProgress} />
       <MusicToggle progress={sectionProgress} />
       <LoadingScreen visible={!loaded} onReady={() => setLoaded(true)} />
+      <SpeedInsights />
     </div>
   )
 }
