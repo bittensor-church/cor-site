@@ -10,7 +10,10 @@ interface ScrollState extends ScrollData {
   setProgress: (p: number) => void
 }
 
-export function useScrollProgress(sectionCount: number): ScrollState {
+export function useScrollProgress(
+  sectionCount: number,
+  isFrameReadyRef?: { readonly current: (progress: number) => boolean },
+): ScrollState {
   const [state, setState] = useState<ScrollData>({
     progress: 0,
     sectionIndex: 0,
@@ -111,11 +114,27 @@ export function useScrollProgress(sectionCount: number): ScrollState {
       }
     }
 
+    const maxGap = 0.04 // max progress gap when frames aren't ready
+
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate)
 
       const prev = currentRef.current
-      currentRef.current += (targetRef.current - currentRef.current) * smoothing
+      const desired = prev + (targetRef.current - prev) * smoothing
+
+      // Adaptive scroll: hold when target frame not loaded
+      const isReady = isFrameReadyRef?.current
+      const canDisplay = !isReady || isReady(desired)
+
+      if (canDisplay) {
+        currentRef.current = desired
+      } else {
+        // Cap accumulated gap so we don't snap too far when frames catch up
+        const gap = targetRef.current - currentRef.current
+        if (Math.abs(gap) > maxGap) {
+          targetRef.current = currentRef.current + Math.sign(gap) * maxGap
+        }
+      }
 
       if (Math.abs(currentRef.current - prev) > 0.0001) {
         const p = currentRef.current

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useIsMobile } from './hooks/useIsMobile'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import { VideoSection } from './components/VideoSection'
@@ -29,7 +29,21 @@ const HASH_SECTIONS = [
 export function App() {
   const [loaded, setLoaded] = useState(false)
   const isMobile = useIsMobile()
-  const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
+
+  // Adaptive scroll: track which frames are loaded
+  const loadedFramesRef = useRef(new Set<number>())
+  const isFrameReadyRef = useRef((progress: number): boolean => {
+    const rawIndex = progress * SECTIONS.length
+    const sectionIdx = Math.min(SECTIONS.length - 1, Math.floor(rawIndex))
+    const sectionProg = Math.min(1, rawIndex - sectionIdx)
+    const frameIdx = Math.min(
+      Math.floor(sectionProg * SECTIONS[sectionIdx].frameCount),
+      SECTIONS[sectionIdx].frameCount - 1,
+    )
+    return loadedFramesRef.current.has(frameIdx)
+  })
+
+  const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length, isFrameReadyRef)
 
   // Deep link: read hash on mount
   useEffect(() => {
@@ -62,6 +76,7 @@ export function App() {
             active={sectionIndex === i}
             shouldLoad={Math.abs(sectionIndex - i) <= 1}
             sectionProgress={sectionIndex === i ? sectionProgress : (sectionIndex > i ? 1 : 0)}
+            loadedFramesRef={loadedFramesRef}
           />
         ))}
 

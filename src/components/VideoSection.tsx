@@ -7,12 +7,13 @@ interface VideoSectionProps {
   active: boolean
   shouldLoad: boolean
   sectionProgress: number
+  loadedFramesRef?: { readonly current: Set<number> }
   children?: React.ReactNode
 }
 
 const FADE_DURATION = 800
 
-export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, children }: VideoSectionProps) {
+export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, loadedFramesRef, children }: VideoSectionProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const framesRef = useRef<(HTMLImageElement | null)[]>([])
@@ -82,14 +83,15 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
       if (framesRef.current[i] !== null) continue
 
       const img = new Image()
-      img.src = `${frameDir}/f_${String(i + 1).padStart(4, '0')}.webp`
       const frameIndex = i
       img.onload = () => {
         framesRef.current[frameIndex] = img
+        loadedFramesRef?.current.add(frameIndex)
         if (frameIndex === currentFrame && canvasRef.current) {
           drawFrame(frameIndex)
         }
       }
+      img.src = `${frameDir}/f_${String(i + 1).padStart(4, '0')}.webp`
     }
   }, [shouldLoad, sectionProgress, frameDir, frameCount, drawFrame])
 
