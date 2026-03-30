@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useIsMobile } from './hooks/useIsMobile'
 import { useScrollProgress } from './hooks/useScrollProgress'
+import { useSparsePreload } from './hooks/useSparsePreload'
 import { VideoSection } from './components/VideoSection'
 import { HeroOverlay } from './components/HeroOverlay'
 import { ProblemsOverlay } from './components/ProblemsOverlay'
@@ -29,6 +30,12 @@ const HASH_SECTIONS = [
 export function App() {
   const [loaded, setLoaded] = useState(false)
   const isMobile = useIsMobile()
+
+  const { ready: sparseReady, progress: sparseProgress, sparseFramesRef } = useSparsePreload({
+    frameDir: SECTIONS[0].frameDir,
+    frameCount: SECTIONS[0].frameCount,
+    step: 20,
+  })
 
   const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
 
@@ -63,6 +70,7 @@ export function App() {
             active={sectionIndex === i}
             shouldLoad={Math.abs(sectionIndex - i) <= 1}
             sectionProgress={sectionIndex === i ? sectionProgress : (sectionIndex > i ? 1 : 0)}
+            sparseFramesRef={sparseFramesRef}
           />
         ))}
 
@@ -103,7 +111,12 @@ export function App() {
 
       <SideNav progress={sectionProgress} onNavigate={setProgress} />
       <MusicToggle progress={sectionProgress} />
-      <LoadingScreen visible={!loaded} onReady={() => setLoaded(true)} />
+      <LoadingScreen
+        visible={!loaded}
+        onReady={() => setLoaded(true)}
+        loadProgress={sparseProgress}
+        framesReady={sparseReady}
+      />
     </div>
   )
 }

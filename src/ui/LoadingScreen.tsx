@@ -1,50 +1,61 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 interface LoadingScreenProps {
   visible: boolean
   onReady: () => void
+  loadProgress: number
+  framesReady: boolean
 }
 
-export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
+const MAX_WAIT = 8000
+const MIN_DISPLAY = 400
+
+export function LoadingScreen({ visible, onReady, loadProgress, framesReady }: LoadingScreenProps) {
   const isMobile = useIsMobile()
   const [opacity, setOpacity] = useState(1)
   const [mounted, setMounted] = useState(true)
   const [showPlay, setShowPlay] = useState(false)
+  const dismissedRef = useRef(false)
 
   const dismiss = useCallback(() => {
+    if (dismissedRef.current) return
+    dismissedRef.current = true
     setOpacity(0)
     onReady()
     setTimeout(() => setMounted(false), 1000)
   }, [onReady])
 
+  // Desktop: auto-dismiss when sparse frames ready (or timeout)
   useEffect(() => {
-    if (isMobile) {
-      // On mobile, show play button after brief delay
-      const t = setTimeout(() => setShowPlay(true), 600)
+    if (isMobile) return
+
+    if (framesReady) {
+      const t = setTimeout(dismiss, MIN_DISPLAY)
       return () => clearTimeout(t)
     }
 
-    // Desktop: auto-dismiss when page ready or short timeout
-    let done = false
-    const finish = () => {
-      if (done) return
-      done = true
-      setTimeout(dismiss, 400)
-    }
-
-    if (document.readyState === 'complete') {
-      setTimeout(finish, 800)
-    } else {
-      window.addEventListener('load', () => setTimeout(finish, 800), { once: true })
-    }
-
-    const timeout = setTimeout(finish, 2500)
-
+    // Safety timeout — don't block forever on slow connections
+    const timeout = setTimeout(dismiss, MAX_WAIT)
     return () => clearTimeout(timeout)
-  }, [dismiss])
+  }, [isMobile, framesReady, dismiss])
+
+  // Mobile: show play button when frames ready (or timeout)
+  useEffect(() => {
+    if (!isMobile) return
+
+    if (framesReady) {
+      const t = setTimeout(() => setShowPlay(true), 200)
+      return () => clearTimeout(t)
+    }
+
+    const timeout = setTimeout(() => setShowPlay(true), MAX_WAIT)
+    return () => clearTimeout(timeout)
+  }, [isMobile, framesReady])
 
   if (!mounted) return null
+
+  const percent = Math.round(loadProgress * 100)
 
   return (
     <div style={{
@@ -111,34 +122,36 @@ export function LoadingScreen({ visible, onReady }: LoadingScreenProps) {
               color: 'rgba(255,255,255,0.6)',
               letterSpacing: 6,
               textTransform: 'uppercase',
+              marginBottom: 20,
             }}>
               Loading
             </div>
             <div style={{
-              width: 80,
+              width: 120,
               height: 1,
               background: 'rgba(255,255,255,0.1)',
-              margin: '20px auto 0',
+              margin: '0 auto',
               overflow: 'hidden',
               borderRadius: 1,
             }}>
               <div style={{
-                width: '30%',
+                width: `${percent}%`,
                 height: '100%',
                 background: 'rgba(255,255,255,0.5)',
                 borderRadius: 1,
-                animation: 'loadSlide 1.2s ease-in-out infinite',
+                transition: 'width 0.15s ease-out',
               }} />
+            </div>
+            <div style={{
+              fontSize: 'clamp(9px, 1vw, 11px)',
+              color: 'rgba(255,255,255,0.3)',
+              marginTop: 12,
+              letterSpacing: 2,
+            }}>
+              {percent}%
             </div>
           </>
         )}
-        <style>{`
-          @keyframes loadSlide {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(333%); }
-            100% { transform: translateX(-100%); }
-          }
-        `}</style>
       </div>
     </div>
   )

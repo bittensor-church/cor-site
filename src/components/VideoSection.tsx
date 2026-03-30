@@ -7,12 +7,13 @@ interface VideoSectionProps {
   active: boolean
   shouldLoad: boolean
   sectionProgress: number
+  sparseFramesRef?: React.RefObject<Map<number, HTMLImageElement>>
   children?: React.ReactNode
 }
 
 const FADE_DURATION = 800
 
-export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, children }: VideoSectionProps) {
+export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, sparseFramesRef, children }: VideoSectionProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const framesRef = useRef<(HTMLImageElement | null)[]>([])
@@ -25,10 +26,22 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
     const canvas = canvasRef.current
     if (!canvas) return
 
-    // Fallback: if target frame not loaded, find nearest loaded frame
+    // Fallback chain: dense frame → sparse frame → nearest search
     let frame = framesRef.current[index]
+    if (!frame && sparseFramesRef?.current) {
+      const step = 20
+      const lo = Math.floor(index / step) * step
+      const hi = Math.min(lo + step, frameCount - 1)
+      const sparseMap = sparseFramesRef.current
+      // Pick the closer sparse frame
+      if (index - lo <= hi - index) {
+        frame = sparseMap.get(lo) ?? sparseMap.get(hi) ?? null
+      } else {
+        frame = sparseMap.get(hi) ?? sparseMap.get(lo) ?? null
+      }
+    }
     if (!frame) {
-      for (let d = 1; d <= 60; d++) {
+      for (let d = 1; d <= 30; d++) {
         if (index - d >= 0 && framesRef.current[index - d]) {
           frame = framesRef.current[index - d]
           break
@@ -89,6 +102,12 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
 
     if (framesRef.current.length === 0) {
       framesRef.current = new Array(frameCount).fill(null)
+      // Pre-populate with sparse frames so dense loading skips them
+      if (sparseFramesRef?.current) {
+        sparseFramesRef.current.forEach((img, idx) => {
+          if (idx < frameCount) framesRef.current[idx] = img
+        })
+      }
     }
 
     for (let i = start; i <= end; i++) {
