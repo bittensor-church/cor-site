@@ -12,7 +12,6 @@ interface ScrollState extends ScrollData {
 
 export function useScrollProgress(
   sectionCount: number,
-  isFrameReadyRef?: { readonly current: (progress: number) => boolean },
 ): ScrollState {
   const [state, setState] = useState<ScrollData>({
     progress: 0,
@@ -45,7 +44,7 @@ export function useScrollProgress(
 
   useEffect(() => {
     const scrollSpeed = 0.0003
-    const smoothing = 0.07
+    const baseSmooting = 0.07
     const maxDelta = 60
 
     const handleWheel = (e: WheelEvent) => {
@@ -114,27 +113,14 @@ export function useScrollProgress(
       }
     }
 
-    const maxGap = 0.04 // max progress gap when frames aren't ready
-
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate)
 
       const prev = currentRef.current
-      const desired = prev + (targetRef.current - prev) * smoothing
-
-      // Adaptive scroll: hold when target frame not loaded
-      const isReady = isFrameReadyRef?.current
-      const canDisplay = !isReady || isReady(desired)
-
-      if (canDisplay) {
-        currentRef.current = desired
-      } else {
-        // Cap accumulated gap so we don't snap too far when frames catch up
-        const gap = targetRef.current - currentRef.current
-        if (Math.abs(gap) > maxGap) {
-          targetRef.current = currentRef.current + Math.sign(gap) * maxGap
-        }
-      }
+      const gap = Math.abs(targetRef.current - prev)
+      // Adaptive smoothing: gentle for small scrolls, snappy for fast scrolls
+      const smoothing = Math.min(0.3, baseSmooting + gap * 3)
+      currentRef.current = prev + (targetRef.current - prev) * smoothing
 
       if (Math.abs(currentRef.current - prev) > 0.0001) {
         const p = currentRef.current

@@ -7,26 +7,38 @@ interface VideoSectionProps {
   active: boolean
   shouldLoad: boolean
   sectionProgress: number
-  loadedFramesRef?: { readonly current: Set<number> }
   children?: React.ReactNode
 }
 
 const FADE_DURATION = 800
 
-export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, loadedFramesRef, children }: VideoSectionProps) {
+export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoad, sectionProgress, children }: VideoSectionProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const framesRef = useRef<(HTMLImageElement | null)[]>([])
   const lastFrameRef = useRef(-1)
   const fadeIntervalRef = useRef<number | null>(null)
 
-  const LOAD_WINDOW = 150
+  const LOAD_WINDOW = 300
 
   const drawFrame = useCallback((index: number) => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const frame = framesRef.current[index]
+    // Fallback: if target frame not loaded, find nearest loaded frame
+    let frame = framesRef.current[index]
+    if (!frame) {
+      for (let d = 1; d <= 60; d++) {
+        if (index - d >= 0 && framesRef.current[index - d]) {
+          frame = framesRef.current[index - d]
+          break
+        }
+        if (index + d < framesRef.current.length && framesRef.current[index + d]) {
+          frame = framesRef.current[index + d]
+          break
+        }
+      }
+    }
     if (!frame) return
 
     const ctx = canvas.getContext('2d')
@@ -86,7 +98,6 @@ export function VideoSection({ frameDir, frameCount, audioSrc, active, shouldLoa
       const frameIndex = i
       img.onload = () => {
         framesRef.current[frameIndex] = img
-        loadedFramesRef?.current.add(frameIndex)
         if (frameIndex === currentFrame && canvasRef.current) {
           drawFrame(frameIndex)
         }
