@@ -8,7 +8,7 @@ interface LoadingScreenProps {
   framesReady: boolean
 }
 
-const MAX_WAIT = 8000
+const MAX_WAIT = 5000
 const MIN_DISPLAY = 400
 
 export function LoadingScreen({ visible, onReady, loadProgress, framesReady }: LoadingScreenProps) {
