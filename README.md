@@ -96,9 +96,9 @@ Sections:  Hero  Problems  Achievement  Overview  Vision  Nexus  Support
 // src/content.ts — TOKEN_FLOW_DATA
 export const TOKEN_FLOW_DATA: TokenFlowData = {
   title: 'We took tokens. Here\'s every TAO.',
-  totalOutflowAmount: '2,170',      // Change TAO amounts here
+  totalOutflowAmount: '2,356',      // Change TAO amounts here
   inflowAmount: '2,000',
-  netAmount: '-170',
+  netAmount: '-356',
   categories: [                      // Add/remove/edit categories
     { name: 'Consensus Integrity', projects: 'commit-reveal · Yuma3 · ...' },
     // ...
@@ -180,7 +180,7 @@ The project breakdown grid in `OverviewOverlay.tsx` has its own data (`BREAKDOWN
   name: 'Protocol Fairness & Network Safety',
   description: 'Improving incentive alignment...',
   percentage: 25,           // % of total TAO
-  taoAmount: 543,           // TAO amount
+  taoAmount: 589,           // TAO amount
   projects: [
     { title: 'DDoS shield', link: 'https://github.com/...', tech: 'python' },
     // Add projects here — tech: 'rust' | 'python' | 'smart contract' | 'community'
