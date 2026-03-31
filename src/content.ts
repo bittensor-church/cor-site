@@ -117,10 +117,10 @@ export interface PrStatsData {
 
 export const PR_STATS_DATA: PrStatsData = {
   title: 'We shipped code. All of it public.',
-  prsAuthored: 351,
-  prsAuthoredLabel: 'PRs authored',
-  prsInvolved: 62,
-  prsInvolvedLabel: 'PRs contributed to',
+  prsAuthored: 273,
+  prsAuthoredLabel: 'PRs in bittensor-church',
+  prsInvolved: 78,
+  prsInvolvedLabel: 'PRs in opentensor',
   verifyLinks: [
     { name: 'PR stats', url: 'https://github.com/bittensor-church' },
   ],
