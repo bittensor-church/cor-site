@@ -39,7 +39,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
       { title: 'golden-validator', link: 'https://github.com/bittensor-church/tee-guest', tech: 'python' },
       { title: 'yuma3', link: 'https://docs.learnbittensor.org/learn/yuma3-migration-guide', tech: 'rust' },
       { title: 'commit reveal', link: '#', tech: 'rust' },
-      { title: 'liquid alpha 2.x', link: '#', tech: 'rust' },
+      { title: 'liquid alpha 2.x', link: 'https://github.com/opentensor/subtensor/pull/1729', tech: 'rust' },
 { title: 'superburn', link: 'https://github.com/bittensor-church/superburn', tech: 'smart contract' },
       { title: 'collateral smart contract', link: 'https://github.com/bittensor-church/collateral-contracts', tech: 'smart contract' },
     ],
