@@ -2,7 +2,7 @@
 
 Scroll-driven storytelling site for the Church of Rao — an independent team building critical infrastructure for the Bittensor ecosystem.
 
-**Live:** https://cor-v2-two.vercel.app
+**Live:** https://bittensor.church
 
 ## Tech Stack
 
@@ -10,7 +10,7 @@ Scroll-driven storytelling site for the Church of Rao — an independent team bu
 - Scroll-hijacked navigation (custom `useScrollProgress` hook)
 - Frame-by-frame video playback synced to scroll position (2166 frames)
 - No routing library — single-page with overlay-based sections
-- Deployed on **Vercel**
+- Deployed on **Cloudflare Pages**
 
 ## Getting Started
 
@@ -214,19 +214,14 @@ Side navigation labels are in `SideNav.tsx`. The `HASH_SECTIONS` array in `App.t
 
 ## Deployment
 
-Vercel auto-deploy is **not connected** (Git integration issue). Deploy manually:
+Production is served from Cloudflare Pages:
 
 ```bash
 # 1. Build locally to verify
 npm run build
 
-# 2. Push to both remotes
+# 2. Push to master to trigger deployment
 git push origin master
-# Switch to piotrgerke95 account for private remote
-git push private master
-
-# 3. Deploy to Vercel
-npx vercel --prod
 ```
 
-The site is aliased at https://cor-v2-two.vercel.app.
+The live production site is https://bittensor.church.
