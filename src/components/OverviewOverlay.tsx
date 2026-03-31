@@ -69,7 +69,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
       { title: 'nexus', link: 'https://github.com/bittensor-church/nexus-poc', tech: 'python' },
       { title: 'pylon', link: 'https://github.com/bittensor-church/bittensor-pylon', tech: 'python' },
       { title: 'yuma3 simulator', link: 'https://github.com/bittensor-church/interactive-yuma-simulator', tech: 'python' },
-      { title: 'prometheus proxy', link: 'https://github.com/backend-developers-ltd/bittensor-prometheus-proxy', tech: 'python' },
+      { title: 'prometheus proxy', link: 'https://github.com/bittensor-church/bittensor-prometheus-proxy', tech: 'python' },
       { title: 'alpha wrapper', link: '#', tech: 'smart contract' },
       { title: 'rails contract', link: 'https://github.com/bittensor-church/rail-contracts', tech: 'smart contract' },
       { title: 'treasury contract', link: 'https://github.com/bittensor-church/treasury-contract', tech: 'smart contract' },
