@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PR_STATS_DATA } from '../content'
+import { InfoTooltip } from './InfoTooltip'
 import { useIsMobile, useIsTablet } from '../hooks/useIsMobile'
 import { fadeIn } from '../utils/animations'
 import { BASE_FONT } from '../utils/styles'
@@ -36,11 +37,10 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
       { title: 'DDoS shield', link: 'https://github.com/bittensor-church/bt-ddos-shield', tech: 'python' },
       { title: 'burn', link: 'https://github.com/bittensor-church/burn', tech: 'python' },
       { title: 'golden-validator', link: '#', tech: 'python' },
-      { title: 'yuma3', link: '#', tech: 'rust' },
+      { title: 'yuma3', link: 'https://docs.learnbittensor.org/learn/yuma3-migration-guide', tech: 'rust' },
       { title: 'commit reveal', link: '#', tech: 'rust' },
       { title: 'liquid alpha 2.x', link: '#', tech: 'rust' },
-      { title: 'taoflow2', link: '#', tech: 'rust' },
-      { title: 'superburn', link: 'https://github.com/bittensor-church/superburn', tech: 'smart contract' },
+{ title: 'superburn', link: 'https://github.com/bittensor-church/superburn', tech: 'smart contract' },
       { title: 'collateral smart contract', link: 'https://github.com/bittensor-church/collateral-contracts', tech: 'smart contract' },
     ],
   },
@@ -148,11 +148,20 @@ function MobileProjectToggle({ projects }: { projects: Project[] }) {
 
             return p.link !== '#' ? (
               <a key={p.title} href={p.link} target="_blank" rel="noopener noreferrer"
-                 style={{ ...style, textDecoration: 'none', pointerEvents: 'auto' }}>
+                 style={{
+                   ...style,
+                   textDecoration: 'none',
+                   pointerEvents: 'auto',
+                   color: '#ffffff',
+                   display: 'inline-flex',
+                   alignItems: 'center',
+                   gap: 3,
+                 }}>
                 {p.title}
+                <span style={{ fontSize: '0.8em', opacity: 0.6 }}>🔗</span>
               </a>
             ) : (
-              <span key={p.title} style={style}>{p.title}</span>
+              <span key={p.title} style={{ ...style, color: 'rgba(255,255,255,0.5)' }}>{p.title}</span>
             )
           })}
         </div>
@@ -255,17 +264,22 @@ function BreakdownCell({ item, opacity, isMobile }: {
                         textUnderlineOffset: 3,
                         pointerEvents: 'auto',
                         cursor: 'pointer',
+                        transition: 'color 0.2s, text-decoration-color 0.2s',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#5b9bf5'
+                        e.currentTarget.style.textDecorationColor = 'rgba(91,155,245,0.5)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#ffffff'
+                        e.currentTarget.style.textDecorationColor = 'rgba(212,168,67,0.4)'
                       }}
                     >
                       {project.title}
+                      <span style={{ marginLeft: 4, fontSize: '0.85em', opacity: 0.6 }}>🔗</span>
                     </a>
                   ) : (
-                    <span style={{
-                      color: '#ffffff',
-                      textDecoration: 'underline',
-                      textDecorationColor: 'rgba(212,168,67,0.4)',
-                      textUnderlineOffset: 3,
-                    }}>
+                    <span style={{ color: 'rgba(255,255,255,0.55)' }}>
                       {project.title}
                     </span>
                   )}
@@ -372,7 +386,17 @@ function BottomStrip({ local, isMobile, isTablet }: { local: number; isMobile: b
               <div style={label}>TAO received</div>
             </div>
             <div style={statStyle}>
-              <div style={bigNum}>2,170</div>
+              <div style={{ ...bigNum, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                2,356
+                <InfoTooltip
+                  items={[
+                    { label: 'Main donor', amount: '2,000' },
+                    { label: 'Staking rewards', amount: '170' },
+                    { label: 'SN38 donation', amount: '186' },
+                  ]}
+                  isMobile={isMobile}
+                />
+              </div>
               <div style={label}>TAO deployed</div>
             </div>
             <div style={statStyle}>
@@ -465,15 +489,15 @@ export function OverviewOverlay({ progress }: OverviewOverlayProps) {
 
   const local = (progress - ENTER) / TOTAL
 
-  // Global fade-out
-  const globalFade = local > 0.92
-    ? Math.max(0, 1 - (local - 0.92) / 0.08)
+  // Global fade-out — finish before book frames appear (~frame 1340)
+  const globalFade = local > 0.75
+    ? Math.max(0, 1 - (local - 0.75) / 0.08)
     : 1
 
   if (globalFade <= 0) return null
 
-  // Grid + bottom strip fade-out envelope (visible until near end)
-  const gridStripOp = local < 0.88 ? 1 : local > 0.92 ? 0 : 1 - (local - 0.88) / 0.04
+  // Grid + bottom strip fade-out envelope
+  const gridStripOp = local < 0.70 ? 1 : local > 0.75 ? 0 : 1 - (local - 0.70) / 0.05
 
   const STAGGER = 0.04
 

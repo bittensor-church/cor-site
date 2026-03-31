@@ -137,7 +137,7 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             style={{
               fontSize: 'clamp(11px, 1.3vw, 17px)',
               fontWeight: 500,
-              color: '#d4a843',
+              color: 'rgba(255, 255, 255, 0.9)',
               letterSpacing: 'clamp(1px, 0.15vw, 2px)',
               wordBreak: 'break-all',
               maxWidth: 'clamp(300px, 60vw, 700px)',
@@ -145,25 +145,25 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
               pointerEvents: 'auto',
               cursor: 'pointer',
               textDecoration: 'underline',
-              textDecorationColor: 'rgba(212, 168, 67, 0.4)',
+              textDecorationColor: 'rgba(255, 255, 255, 0.3)',
               textUnderlineOffset: 4,
-              transition: 'color 0.3s, text-decoration-color 0.3s',
+              transition: 'color 0.3s, text-decoration-color 0.3s, border-color 0.3s, background 0.3s',
               padding: 'clamp(8px, 1.2vh, 14px) clamp(16px, 2vw, 28px)',
-              border: '1px solid rgba(212, 168, 67, 0.3)',
+              border: '1px solid rgba(212, 168, 67, 0.25)',
               borderRadius: 8,
-              background: 'rgba(212, 168, 67, 0.06)',
+              background: 'rgba(0, 0, 0, 0.3)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#ffffff'
+              e.currentTarget.style.color = '#d4a843'
               e.currentTarget.style.textDecorationColor = '#d4a843'
-              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.6)'
-              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.12)'
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.5)'
+              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.1)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#d4a843'
-              e.currentTarget.style.textDecorationColor = 'rgba(212, 168, 67, 0.4)'
-              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.3)'
-              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.06)'
+              e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)'
+              e.currentTarget.style.textDecorationColor = 'rgba(255, 255, 255, 0.3)'
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.25)'
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.3)'
             }}
           >
             5CovTPBh8JyYZBshs2WpNtnDghDB8Wacd1F2sFdXPsRy3Rzz
@@ -195,13 +195,13 @@ export function SupportOverlay({ progress }: SupportOverlayProps) {
             opacity: linksOp,
             transform: `translateY(${(1 - linksOp) * 8}px)`,
             willChange: 'opacity, transform',
-            color: 'rgba(255, 255, 255, 0.45)',
+            color: 'rgba(255, 255, 255, 0.75)',
             transition: 'color 0.3s',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
             paddingTop: 'clamp(12px, 2vh, 20px)',
           }}
           onMouseEnter={(e) => { e.currentTarget.style.color = '#d4a843' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.45)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)' }}
         >
           <svg
             viewBox="0 0 24 24"

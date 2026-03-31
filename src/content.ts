@@ -56,16 +56,16 @@ export interface TokenFlowData {
 export const TOKEN_FLOW_DATA: TokenFlowData = {
   title: 'We took tokens. Here\'s every TAO.',
   totalOutflowLabel: 'Total Outflow',
-  totalOutflowAmount: '2,170',
+  totalOutflowAmount: '2,356',
   totalOutflowUnit: 'TAO',
   inflowLabel: 'Inflow',
   inflowAmount: '2,000',
   inflowUnit: 'TAO',
   netLabel: 'Net',
-  netAmount: '-170',
+  netAmount: '-356',
   netUnit: 'TAO',
   netColor: '#ff6b6b',
-  netSubtext: '108% of inflow deployed',
+  netSubtext: '118% of inflow deployed',
   categories: [
     {
       name: 'Consensus Integrity',
@@ -89,7 +89,7 @@ export const TOKEN_FLOW_DATA: TokenFlowData = {
     },
   ],
   totalLabel: 'TOTAL',
-  totalAmount: '2,170 TAO',
+  totalAmount: '2,356 TAO',
 }
 
 // --- PR Stats data (section: tokens — right panel) ---

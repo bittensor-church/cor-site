@@ -12,8 +12,8 @@ export function BookMask({ progress }: BookMaskProps) {
 
   const local = (progress - ENTER) / TOTAL
 
-  // Fade-in the dark overlay quickly at start
-  const fadeIn = Math.min(1, local / 0.05)
+  // Fade-in the dark overlay gradually
+  const fadeIn = Math.min(1, local / 0.15)
   // Fade-out at the end
   const fadeOut = local > FADE_OUT_START
     ? Math.max(0, 1 - (local - FADE_OUT_START) / (1 - FADE_OUT_START))
