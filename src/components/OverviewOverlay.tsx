@@ -36,7 +36,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
     projects: [
       { title: 'DDoS shield', link: 'https://github.com/bittensor-church/bt-ddos-shield', tech: 'python' },
       { title: 'burn', link: 'https://github.com/bittensor-church/burn', tech: 'python' },
-      { title: 'golden-validator', link: '#', tech: 'python' },
+      { title: 'golden-validator', link: 'https://github.com/bittensor-church/tee-guest', tech: 'python' },
       { title: 'yuma3', link: 'https://docs.learnbittensor.org/learn/yuma3-migration-guide', tech: 'rust' },
       { title: 'commit reveal', link: '#', tech: 'rust' },
       { title: 'liquid alpha 2.x', link: '#', tech: 'rust' },
