@@ -34,7 +34,7 @@ export function App() {
   const { ready: sparseReady, progress: sparseProgress, sparseFramesRef } = useSparsePreload({
     frameDir: SECTIONS[0].frameDir,
     frameCount: SECTIONS[0].frameCount,
-    step: 1,
+    step: 20,
   })
 
   const { progress, sectionIndex, sectionProgress, setProgress } = useScrollProgress(SECTIONS.length)
