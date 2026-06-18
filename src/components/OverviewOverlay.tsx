@@ -73,6 +73,7 @@ const BREAKDOWN_ITEMS: BreakdownItem[] = [
       { title: 'alpha wrapper', link: 'https://discord.com/channels/1120750674595024897/1472254280076365835', tech: 'smart contract' },
       { title: 'rails contract', link: 'https://github.com/bittensor-church/rail-contracts', tech: 'smart contract' },
       { title: 'treasury contract', link: 'https://github.com/bittensor-church/treasury-contract', tech: 'smart contract' },
+      { title: 'storage precompiles', link: 'https://github.com/opentensor/subtensor/issues/2455', tech: 'smart contract' },
     ],
   },
 ]
